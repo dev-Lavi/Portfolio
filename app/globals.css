@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@layer utilities {
+  .font-bank {
+    font-family: var(--font-bank-gothic), sans-serif;
+  }
+}
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -24,3 +31,72 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* css for name animation */
+@keyframes name-glitch {
+  0%, 100% {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(0);
+  }
+  33% {
+    clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
+    transform: translate(-5px, -5px);
+  }
+  66% {
+    clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
+    transform: translate(5px, 5px);
+  }
+}
+
+/* utility for the animation */
+.animate-name-glitch {
+  animation: name-glitch 2s infinite;
+}
+
+/* pseudo-element layer like your ::before */
+.name-glitch-wrapper {
+  position: relative;
+}
+
+.name-glitch-wrapper::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: inherit;
+  text-shadow:
+    0 0 5px currentColor,
+    0 0 15px currentColor;
+  pointer-events: none;
+  animation: name-glitch 2s infinite;
+}
+
+
+@keyframes name-slide-horizontal {
+  0% {
+    transform: translateX(-20%) translateY(-50%);
+  }
+  100% {
+    transform: translateX(20%) translateY(-50%);
+  }
+}
+
+/* utility class */
+.animate-name-slide {
+  animation: name-slide-horizontal 6s ease-in-out infinite alternate;
+}
+
+
+@keyframes name-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-name-marquee {
+  animation: name-marquee 10s linear infinite;
+}
+
