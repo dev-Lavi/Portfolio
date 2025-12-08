@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-   <section className="relative flex min-h-screen w-full items-center justify-center bg-[#6c8250]">
+   <section className="relative flex h-screen w-full overflow-hidden bg-[#6c8250]">
   {/* Grid background */}
   <div
     className="pointer-events-none absolute inset-0"
@@ -21,11 +21,11 @@ export default function Hero() {
 
 
 {/* Content wrapper */}
-<div className="relative flex h-full w-full flex-col items-center px-4 py-6 md:px-8 md:py-5">
+<div className="relative flex h-full w-full items-center justify-center">
   {/* Top tagline bar */}
   <div
     className="
-      absolute left-1/2 top-6 -translate-x-1/2
+      fixed left-1/2 top-6 -translate-x-1/2
       w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[1480px]
       rounded-xl bg-[#e3ff6b]
       px-4 py-3 sm:px-6 sm:py-5
@@ -42,20 +42,21 @@ export default function Hero() {
    {/* Center area: name + avatar */}
 <div
   className="
-    relative mt-4 flex w-full flex-1
+    relative flex w-full flex-1
     flex-col items-center justify-center
-    sm:mt-2 sm:flex-col
+    pt-20 sm:pt-24 lg:pt-6
   "
 >
   {/* Avatar */}
   <div
     className="
       relative
-      -mt-10
-      h-[800px] w-[800px]
-      sm:h-[420px] sm:w-[280px]
-      md:h-[520px] md:w-[340px]
-      lg:h-[695px] lg:w-[1055px]
+      -mt-9
+      w-[70vw] h-[70vw]
+      sm:w-[80vw] sm:h-[80vw]
+      md:w-[70vw] md:h-[70vw]
+      lg:w-[51vw] lg:h-[51vw]
+      max-w-[1050px] max-h-[1050px]
       z-12
     "
   >
@@ -63,7 +64,7 @@ export default function Hero() {
       src="/images/Avator.svg"
       alt="Portrait of Lavi with katana"
       fill
-      className="object-contain"
+      className="w-full h-full object-contain"
       priority
     />
   </div>
@@ -79,11 +80,11 @@ export default function Hero() {
     z-10
   "
 >
-  <div className="flex whitespace-nowrap animate-name-marquee">
+  <div className="flex whitespace-nowrap animate-[scroll_20s_linear_infinite]">
     <span
       className="
-        text-[56px] sm:text-[72px] md:text-[104px] lg:text-[128px]
-        font-semibold tracking-[0.25em] sm:tracking-[0.3em]
+        text-[40px] sm:text-[56px] md:text-[72px] lg:text-[104px] xl:text-[128px]
+        font-semibold tracking-[0.15em] sm:tracking-[0.25em] md:tracking-[0.3em]
         text-red-600 opacity-70
       "
     >
@@ -97,18 +98,21 @@ export default function Hero() {
     {/* Bottom labels */}
     <div
       className="
-        -mt-16 flex w-full items-end justify-between
-        px-1 sm:px-2
+        -mt-24 fixed bottom-7 left-0 right-0 flex w-full items-end justify-between
+        px-4 sm:px-6 md`:px-8 lg:px-12
+
       "
     >
       {/* Scroll down */}
       <button
         className="
-          flex items-center gap-2 rounded-lg bg-[#e3ff6b]
+          hidden md:flex                          /* hide on small/mobile, show from md (tablet+) */
+          items-center gap-2 rounded-lg bg-[#e3ff6b]
           px-3 py-2 sm:px-4
           text-[9px] sm:text-[10px]
           font-medium uppercase tracking-[0.18em] sm:tracking-[0.2em]
           text-black
+          hover:bg-[#d4f055] transition-colors
         "
         onClick={() => {
           const el = document.getElementById("about");
