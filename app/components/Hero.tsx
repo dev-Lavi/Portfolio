@@ -56,6 +56,7 @@ export default function Hero() {
       max-[409px]:-bottom-28
       max-[367px]:-bottom-33
       max-[315px]:-bottom-39
+      max-[253px]:-bottom-42
       sm:relative sm:-bottom-8 sm:left-auto sm:translate-x-0 /* keep pinned for sm/md (≈640-1023) including 590-832 range */
       lg:relative lg:-bottom-12 lg:left-auto lg:translate-x-0 /* pin again for lg (1024px+) */
       xl:relative xl:bottom-auto xl:left-auto xl:translate-x-0 xl:-mt-7 /* restore on xl (1280px+) */
