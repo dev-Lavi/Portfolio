@@ -1,10 +1,20 @@
 "use client";
 // app/components/Hero.tsx
+import { useEffect } from "react";
 import Image from "next/image";
 
 export default function Hero() {
+  useEffect(() => {
+    const setVh = () => {
+      document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
+    };
+    setVh();
+    window.addEventListener("resize", setVh);
+    return () => window.removeEventListener("resize", setVh);
+  }, []);
+
   return (
-   <section className="relative flex h-screen w-full overflow-hidden bg-[#6c8250]">
+   <section style={{ height: "calc(var(--vh, 1vh) * 100)" }} className="relative flex w-full overflow-hidden bg-[#6c8250]">
   {/* Grid background */}
   <div
     className="pointer-events-none absolute inset-0"
