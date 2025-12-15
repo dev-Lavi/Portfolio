@@ -6,7 +6,12 @@ import Image from "next/image";
 export default function Hero() {
   useEffect(() => {
     const setVh = () => {
+      // base vh variable (1% of viewport height)
       document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
+      // compute hero height; reduce slightly on very small screens so grid doesn't overflow
+      const shrink = window.innerWidth < 580 ? 0.92 : 1; // 92% height for <580px
+      const heroH = Math.round(window.innerHeight * shrink);
+      document.documentElement.style.setProperty("--hero-h", `${heroH}px`);
     };
     setVh();
     window.addEventListener("resize", setVh);
@@ -14,7 +19,7 @@ export default function Hero() {
   }, []);
 
   return (
-   <section style={{ height: "calc(var(--vh, 1vh) * 100)" }} className="relative flex w-full overflow-hidden bg-[#6c8250]">
+  <section style={{ height: "var(--hero-h, calc(var(--vh, 1vh) * 100))" }} className="relative flex w-full overflow-hidden bg-[#6c8250]">
   {/* Grid background */}
   <div
     className="pointer-events-none absolute inset-0"
