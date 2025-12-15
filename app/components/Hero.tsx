@@ -25,7 +25,7 @@ export default function Hero() {
   {/* Top tagline bar */}
   <div
     className="
-      fixed left-1/2 top-6 -translate-x-1/2
+      absolute left-1/2 top-6 -translate-x-1/2
       w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[1480px]
       rounded-xl bg-[#e3ff6b]
       px-4 py-3 sm:px-6 sm:py-5
@@ -50,9 +50,16 @@ export default function Hero() {
   {/* Avatar */}
   <div
     className="
-      relative
-      -mt-9
-      w-[70vw] h-[70vw]
+      relative -bottom-8 left-auto translate-x-0 translate-y-0    /* mobile: pin to bottom center */
+      max-[579px]:-bottom-18 /* push avatar further down on screens <580px */
+      max-[475px]:-bottom-24
+      max-[409px]:-bottom-28
+      max-[367px]:-bottom-33
+      max-[315px]:-bottom-39
+      sm:relative sm:-bottom-8 sm:left-auto sm:translate-x-0 /* keep pinned for sm/md (≈640-1023) including 590-832 range */
+      lg:relative lg:-bottom-12 lg:left-auto lg:translate-x-0 /* pin again for lg (1024px+) */
+      xl:relative xl:bottom-auto xl:left-auto xl:translate-x-0 xl:-mt-7 /* restore on xl (1280px+) */
+      w-[85vw] h-[85vw]
       sm:w-[80vw] sm:h-[80vw]
       md:w-[70vw] md:h-[70vw]
       lg:w-[51vw] lg:h-[51vw]
@@ -75,7 +82,7 @@ export default function Hero() {
 <div
   className="
     pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2
-    mx-auto max-w-[95%]
+    mx-auto max-w-[100%]
     overflow-hidden
     z-10
   "
@@ -88,7 +95,7 @@ export default function Hero() {
         text-red-600 opacity-70
       "
     >
-      L A V I &nbsp; S H A R M A &nbsp; L A V I &nbsp; S H A R M A &nbsp;
+      LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp;
     </span>
   </div>
 </div>
@@ -98,8 +105,8 @@ export default function Hero() {
     {/* Bottom labels */}
     <div
       className="
-        -mt-24 fixed bottom-7 left-0 right-0 flex w-full items-end justify-between
-        px-4 sm:px-6 md`:px-8 lg:px-12
+        -mt-24 absolute bottom-7 left-0 right-0 flex w-full items-end justify-between
+        px-4 sm:px-6 md:px-8 lg:px-12
 
       "
     >
