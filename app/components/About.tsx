@@ -8,14 +8,14 @@ export default function About() {
     <section
       id="about"
       className="w-full bg-[#181c13] px-0 py-0 
-       sm:px-4 sm:py-12
-        md:px-6 md:py-16 
-       lg:px-10 lg:py-0"
+       sm:px-0 sm:py-0
+        md:px-0 md:py-0 
+       lg:px-0 lg:py-0"
     >
       <div
         className="
-          mx-auto w-full max-w-5xl
-          rounded-t-3xl rounded-b-[2.5rem]
+          mx-auto w-full max-w-xl
+          sm:max-w-3xl md:max-w-5xl lg:max-w-none
           border border-[#2c3621]
           bg-[#050806]
           px-4 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12
@@ -37,7 +37,7 @@ export default function About() {
         <p
           className="
             mb-8 text-left
-            text-[11px] sm:text-[13px] md:text-[15px]
+            text-[16px] sm:text-[13px] md:text-[15px]
             leading-relaxed
             font-bank tracking-[0.16em]
             text-[#f5f5f0]
