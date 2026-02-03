@@ -37,8 +37,8 @@ export default function Welcome() {
       className="relative flex w-full items-center justify-center bg-[#10120f]"
     >
       {/* vignette + grain (optional) */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.35),transparent_50%),radial-gradient(circle_at_bottom,_rgba(0,0,0,0.6),transparent_55%)] opacity-80 mix-blend-multiply" />
-      <div className="pointer-events-none absolute inset-0 bg-[url('/images/grain.png')] opacity-[0.22]" />
+      {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.35),transparent_50%),radial-gradient(circle_at_bottom,_rgba(0,0,0,0.6),transparent_55%)] opacity-80 mix-blend-multiply" />
+      <div className="pointer-events-none absolute inset-0 bg-[url('/images/grain.png')] opacity-[0.22]" /> */}
 
       {/* Full-width card */}
       <div
