@@ -5,30 +5,35 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Welcome() {
   const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
+  // const ref = useRef<HTMLDivElement | null>(null);
 
-  // Trigger animation when section enters viewport
+  // // Trigger animation when section enters viewport
+  // useEffect(() => {
+  //   const node = ref.current;
+  //   if (!node) return;
+
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => {
+  //       if (entry.isIntersecting) {
+  //         setVisible(true);
+  //         observer.disconnect(); // run only once
+  //       }
+  //     },
+  //     { threshold: 0.3 }
+  //   );
+
+  //   observer.observe(node);
+  //   return () => observer.disconnect();
+  // }, []);
+
+    // Optional: Fade in on mount (no scroll needed)
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect(); // run only once
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
+    setTimeout(() => setVisible(true), 100); // Quick 100ms delay
   }, []);
 
   return (
     <section
-      ref={ref}
+      //ref={ref}
       className="relative flex w-full items-center justify-center bg-[#10120f]"
     >
       {/* vignette + grain (optional) */}
