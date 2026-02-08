@@ -3,7 +3,10 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative flex w-full overflow-hidden bg-[#6c8250]">
+    <section className="relative flex w-full overflow-hidden bg-[#6c8250]
+      max-md:h-[90vh]      /* Mobile: 65% viewport height */
+  md:h-[100vh]          /* Tablet+: 78% viewport height */
+  lg:h-[100vh]">
       {/* ✅ FIXED: Grid follows SECTION height - NO MORE green below avatar */}
       <div
         className="pointer-events-none absolute inset-0"  // Changed from inset-x-0 top-0
