@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-screen w-full overflow-hidden bg-[#6c8250]">
+    <section className="relative flex min-h-screen w-full overflow-hidden bg-[#6c8250] max-md:h-[65vh] md:h-[78vh] lg:h-[75vh]">
       {/* Grid background */}
       <div
         className="pointer-events-none absolute inset-0"
