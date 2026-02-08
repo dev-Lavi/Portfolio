@@ -10,7 +10,7 @@ export default function Home() {
   <section className="relative z-0">
     <Hero />
   </section>
-      <section id="about" className="relative z-10 -mt-4">
+      <section id="about" className="relative z-10">
         <About />
       </section>
       <section className="relative z-10">
