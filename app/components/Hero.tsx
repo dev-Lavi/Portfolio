@@ -18,7 +18,7 @@ export default function Hero() {
       />
 
       {/* Content wrapper - flex column for perfect bottom alignment */}
-      <div className="z-20 relative flex w-full h-full flex-col">
+      <div className="z-22 relative flex w-full h-full flex-col">
         {/* Top tagline */}
         <div className="absolute left-1/2 top-6 -translate-x-1/2 w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[95%] rounded-xl bg-[#e3ff6b] px-4 py-3 sm:px-6 sm:py-5 text-[10px] sm:text-xs md:text-sm font-bank uppercase tracking-[0.25em] sm:tracking-[0.32em] lg:tracking-[0.39em] text-black z-20">
           Designer, Full stack developer and blockchain developer
@@ -37,7 +37,7 @@ export default function Hero() {
 </div>
 
 {/* Bottom area - TWO avatars for perfect design match */}
-<div className="flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 relative z-20">
+<div className="flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 relative z-10">
   
   {/* 🎯 SMALL AVATAR (Mobile/Tablet) - HIDE on lg+ */}
   <div className="lg:hidden w-[70vw] h-[70vw] sm:w-[55vw] sm:h-[55vw] md:w-[45vw] md:h-[45vw] max-w-[600px] max-h-[600px] mx-auto mb-1 sm:mb-2">
@@ -61,7 +61,7 @@ export default function Hero() {
   2xl:max-w-[1200px] 2xl:max-h-[1200px] 
   mx-auto mb-1 sm:mb-2 relative 
   lg:-top-0 xl:-top-20 2xl:-top-45
-  min-w-[1990px]:-top-[49px]">
+  [@media(min-width:1900px)]:-top-[270px]">
   <Image
     src="/images/Avator.svg"
     alt="Portrait of Lavi with katana - desktop"
