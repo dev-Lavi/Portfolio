@@ -6,22 +6,22 @@ const projects = [
     name: "CarbonSetu",
     tech: "MongoDB · JavaScript · Python · React.js · AWS",
     tagline: "Carbon credits, made visible",
-    github: "https://github.com/your-user/carbonsetu",
-    live: "https://carbonsetu-demo.vercel.app",
+    github: "https://github.com/dev-Lavi/Carbon-setu",
+    live: "https://sih-25-sage.vercel.app/",
   },
   {
     name: "TVIC",
     tech: "Python · JavaScript · AWS · Next.js · Cloudinary",
     tagline: "Trust your integrated circuits",
-    github: "https://github.com/your-user/tvic",
-    live: "https://tvic-demo.vercel.app",
+    github: "https://github.com/dev-Lavi/TVIC",
+    live: "https://tvic.vercel.app/",
   },
   {
     name: "Laksh Closet",
     tech: "React.js · Cloudinary · Node.js · Cashfree",
     tagline: "Streetwear, shipped fast",
-    github: "https://github.com/your-user/laksh-closet",
-    live: "https://laksh-closet-demo.vercel.app",
+    github: "https://github.com/dev-Lavi/Laksh-Closet-LC-",
+    live: "https://laksh-closet-lc.vercel.app/",
   },
 ];
 
