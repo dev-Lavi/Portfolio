@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative flex w-full overflow-hidden bg-[#6c8250] h-[90vh] md:h-screen">
+    <section className="relative flex w-full overflow-hidden bg-[#6c8250] h-[90vh] md:h-screen sticky top-0">
       {/* Grid background - matches section height */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -73,23 +73,28 @@ export default function Hero() {
 
 
 
-          {/* Bottom labels */}
-          <div className="flex w-full items-center justify-between">
-            <button className="hidden md:flex items-center gap-2 rounded-lg bg-[#e3ff6b] px-3 py-2 sm:px-4 text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.18em] sm:tracking-[0.2em] text-black hover:bg-[#d4f055] transition-colors" onClick={() => {
-              const el = document.getElementById("about");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}>
-              <span className="flex h-4 w-4 items-center justify-center rounded-full border border-black">↓</span>
-              Scroll down
-            </button>
-            <div className="rounded-lg bg-[#e3ff6b] px-3 py-2 text-[10px] sm:text-xs font-semibold tracking-[0.15em] text-black">
-              ©2025
-            </div>
-          </div>
+
+        </div>
+      </div>
+      {/* Bottom labels — direct child of section so absolute works correctly */}
+      <div className="absolute bottom-4 left-4 right-4 z-30 flex items-center justify-between sm:bottom-6 sm:left-6 sm:right-6">
+        <button
+          className="hidden md:flex items-center gap-2 rounded-lg bg-[#e3ff6b] px-3 py-2 sm:px-4 text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.18em] sm:tracking-[0.2em] text-black hover:bg-[#d4f055] transition-colors"
+          onClick={() => {
+            const el = document.getElementById("about");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <span className="flex h-4 w-4 items-center justify-center rounded-full border border-black">↓</span>
+          Scroll down
+        </button>
+        <div className="ml-auto rounded-lg bg-[#e3ff6b] px-3 py-2 text-[10px] sm:text-xs font-semibold tracking-[0.15em] text-black">
+          ©2025
         </div>
       </div>
 
       {/* Remove the height controller div - no longer needed */}
     </section>
+
   );
 }

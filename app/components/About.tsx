@@ -2,15 +2,25 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function About() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start start"],
+  });
+
+  // ✅ Fixed
+const y = useTransform(scrollYProgress, [0, 1], ["9%","0%"]);
+10
   return (
-    <section
+    <motion.section
+      ref={ref}
       id="about"
-      className="w-full bg-[#181c13] px-0 py-0 
-       sm:px-0 sm:py-0
-        md:px-0 md:py-0 
-       lg:px-0 lg:py-0"
+      style={{ y }}
+      className="relative z-10 w-full bg-[#181c13] px-0 py-0"
     >
       <div
         className="
@@ -62,7 +72,6 @@ export default function About() {
 
         {/* Logo + role */}
         <div className="mb-10 flex flex-wrap items-center gap-4 sm:gap-6">
-          {/* Company logo */}
           <div
             className="
               flex h-10 w-10 items-center justify-center
@@ -70,7 +79,7 @@ export default function About() {
             "
           >
             <Image
-              src="/images/globe.svg" // put your logo svg in /public/images/
+              src="/images/globe.svg"
               alt="Company logo"
               width={24}
               height={24}
@@ -78,7 +87,6 @@ export default function About() {
             />
           </div>
 
-          {/* Title + company */}
           <div className="flex flex-col text-[10px] sm:text-[11px] md:text-[12px] font-bank tracking-[0.18em] text-[#f5f5f0]">
             <span className="uppercase">Senior Product Designer</span>
             <span className="uppercase text-[#a7b693]">OriginHash</span>
@@ -87,52 +95,20 @@ export default function About() {
 
         {/* Bottom buttons row */}
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <button
-            className="
-              rounded-full bg-[#12361f]
-              px-8 py-3
-              text-[10px] sm:text-[11px]
-              font-bank uppercase tracking-[0.22em]
-              text-[#e3ff6b]
-            "
-          >
+          <button className="rounded-full bg-[#12361f] px-8 py-3 text-[10px] sm:text-[11px] font-bank uppercase tracking-[0.22em] text-[#e3ff6b]">
             Home
           </button>
-          <button
-            className="
-              rounded-full bg-[#12361f]
-              px-8 py-3
-              text-[10px] sm:text-[11px]
-              font-bank uppercase tracking-[0.22em]
-              text-[#e3ff6b]
-            "
-          >
+          <button className="rounded-full bg-[#12361f] px-8 py-3 text-[10px] sm:text-[11px] font-bank uppercase tracking-[0.22em] text-[#e3ff6b]">
             Work
           </button>
-          <button
-            className="
-              rounded-full bg-[#12361f]
-              px-8 py-3
-              text-[10px] sm:text-[11px]
-              font-bank uppercase tracking-[0.22em]
-              text-[#e3ff6b]
-            "
-          >
+          <button className="rounded-full bg-[#12361f] px-8 py-3 text-[10px] sm:text-[11px] font-bank uppercase tracking-[0.22em] text-[#e3ff6b]">
             Honors
           </button>
-          <button
-            className="
-              rounded-full bg-[#12361f]
-              px-8 py-3
-              text-[10px] sm:text-[11px]
-              font-bank uppercase tracking-[0.22em]
-              text-[#e3ff6b]
-            "
-          >
+          <button className="rounded-full bg-[#12361f] px-8 py-3 text-[10px] sm:text-[11px] font-bank uppercase tracking-[0.22em] text-[#e3ff6b]">
             Contact
           </button>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
