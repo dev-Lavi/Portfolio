@@ -21,11 +21,13 @@ export default function Home() {
         <Welcome />
       </section>
 
-      <section className="relative z-0">
+      <section className="relative z-10">
         <Projects />
-      </section>
+      </section >
 
-      <Footer />
+           <section className="relative z-10">
+       <Footer />
+      </section >
     </main>
   );
 }
