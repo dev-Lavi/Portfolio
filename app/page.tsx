@@ -6,19 +6,25 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
-  <section className="relative z-0">
-    <Hero />
-  </section>
+    <main className="min-h-screen text-white">
+      {/* Hero stays sticky — About will slide up over it */}
+      <section className="sticky top-0 z-0">
+        <Hero />
+      </section>
+
+      {/* About slides up over the sticky Hero */}
       <section id="about" className="relative z-10">
         <About />
       </section>
+
       <section className="relative z-10">
         <Welcome />
       </section>
+
       <section className="relative z-0">
         <Projects />
       </section>
+
       <Footer />
     </main>
   );
