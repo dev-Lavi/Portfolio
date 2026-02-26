@@ -3,8 +3,8 @@
 
 export default function Welcome() {
   return (
-    <section className="relative w-full min-h-screen py-12 sm:py-16 md:py-20 bg-[#10120f] flex items-center">
-      {/* Full-screen card */}
+    <section className="relative w-full py-12 sm:py-16 md:py-20 bg-[#10120f]">
+      {/* Full-width card - NO animations, NO transforms */}
       <div className="w-full">
         <div className="
           relative z-10 w-full max-w-5xl mx-auto
@@ -17,7 +17,7 @@ export default function Welcome() {
           {/* Top line */}
           <div className="mb-6 h-px w-full bg-gradient-to-r from-[#b6ac80] to-[#d2c9a0]" />
 
-          {/* 3-column responsive grid */}
+          {/* 3-column responsive grid - NO transitions */}
           <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-3 items-center justify-items-center md:justify-items-stretch">
             {/* Hindi - Left on desktop */}
             <p className="
