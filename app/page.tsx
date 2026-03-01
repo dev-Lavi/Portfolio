@@ -3,6 +3,7 @@ import About from "./components/About";
 import Welcome from "./components/Welcome";
 import Projects from "./components/Projects";
 import Footer from "./components/Footer";
+import Skills from "./components/Skills";
 
 export default function Home() {
   return (
@@ -18,8 +19,8 @@ export default function Home() {
       </section>
 
       <section className="relative z-10">
-        <Welcome />
-      </section>
+        <Skills />
+      </section >
 
       <section className="relative z-10">
         <Projects />
