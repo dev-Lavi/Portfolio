@@ -1,7 +1,6 @@
 import Hero from "./components/Hero";
 import About from "./components/About";
-import Welcome from "./components/Welcome";
-import Projects from "./components/Projects";
+import Welcome from "./components/Welcome"; 
 import Footer from "./components/Footer";
 import Skills from "./components/Skills";
 
@@ -18,12 +17,9 @@ export default function Home() {
         <About />
       </section>
 
-      <section className="relative z-10">
-        <Skills />
-      </section >
 
       <section className="relative z-10">
-        <Projects />
+        <Skills />
       </section >
 
            <section className="relative z-10">
