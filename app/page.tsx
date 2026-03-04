@@ -3,6 +3,7 @@ import About from "./components/About";
 import Welcome from "./components/Welcome"; 
 import Footer from "./components/Footer";
 import Skills from "./components/Skills";
+import Projects from "./components/Projects"; 
 
 export default function Home() {
   return (
@@ -15,6 +16,10 @@ export default function Home() {
       {/* About slides up over the sticky Hero */}
       <section id="about" className="relative z-10">
         <About />
+      </section>
+
+      <section className="relative z-10">
+        <Projects />
       </section>
 
 
