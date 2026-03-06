@@ -10,8 +10,8 @@ const projects = [
     preview: "/projects/carbonsetu-preview.jpg",
     image: "/projects/carbonsetu-thumb.jpg",
     tech: ["MongoDB", "Python", "React", "AWS"],
-    github: "https://github.com/yourusername/carbonsetu",
-    demo: "https://carbonsetu.com",
+    github: "https://github.com/dev-Lavi/Carbon-setu",
+    demo: "https://sih-25-sage.vercel.app/",
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ const projects = [
     preview: "/projects/tvic-preview.jpg",
     image: "/projects/tvic-thumb.jpg",
     tech: ["Next.js", "Python", "AWS", "Cloudinary"],
-    github: "https://github.com/yourusername/tvic",
-    demo: "https://tvic.com",
+    github: "https://github.com/dev-Lavi/TVIC",
+    demo: "https://tvic.vercel.app/",
   },
   {
     id: 3,
@@ -30,8 +30,8 @@ const projects = [
     preview: "/projects/lakshcloset-preview.jpg",
     image: "/projects/lakshcloset-thumb.jpg",
     tech: ["React", "Node.js", "Cashfree"],
-    github: "https://github.com/yourusername/lakshcloset",
-    demo: "https://lakshcloset.com",
+    github: "https://github.com/dev-Lavi/Laksh-closet",
+    demo: "https://laksh-closet-lc.vercel.app/",
   },
 ];
 
