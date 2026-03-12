@@ -107,7 +107,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               {/* LinkedIn */}
               <a
-                href="https://linkedin.com/in/your-profile"
+                href="https://www.linkedin.com/in/lavi-sharma-332a6a327/"
                 target="_blank"
                 rel="noreferrer"
                 className="
@@ -127,7 +127,7 @@ export default function Footer() {
 
               {/* GitHub */}
               <a
-                href="https://github.com/your-username"
+                href="https://github.com/dev-Lavi"
                 target="_blank"
                 rel="noreferrer"
                 className="
@@ -147,7 +147,7 @@ export default function Footer() {
 
               {/* Twitter/X */}
               <a
-                href="https://twitter.com/your-profile"
+                href="https://x.com/lavipandit123"
                 target="_blank"
                 rel="noreferrer"
                 className="
@@ -167,7 +167,7 @@ export default function Footer() {
 
               {/* Instagram */}
               <a
-                href="https://instagram.com/your-profile"
+                href="https://www.instagram.com/lavi_pachaurii/"
                 target="_blank"
                 rel="noreferrer"
                 className="

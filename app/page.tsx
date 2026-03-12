@@ -14,7 +14,7 @@ export default function Home() {
       </section>
 
       {/* About slides up over the sticky Hero */}
-      <section id="about" className="relative z-10">
+      <section id="about" className="relative z-20">
         <About />
       </section>
 
@@ -23,11 +23,11 @@ export default function Home() {
       </section>
 
 
-      <section className="relative z-10">
+      <section className="relative z-20">
         <Skills />
       </section >
 
-           <section className="relative z-10">
+           <section className="relative z-20">
        <Footer />
       </section >
     </main>

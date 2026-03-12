@@ -145,8 +145,8 @@ export default function About() {
                   <Image src="/images/globe.svg" alt="OriginHash" width={28} height={28} className="object-contain" />
                 </div>
                 <div className="flex flex-col font-bank tracking-[0.18em] text-[#f5f5f0] text-[12px] lg:text-[13px] xl:text-[14px]">
-                  <span className="uppercase">Senior Product Designer</span>
-                  <span className="uppercase text-[#a7b693]">OriginHash</span>
+                  <span className="uppercase">Full Stack Developer</span>
+                  <span className="uppercase text-[#a7b693]">Sharnex</span>
                 </div>
               </div>
             </motion.div>
