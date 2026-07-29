@@ -24,14 +24,14 @@ export default function Home() {
         <Projects />
       </section>
 
+      <section className="relative z-20">
+        <MotorcycleShowcase />
+      </section>
 
       <section className="relative z-20">
         <Skills />
       </section >
 
-      <section className="relative z-20">
-        <MotorcycleShowcase />
-      </section>
 
 
            <section className="relative z-20">
