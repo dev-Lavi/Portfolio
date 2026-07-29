@@ -4,6 +4,8 @@ import Welcome from "./components/Welcome";
 import Footer from "./components/Footer";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects"; 
+import MotorcycleShowcase from "./components/MotorcycleShowcase";
+
 
 export default function Home() {
   return (
@@ -26,6 +28,11 @@ export default function Home() {
       <section className="relative z-20">
         <Skills />
       </section >
+
+      <section className="relative z-20">
+        <MotorcycleShowcase />
+      </section>
+
 
            <section className="relative z-20">
        <Footer />
