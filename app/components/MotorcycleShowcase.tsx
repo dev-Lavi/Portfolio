@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, useSpring } from "framer-motion";
 
-const TOTAL_FRAMES = 192;
-const FRAME_PREFIX = "/frames_bike/ezgif-frame-";
-const FRAME_SUFFIX = ".jpg";
+const TOTAL_FRAMES = 234;
+const FRAME_PREFIX = "/frames_bike/webp/frame-";
+const FRAME_SUFFIX = ".webp";
 
 const getFramePath = (index: number) => {
   const paddedIndex = index.toString().padStart(3, "0");
@@ -18,26 +18,48 @@ export default function MotorcycleShowcase() {
   const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(TOTAL_FRAMES + 1).fill(null));
   const [loaded, setLoaded] = useState(false);
   const currentFrameRef = useRef(1);
+  const rafIdRef = useRef<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
+  // Smooth scroll physics to remove micro-stuttering during frame scrubbing
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 180,
+    damping: 28,
+    restDelta: 0.001,
+  });
+
   const drawToCanvas = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) => {
-    const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
-    const centerShift_x = (canvas.width - img.width * ratio) / 2;
-    const centerShift_y = (canvas.height - img.height * ratio) / 2;  
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    const dpr = window.devicePixelRatio || 1;
+    const displayWidth = canvas.width / dpr;
+    const displayHeight = canvas.height / dpr;
+
+    const ratio = Math.max(displayWidth / img.width, displayHeight / img.height);
+    const centerShift_x = (displayWidth - img.width * ratio) / 2;
+    const centerShift_y = (displayHeight - img.height * ratio) / 2;  
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.scale(dpr, dpr);
     ctx.drawImage(img, 0, 0, img.width, img.height,
                   centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
+    ctx.restore();
   };
 
   const drawFrame = (index: number) => {
     if (!canvasRef.current || !imagesRef.current[index]) return;
     const ctx = canvasRef.current.getContext("2d");
     if (ctx) {
-       requestAnimationFrame(() => {
+       if (rafIdRef.current !== null) {
+         cancelAnimationFrame(rafIdRef.current);
+       }
+       rafIdRef.current = requestAnimationFrame(() => {
           if (canvasRef.current && imagesRef.current[index]) {
              drawToCanvas(ctx, canvasRef.current, imagesRef.current[index]!);
           }
@@ -45,7 +67,7 @@ export default function MotorcycleShowcase() {
     }
   };
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
     const frame = Math.min(TOTAL_FRAMES, Math.max(1, Math.floor(latest * TOTAL_FRAMES)));
     if (frame !== currentFrameRef.current) {
       currentFrameRef.current = frame;
@@ -57,35 +79,40 @@ export default function MotorcycleShowcase() {
     let isMounted = true;
     
     const loadImages = async () => {
-      // Load first 20 eagerly
-      for (let i = 1; i <= 20; i++) {
+      // Eagerly load and decode the first 30 frames for fast initial paint
+      for (let i = 1; i <= 30; i++) {
         const img = new Image();
         img.src = getFramePath(i);
-        await new Promise((resolve) => {
-          img.onload = resolve;
-          img.onerror = resolve; 
-        });
+        try {
+          await img.decode();
+        } catch {
+          // Fallback if decoding promise fails in browser
+        }
         imagesRef.current[i] = img;
       }
       
       if (isMounted) {
         setLoaded(true);
-        // Initial setup on canvas
+        // Canvas sizing with Device Pixel Ratio (Retina/High-DPI support)
         const handleResize = () => {
           if (canvasRef.current) {
-            canvasRef.current.width = window.innerWidth;
-            canvasRef.current.height = window.innerHeight;
+            const dpr = window.devicePixelRatio || 1;
+            canvasRef.current.width = window.innerWidth * dpr;
+            canvasRef.current.height = window.innerHeight * dpr;
             drawFrame(currentFrameRef.current);
           }
         };
-        handleResize(); // Size properly
+        handleResize();
         window.addEventListener("resize", handleResize);
         
-        // Lazy load the rest
-        for (let i = 21; i <= TOTAL_FRAMES; i++) {
+        // Lazy load and decode remaining WebP frames asynchronously
+        for (let i = 31; i <= TOTAL_FRAMES; i++) {
           const img = new Image();
           img.src = getFramePath(i);
-          img.onload = () => {
+          img.onload = async () => {
+            try {
+              await img.decode();
+            } catch {}
             if (isMounted) {
               imagesRef.current[i] = img;
             }
@@ -99,6 +126,9 @@ export default function MotorcycleShowcase() {
     const cleanup = loadImages();
     return () => { 
       isMounted = false; 
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
       cleanup.then(cleanupFn => cleanupFn && cleanupFn());
     };
   }, []);
@@ -121,16 +151,16 @@ export default function MotorcycleShowcase() {
         
         {/* Grain overlay */}
         <div 
-           className="pointer-events-none absolute inset-0 z-10 opacity-20 mix-blend-overlay"
+           className="pointer-events-none absolute inset-0 z-10 opacity-15 mix-blend-overlay"
            style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')"}}
         ></div>
 
-        {/* Vignette */}
+        {/* Cinematic Vignette & Lighting Gradient Overlays */}
         <div className="pointer-events-none absolute inset-0 z-10" style={{
-            background: "radial-gradient(circle, transparent 40%, #000000 130%)"
+            background: "radial-gradient(circle, transparent 35%, #000000 120%)"
         }}></div>
         <div className="pointer-events-none absolute inset-0 z-10" style={{
-            background: "linear-gradient(to bottom, #000000 0%, transparent 15%, transparent 85%, #000000 100%)"
+            background: "linear-gradient(to bottom, #0A0C0A 0%, transparent 18%, transparent 82%, #0A0C0A 100%)"
         }}></div>
         
         {/* Loading State */}
@@ -142,7 +172,11 @@ export default function MotorcycleShowcase() {
            </div>
         )}
 
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover z-0" />
+        {/* Enhanced Canvas with CSS Color Grading Filter */}
+        <canvas 
+          ref={canvasRef} 
+          className="absolute inset-0 w-full h-full object-cover z-0 filter contrast-[1.08] saturate-[1.15] brightness-[1.02]" 
+        />
 
         {/* Scroll Progress Indicator */}
         <div className="absolute right-6 top-1/2 -translate-y-1/2 w-[2px] h-32 bg-white/10 z-30 rounded-full overflow-hidden hidden md:block">
@@ -216,3 +250,4 @@ export default function MotorcycleShowcase() {
     </div>
   );
 }
+
