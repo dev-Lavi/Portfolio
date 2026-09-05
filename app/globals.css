@@ -109,10 +109,68 @@ body {
 
 /* new calude */
 @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Projects Downlight Glow & Dynamic Motion */
+@keyframes downlight-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.82;
+  }
+  50% {
+    transform: translate(2.5%, -3%) scale(1.07);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.82;
+  }
+}
+
+@keyframes downlight-beam {
+  0% {
+    transform: translateX(-3%) scaleY(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateX(3%) scaleY(1.1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateX(-3%) scaleY(1);
+    opacity: 0.65;
+  }
+}
+
+@keyframes downlight-sweep {
+  0% {
+    transform: translateX(-6%) scale(0.96);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(6%) scale(1.06);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(-6%) scale(0.96);
+    opacity: 0.5;
+  }
+}
+
+.animate-downlight-drift {
+  animation: downlight-drift 8s ease-in-out infinite alternate;
+}
+
+.animate-downlight-beam {
+  animation: downlight-beam 11s ease-in-out infinite alternate;
+}
+
+.animate-downlight-sweep {
+  animation: downlight-sweep 6.5s ease-in-out infinite alternate;
+}

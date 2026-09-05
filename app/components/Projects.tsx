@@ -232,21 +232,21 @@ export default function Projects() {
                   marginBottom: isLast ? "0px" : "28px",
                   boxShadow: isRed
                     ? "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,13,74,0.2)"
-                    : "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(227,255,107,0.2)",
+                    : "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(74,222,128,0.25)",
                   transformOrigin: "50% 0%",
                   willChange: "transform, filter",
                 }}
-                className={`group relative rounded-[28px] sm:rounded-[32px] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-[500px] border transition-colors duration-500 ${
+                className={`group relative rounded-[22px] sm:rounded-[32px] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-0 lg:min-h-[500px] border transition-colors duration-500 ${
                   isRed
                     ? "border-[#4a0d1a] hover:border-[#FF0D4A]/60"
-                    : "border-[#2b3a23] hover:border-[#e3ff6b]/60"
+                    : "border-[#2b3a23] hover:border-[#4ade80]/60"
                 }`}
               >
                 {/* Left Column: Light Panel (alternating green & red accents) */}
-                <div className="relative z-10 flex flex-col justify-between p-6 sm:p-9 lg:p-12 bg-[#ecece7] text-[#111111] border-b lg:border-b-0 lg:border-r border-black/10">
+                <div className="relative z-10 flex flex-col justify-between p-4 sm:p-7 lg:p-12 bg-[#ecece7] text-[#111111] border-b lg:border-b-0 lg:border-r border-black/10">
                   <div>
                     {/* Status badge */}
-                    <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-4 lg:mb-6">
                       <span
                         className={`font-bank text-xs sm:text-sm font-bold tracking-[0.14em] shrink-0 whitespace-nowrap ${
                           isRed ? "text-[#D6003C]" : "text-[#354921]"
@@ -255,12 +255,12 @@ export default function Projects() {
                         [ {project.num} ]
                       </span>
                       <span
-                        className={`h-1 w-3 rounded-full shrink-0 ${
+                        className={`h-1 w-2.5 sm:w-3 rounded-full shrink-0 ${
                           isRed ? "bg-[#D6003C]/30" : "bg-[#354921]/30"
                         }`}
                       />
                       <span
-                        className={`font-mono text-[9px] sm:text-[10px] md:text-xs font-semibold tracking-[0.15em] uppercase ${
+                        className={`font-mono text-[8.5px] sm:text-[10px] md:text-xs font-semibold tracking-[0.12em] sm:tracking-[0.15em] uppercase truncate ${
                           isRed ? "text-[#8a253b]" : "text-[#556349]"
                         }`}
                       >
@@ -268,12 +268,12 @@ export default function Projects() {
                       </span>
                     </div>
 
-                    <h3 className="font-bank text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-[0.05em] text-[#111111] leading-tight break-words">
+                    <h3 className="font-bank text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-[0.04em] sm:tracking-[0.05em] text-[#111111] leading-tight break-words">
                       {project.title}
                     </h3>
 
                     <p
-                      className={`mt-1.5 sm:mt-2 text-xs sm:text-sm font-bold tracking-[0.12em] uppercase leading-snug ${
+                      className={`mt-1 sm:mt-2 text-[11px] sm:text-xs md:text-sm font-bold tracking-[0.1em] sm:tracking-[0.12em] uppercase leading-snug line-clamp-1 sm:line-clamp-none ${
                         isRed ? "text-[#a11335]" : "text-[#3d5228]"
                       }`}
                     >
@@ -281,7 +281,7 @@ export default function Projects() {
                     </p>
 
                     <p
-                      className={`mt-3.5 sm:mt-5 text-xs sm:text-sm md:text-[15px] font-sans leading-relaxed ${
+                      className={`mt-2 sm:mt-3.5 text-[11.5px] sm:text-sm md:text-[15px] font-sans leading-relaxed line-clamp-2 sm:line-clamp-3 lg:line-clamp-none ${
                         isRed ? "text-[#4a383c]" : "text-[#485240]"
                       }`}
                     >
@@ -289,13 +289,13 @@ export default function Projects() {
                     </p>
 
                     {/* Tech Pills */}
-                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-4 sm:mt-6">
+                    <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-2.5 sm:mt-4 lg:mt-6">
                       {project.highlights.map((item, idx) => (
                         <span
                           key={idx}
-                          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-black/5 border border-black/10 font-mono text-[9px] sm:text-[10px] tracking-[0.1em] uppercase whitespace-nowrap ${
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-black/5 border border-black/10 font-mono text-[8px] sm:text-[9.5px] tracking-[0.08em] sm:tracking-[0.1em] uppercase whitespace-nowrap ${
                             isRed ? "text-[#3a1d23]" : "text-[#2d3a20]"
-                          }`}
+                          } ${idx === 2 ? "hidden xs:inline-flex" : ""}`}
                         >
                           <span className={isRed ? "text-[#D6003C]" : "text-[#354921]"}>✦</span>
                           {item}
@@ -305,24 +305,24 @@ export default function Projects() {
                   </div>
 
                   {/* Underlined Explore Link matching reference screenshot */}
-                  <div className="pt-6 sm:pt-8">
+                  <div className="pt-3 sm:pt-6 lg:pt-8">
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2.5 text-xs sm:text-sm font-bank font-bold uppercase tracking-[0.16em] text-[#111111] transition-colors group/link w-fit ${
+                      className={`inline-flex items-center gap-2 text-xs sm:text-sm font-bank font-bold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-[#111111] transition-colors group/link w-fit ${
                         isRed ? "hover:text-[#D6003C]" : "hover:text-[#354921]"
                       }`}
                     >
                       <span
-                        className={`border-b-2 border-[#111111] pb-1 transition-colors ${
+                        className={`border-b-2 border-[#111111] pb-0.5 sm:pb-1 transition-colors ${
                           isRed ? "group-hover/link:border-[#D6003C]" : "group-hover/link:border-[#354921]"
                         }`}
                       >
                         Explore {project.title}
                       </span>
                       <span
-                        className={`font-sans text-sm sm:text-base font-bold group-hover/link:translate-x-1 group-hover/link:-translate-y-0.5 transition-transform ${
+                        className={`font-sans text-xs sm:text-base font-bold group-hover/link:translate-x-1 group-hover/link:-translate-y-0.5 transition-transform ${
                           isRed ? "text-[#D6003C]" : "text-[#354921]"
                         }`}
                       >
@@ -332,67 +332,98 @@ export default function Projects() {
                   </div>
                 </div>
 
-                {/* Right Column: Dark Canvas (alternating Dark Green & Dark Crimson) */}
+                {/* Right Column: Dark Canvas with Downlight Effect (Green & Red) */}
                 <div
-                  className={`relative overflow-hidden flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[300px] lg:min-h-0 bg-gradient-to-br ${
-                    isRed
-                      ? "from-[#2a040f] via-[#160208] to-[#080003]"
-                      : "from-[#121c0e] via-[#0b1208] to-[#050804]"
+                  className={`relative overflow-hidden flex items-center justify-center p-4 sm:p-8 lg:p-16 min-h-[140px] sm:min-h-[220px] lg:min-h-0 ${
+                    isRed ? "bg-[#0a0406]" : "bg-[#060a05]"
                   }`}
                 >
                   {/* Subtle Grid Backdrop */}
                   <div
-                    className="pointer-events-none absolute inset-0 opacity-15"
+                    className="pointer-events-none absolute inset-0 opacity-12"
                     style={{
                       backgroundImage: isRed
                         ? `
-                          linear-gradient(#3d101a 1px, transparent 1px),
-                          linear-gradient(90deg, #3d101a 1px, transparent 1px)
+                          linear-gradient(#ff0d4a 1px, transparent 1px),
+                          linear-gradient(90deg, #ff0d4a 1px, transparent 1px)
                         `
                         : `
-                          linear-gradient(#202d18 1px, transparent 1px),
-                          linear-gradient(90deg, #202d18 1px, transparent 1px)
+                          linear-gradient(#4ade80 1px, transparent 1px),
+                          linear-gradient(90deg, #4ade80 1px, transparent 1px)
                         `,
                       backgroundSize: "32px 32px",
                     }}
                   />
 
-                  {/* Ambient Radial Glowing Aura */}
+                  {/* 1. Base upward light gradient */}
                   <div
-                    className="pointer-events-none absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-700"
+                    className="pointer-events-none absolute inset-0 transition-opacity duration-700"
                     style={{
                       background: isRed
-                        ? "radial-gradient(circle at 50% 50%, rgba(255, 13, 74, 0.26) 0%, transparent 65%)"
-                        : "radial-gradient(circle at 50% 50%, rgba(227, 255, 107, 0.24) 0%, transparent 65%)",
+                        ? "linear-gradient(to top, rgba(220, 15, 60, 0.42) 0%, rgba(130, 8, 35, 0.18) 32%, transparent 70%)"
+                        : "linear-gradient(to top, rgba(34, 197, 94, 0.42) 0%, rgba(20, 105, 45, 0.18) 32%, transparent 70%)",
                     }}
                   />
 
-                  {/* Single Floating Glassmorphic Logo Badge (clean reference aesthetic) */}
+                  {/* 2. Primary Radiant Blooming Downlight (emanating upward from bottom, matching reference image) */}
+                  <div
+                    className="pointer-events-none absolute -bottom-12 left-[-10%] right-[-10%] h-[85%] animate-downlight-drift"
+                    style={{
+                      background: isRed
+                        ? "radial-gradient(ellipse 95% 75% at 32% 100%, rgba(255, 25, 75, 0.85) 0%, rgba(220, 15, 60, 0.55) 26%, rgba(120, 10, 35, 0.28) 55%, transparent 78%)"
+                        : "radial-gradient(ellipse 95% 75% at 32% 100%, rgba(74, 222, 128, 0.85) 0%, rgba(34, 197, 94, 0.55) 26%, rgba(20, 83, 45, 0.28) 55%, transparent 78%)",
+                      filter: "blur(26px)",
+                    }}
+                  />
+
+                  {/* 3. Secondary broad ambient glow layer */}
+                  <div
+                    className="pointer-events-none absolute -bottom-24 left-[-20%] right-[-20%] h-[100%] animate-downlight-beam"
+                    style={{
+                      background: isRed
+                        ? "radial-gradient(ellipse 110% 85% at 38% 105%, rgba(255, 65, 110, 0.5) 0%, rgba(170, 15, 55, 0.25) 40%, rgba(60, 5, 20, 0.1) 70%, transparent 85%)"
+                        : "radial-gradient(ellipse 110% 85% at 38% 105%, rgba(134, 239, 172, 0.5) 0%, rgba(34, 160, 70, 0.25) 40%, rgba(15, 55, 25, 0.1) 70%, transparent 85%)",
+                      filter: "blur(45px)",
+                    }}
+                  />
+
+                  {/* 4. Moving dynamic light beam / sweep */}
+                  <div
+                    className="pointer-events-none absolute bottom-0 left-[10%] w-[60%] h-[70%] animate-downlight-sweep opacity-75 group-hover:opacity-100 transition-opacity duration-700"
+                    style={{
+                      background: isRed
+                        ? "radial-gradient(circle at 50% 100%, rgba(255, 80, 120, 0.6) 0%, rgba(220, 20, 60, 0.25) 45%, transparent 75%)"
+                        : "radial-gradient(circle at 50% 100%, rgba(163, 230, 53, 0.6) 0%, rgba(34, 197, 94, 0.25) 45%, transparent 75%)",
+                      filter: "blur(18px)",
+                    }}
+                  />
+
+                  {/* Single Floating Glassmorphic Logo Badge (compact & fully visible on mobile) */}
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`relative z-10 flex flex-col items-center justify-center gap-4 rounded-[24px] sm:rounded-[28px] p-8 sm:p-10 md:p-12 bg-black/60 backdrop-blur-md border border-white/10 hover:bg-black/75 transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group/logo max-w-[340px] w-full ${
-                      isRed ? "hover:border-[#FF0D4A]/70" : "hover:border-[#e3ff6b]/70"
+                    className={`relative z-10 flex flex-col items-center justify-center gap-1.5 sm:gap-4 rounded-[16px] sm:rounded-[24px] md:rounded-[28px] p-3 sm:p-6 md:p-12 bg-black/65 backdrop-blur-md border border-white/10 hover:bg-black/80 transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.85)] group/logo max-w-[200px] sm:max-w-[280px] md:max-w-[340px] w-full ${
+                      isRed ? "hover:border-[#FF0D4A]/70" : "hover:border-[#4ade80]/70"
                     }`}
                   >
-                    <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 flex items-center justify-center">
+                    <div className="relative w-12 h-12 sm:w-20 sm:h-20 md:w-32 md:h-32 flex items-center justify-center">
                       <Image
                         src={project.logo}
                         alt={`${project.title} logo`}
                         fill
-                        className="object-contain p-2 transition-transform duration-500 group-hover/logo:scale-110 drop-shadow-[0_6px_25px_rgba(0,0,0,0.9)]"
-                        sizes="(max-width: 768px) 112px, 140px"
+                        className="object-contain p-1 sm:p-2 transition-transform duration-500 group-hover/logo:scale-110 drop-shadow-[0_6px_25px_rgba(0,0,0,0.9)]"
+                        sizes="(max-width: 640px) 48px, (max-width: 768px) 80px, 140px"
                         priority={index === 0}
                       />
                     </div>
                     <span
-                      className={`font-bank text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.14em] text-white transition-colors duration-300 flex items-center gap-2 text-center leading-tight ${
-                        isRed ? "group-hover/logo:text-[#FF0D4A]" : "group-hover/logo:text-[#e3ff6b]"
+                      className={`font-bank text-xs sm:text-base md:text-xl font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-white transition-colors duration-300 flex items-center gap-1.5 sm:gap-2 text-center leading-tight ${
+                        isRed ? "group-hover/logo:text-[#FF0D4A]" : "group-hover/logo:text-[#4ade80]"
                       }`}
                     >
                       {project.title}{" "}
-                      <span className={`text-sm font-sans ${isRed ? "text-[#FF0D4A]" : "text-[#e3ff6b]"}`}>
+                      <span className={`text-[10px] sm:text-sm font-sans ${isRed ? "text-[#FF0D4A]" : "text-[#4ade80]"}`}>
                         ↗
                       </span>
                     </span>
