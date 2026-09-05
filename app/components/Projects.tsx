@@ -15,6 +15,7 @@ interface ProjectItem {
   tech: string[];
   highlights: string[];
   demo: string;
+  colorType: "green" | "red";
 }
 
 const projects: ProjectItem[] = [
@@ -30,6 +31,7 @@ const projects: ProjectItem[] = [
     tech: ["Next.js", "AI Speech Models", "WebSockets", "Cloud Functions"],
     highlights: ["Real-Time Transcription", "AI Summaries & Actions", "Speaker-Aware Formatting"],
     demo: "https://voicetonotes.ai/",
+    colorType: "green",
   },
   {
     id: 6,
@@ -43,6 +45,7 @@ const projects: ProjectItem[] = [
     tech: ["Kotlin", "Android", "Jetpack Compose", "AI Language Models"],
     highlights: ["Owl AI Conversation", "Situational Simulations", "Native Android App"],
     demo: "https://drive.google.com/file/d/1QALOw6agjMrFJJdEh5pK8kTKKNCy2GAo/view?usp=sharing",
+    colorType: "red",
   },
   {
     id: 5,
@@ -56,6 +59,7 @@ const projects: ProjectItem[] = [
     tech: ["Node.js", "Firebase", "Caddy", "React", "Mobile SDKs"],
     highlights: ["Deferred Deep Linking", "Full-Funnel Attribution", "Cross-Platform SDKs"],
     demo: "https://deepurls.com/",
+    colorType: "green",
   },
   {
     id: 4,
@@ -69,6 +73,7 @@ const projects: ProjectItem[] = [
     tech: ["Next.js", "React", "Tina CMS", "Tolgee", "Tailwind CSS"],
     highlights: ["SaaS & Dashboards", "AI Automations", "Sub-Second LCP"],
     demo: "https://web3task.com/",
+    colorType: "red",
   },
   {
     id: 3,
@@ -82,6 +87,7 @@ const projects: ProjectItem[] = [
     tech: ["Next.js", "Python", "AWS", "Cloudinary", "Tailwind"],
     highlights: ["Sub-second LCP", "Dynamic Cloudinary Media", "Custom Art Direction"],
     demo: "https://tvic.vercel.app/",
+    colorType: "green",
   },
   {
     id: 2,
@@ -95,6 +101,7 @@ const projects: ProjectItem[] = [
     tech: ["MongoDB", "Python", "React", "AWS", "Web3"],
     highlights: ["SIH Finalist", "Smart Contract Ledger", "Real-Time Telemetry"],
     demo: "https://sih-25-sage.vercel.app/",
+    colorType: "red",
   },
   {
     id: 1,
@@ -108,6 +115,7 @@ const projects: ProjectItem[] = [
     tech: ["Next.js", "Tolgee", "Tina CMS", "Localization", "WireGuard"],
     highlights: ["AES-256 Encryption", "WireGuard Protocol", "Zero-Log Privacy"],
     demo: "https://traversevpn.com/",
+    colorType: "green",
   },
 ];
 
@@ -166,7 +174,7 @@ export default function Projects() {
       id="projects"
       className="relative z-10 w-full min-h-screen bg-[#070b05] py-16 sm:py-24 md:py-32 px-3 sm:px-6 md:px-10 lg:px-16"
     >
-      {/* Background Cybernetic Grid & Glows - Encapsulated */}
+      {/* Background Cybernetic Grid & Glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute inset-0 opacity-25"
@@ -212,6 +220,7 @@ export default function Projects() {
         <div ref={deckRef} className="relative flex flex-col space-y-6 sm:space-y-8 md:space-y-12 w-full">
           {projects.map((project, index) => {
             const isLast = index === projects.length - 1;
+            const isRed = project.colorType === "red";
 
             return (
               <div
@@ -221,23 +230,40 @@ export default function Projects() {
                   position: "sticky",
                   top: "76px",
                   marginBottom: isLast ? "0px" : "28px",
-                  boxShadow:
-                    "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(227,255,107,0.2)",
+                  boxShadow: isRed
+                    ? "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,13,74,0.2)"
+                    : "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(227,255,107,0.2)",
                   transformOrigin: "50% 0%",
                   willChange: "transform, filter",
                 }}
-                className="group relative rounded-[28px] sm:rounded-[32px] border border-[#2b3a23] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-[500px]"
+                className={`group relative rounded-[28px] sm:rounded-[32px] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-[500px] border transition-colors duration-500 ${
+                  isRed
+                    ? "border-[#4a0d1a] hover:border-[#FF0D4A]/60"
+                    : "border-[#2b3a23] hover:border-[#e3ff6b]/60"
+                }`}
               >
-                {/* Left Column: Light Panel (matching reference SelectedWork light card) */}
+                {/* Left Column: Light Panel (alternating green & red accents) */}
                 <div className="relative z-10 flex flex-col justify-between p-6 sm:p-9 lg:p-12 bg-[#ecece7] text-[#111111] border-b lg:border-b-0 lg:border-r border-black/10">
                   <div>
                     {/* Status badge */}
                     <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                      <span className="font-bank text-xs sm:text-sm font-bold text-[#354921] tracking-[0.14em] shrink-0 whitespace-nowrap">
+                      <span
+                        className={`font-bank text-xs sm:text-sm font-bold tracking-[0.14em] shrink-0 whitespace-nowrap ${
+                          isRed ? "text-[#D6003C]" : "text-[#354921]"
+                        }`}
+                      >
                         [ {project.num} ]
                       </span>
-                      <span className="h-1 w-3 bg-[#354921]/30 rounded-full shrink-0" />
-                      <span className="font-mono text-[9px] sm:text-[10px] md:text-xs font-semibold tracking-[0.15em] text-[#556349] uppercase">
+                      <span
+                        className={`h-1 w-3 rounded-full shrink-0 ${
+                          isRed ? "bg-[#D6003C]/30" : "bg-[#354921]/30"
+                        }`}
+                      />
+                      <span
+                        className={`font-mono text-[9px] sm:text-[10px] md:text-xs font-semibold tracking-[0.15em] uppercase ${
+                          isRed ? "text-[#8a253b]" : "text-[#556349]"
+                        }`}
+                      >
                         {project.category}
                       </span>
                     </div>
@@ -246,11 +272,19 @@ export default function Projects() {
                       {project.title}
                     </h3>
 
-                    <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm font-bold text-[#3d5228] tracking-[0.12em] uppercase leading-snug">
+                    <p
+                      className={`mt-1.5 sm:mt-2 text-xs sm:text-sm font-bold tracking-[0.12em] uppercase leading-snug ${
+                        isRed ? "text-[#a11335]" : "text-[#3d5228]"
+                      }`}
+                    >
                       {project.subtitle}
                     </p>
 
-                    <p className="mt-3.5 sm:mt-5 text-xs sm:text-sm md:text-[15px] text-[#485240] font-sans leading-relaxed">
+                    <p
+                      className={`mt-3.5 sm:mt-5 text-xs sm:text-sm md:text-[15px] font-sans leading-relaxed ${
+                        isRed ? "text-[#4a383c]" : "text-[#485240]"
+                      }`}
+                    >
                       {project.description}
                     </p>
 
@@ -259,9 +293,11 @@ export default function Projects() {
                       {project.highlights.map((item, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-black/5 border border-black/10 font-mono text-[9px] sm:text-[10px] tracking-[0.1em] text-[#2d3a20] uppercase whitespace-nowrap"
+                          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-black/5 border border-black/10 font-mono text-[9px] sm:text-[10px] tracking-[0.1em] uppercase whitespace-nowrap ${
+                            isRed ? "text-[#3a1d23]" : "text-[#2d3a20]"
+                          }`}
                         >
-                          <span className="text-[#354921]">✦</span>
+                          <span className={isRed ? "text-[#D6003C]" : "text-[#354921]"}>✦</span>
                           {item}
                         </span>
                       ))}
@@ -274,28 +310,49 @@ export default function Projects() {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bank font-bold uppercase tracking-[0.16em] text-[#111111] hover:text-[#354921] transition-colors group/link w-fit"
+                      className={`inline-flex items-center gap-2.5 text-xs sm:text-sm font-bank font-bold uppercase tracking-[0.16em] text-[#111111] transition-colors group/link w-fit ${
+                        isRed ? "hover:text-[#D6003C]" : "hover:text-[#354921]"
+                      }`}
                     >
-                      <span className="border-b-2 border-[#111111] group-hover/link:border-[#354921] pb-1 transition-colors">
+                      <span
+                        className={`border-b-2 border-[#111111] pb-1 transition-colors ${
+                          isRed ? "group-hover/link:border-[#D6003C]" : "group-hover/link:border-[#354921]"
+                        }`}
+                      >
                         Explore {project.title}
                       </span>
-                      <span className="font-sans text-sm sm:text-base font-bold group-hover/link:translate-x-1 group-hover/link:-translate-y-0.5 transition-transform">
+                      <span
+                        className={`font-sans text-sm sm:text-base font-bold group-hover/link:translate-x-1 group-hover/link:-translate-y-0.5 transition-transform ${
+                          isRed ? "text-[#D6003C]" : "text-[#354921]"
+                        }`}
+                      >
                         ↗
                       </span>
                     </a>
                   </div>
                 </div>
 
-                {/* Right Column: Dark Green Canvas with Single Logo Badge (no double box) */}
-                <div className="relative overflow-hidden flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[300px] lg:min-h-0 bg-gradient-to-br from-[#121c0e] via-[#0b1208] to-[#050804]">
+                {/* Right Column: Dark Canvas (alternating Dark Green & Dark Crimson) */}
+                <div
+                  className={`relative overflow-hidden flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[300px] lg:min-h-0 bg-gradient-to-br ${
+                    isRed
+                      ? "from-[#2a040f] via-[#160208] to-[#080003]"
+                      : "from-[#121c0e] via-[#0b1208] to-[#050804]"
+                  }`}
+                >
                   {/* Subtle Grid Backdrop */}
                   <div
                     className="pointer-events-none absolute inset-0 opacity-15"
                     style={{
-                      backgroundImage: `
-                        linear-gradient(#202d18 1px, transparent 1px),
-                        linear-gradient(90deg, #202d18 1px, transparent 1px)
-                      `,
+                      backgroundImage: isRed
+                        ? `
+                          linear-gradient(#3d101a 1px, transparent 1px),
+                          linear-gradient(90deg, #3d101a 1px, transparent 1px)
+                        `
+                        : `
+                          linear-gradient(#202d18 1px, transparent 1px),
+                          linear-gradient(90deg, #202d18 1px, transparent 1px)
+                        `,
                       backgroundSize: "32px 32px",
                     }}
                   />
@@ -304,7 +361,9 @@ export default function Projects() {
                   <div
                     className="pointer-events-none absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-700"
                     style={{
-                      background: "radial-gradient(circle at 50% 50%, rgba(227, 255, 107, 0.24) 0%, transparent 65%)",
+                      background: isRed
+                        ? "radial-gradient(circle at 50% 50%, rgba(255, 13, 74, 0.26) 0%, transparent 65%)"
+                        : "radial-gradient(circle at 50% 50%, rgba(227, 255, 107, 0.24) 0%, transparent 65%)",
                     }}
                   />
 
@@ -313,7 +372,9 @@ export default function Projects() {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative z-10 flex flex-col items-center justify-center gap-4 rounded-[24px] sm:rounded-[28px] p-8 sm:p-10 md:p-12 bg-black/60 backdrop-blur-md border border-white/10 hover:border-[#e3ff6b]/70 hover:bg-black/75 transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group/logo max-w-[340px] w-full"
+                    className={`relative z-10 flex flex-col items-center justify-center gap-4 rounded-[24px] sm:rounded-[28px] p-8 sm:p-10 md:p-12 bg-black/60 backdrop-blur-md border border-white/10 hover:bg-black/75 transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group/logo max-w-[340px] w-full ${
+                      isRed ? "hover:border-[#FF0D4A]/70" : "hover:border-[#e3ff6b]/70"
+                    }`}
                   >
                     <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 flex items-center justify-center">
                       <Image
@@ -325,8 +386,15 @@ export default function Projects() {
                         priority={index === 0}
                       />
                     </div>
-                    <span className="font-bank text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.14em] text-white group-hover/logo:text-[#e3ff6b] transition-colors duration-300 flex items-center gap-2 text-center leading-tight">
-                      {project.title} <span className="text-sm font-sans text-[#e3ff6b]">↗</span>
+                    <span
+                      className={`font-bank text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.14em] text-white transition-colors duration-300 flex items-center gap-2 text-center leading-tight ${
+                        isRed ? "group-hover/logo:text-[#FF0D4A]" : "group-hover/logo:text-[#e3ff6b]"
+                      }`}
+                    >
+                      {project.title}{" "}
+                      <span className={`text-sm font-sans ${isRed ? "text-[#FF0D4A]" : "text-[#e3ff6b]"}`}>
+                        ↗
+                      </span>
                     </span>
                   </a>
                 </div>

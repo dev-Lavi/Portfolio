@@ -5,15 +5,16 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CursorTrail() {
   const [isVisible, setIsVisible] = useState(false);
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  const dotX = useMotionValue(-100);
+  const dotY = useMotionValue(-100);
 
-  const springConfig = { damping: 28, stiffness: 650, mass: 0.4 };
-  const springX = useSpring(cursorX, springConfig);
-  const springY = useSpring(cursorY, springConfig);
+  // Fast, low-mass spring for the glowing aura so it smoothly tracks the cursor without lag
+  const glowSpringConfig = { damping: 32, stiffness: 1400, mass: 0.06 };
+  const glowX = useSpring(dotX, glowSpringConfig);
+  const glowY = useSpring(dotY, glowSpringConfig);
 
   useEffect(() => {
-    // Only activate on desktop pointer devices
+    // Only activate on desktop devices with fine pointer
     const checkDevice = () => {
       if (typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches) {
         setIsVisible(true);
@@ -25,45 +26,43 @@ export default function CursorTrail() {
     window.addEventListener("resize", checkDevice);
 
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 12);
-      cursorY.set(e.clientY - 12);
+      dotX.set(e.clientX);
+      dotY.set(e.clientY);
     };
 
-    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousemove", moveCursor, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("resize", checkDevice);
     };
-  }, [cursorX, cursorY]);
+  }, [dotX, dotY]);
 
   if (!isVisible) return null;
 
   return (
     <>
-      {/* Ambient glowing cursor aura */}
+      {/* Ambient glowing aura that fluidly follows the cursor */}
       <motion.div
         data-cursor-glow
         aria-hidden="true"
-        className="hidden md:block fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[99999] mix-blend-screen"
+        className="hidden md:block fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[99999] mix-blend-screen -translate-x-1/2 -translate-y-1/2"
         style={{
-          x: springX,
-          y: springY,
+          x: glowX,
+          y: glowY,
           backgroundColor: "#e3ff6b",
-          filter: "blur(14px)",
-          opacity: 0.7,
+          filter: "blur(12px)",
+          opacity: 0.65,
         }}
       />
-      {/* Precision center dot */}
+      {/* Precision center dot - exactly matches the speed of the cursor (zero latency) */}
       <motion.div
         data-cursor-dot
         aria-hidden="true"
-        className="hidden md:block fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-[99999] shadow-[0_0_10px_rgba(255,255,255,1)]"
+        className="hidden md:block fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-[99999] shadow-[0_0_8px_rgba(255,255,255,1)] -translate-x-1/2 -translate-y-1/2"
         style={{
-          x: springX,
-          y: springY,
-          translateX: 11,
-          translateY: 11,
+          x: dotX,
+          y: dotY,
         }}
       />
     </>
