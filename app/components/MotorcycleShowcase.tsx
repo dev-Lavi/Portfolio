@@ -190,57 +190,57 @@ export default function MotorcycleShowcase() {
         </div>
 
         {/* Text Layer */}
-        <div className="absolute inset-0 z-30 font-sans pointer-events-none p-6 md:p-16 lg:p-24 flex flex-col justify-center">
+        <div className="absolute inset-0 z-30 font-sans pointer-events-none p-4 sm:p-6 md:p-16 lg:p-24 flex flex-col justify-center overflow-hidden">
             
             {/* Beat 1: Top Left */}
-            <motion.div style={{ opacity: beat1Opacity }} className="absolute top-32 left-8 md:left-24 max-w-xl">
-                <span className="text-[#E8FFE0] text-xs font-mono tracking-[0.2em] uppercase mb-4 block">WEB3TASK — SOFTWARE ENGINEER INTERN</span>
-                <h2 className="text-3xl md:text-5xl font-bold text-white/90 tracking-tight mb-4 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            <motion.div style={{ opacity: beat1Opacity }} className="absolute top-20 sm:top-32 left-4 sm:left-8 md:left-24 right-4 sm:right-auto max-w-xl">
+                <span className="text-[#E8FFE0] text-[10px] sm:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-2 sm:mb-4 block">WEB3TASK — SOFTWARE ENGINEER INTERN</span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white/90 tracking-tight mb-2 sm:mb-4 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] leading-tight">
                   Traverse VPN & Voice to Notes
                 </h2>
-                <div className="h-[1px] bg-white/20 w-full mb-4 relative overflow-hidden">
+                <div className="h-[1px] bg-white/20 w-full mb-3 sm:mb-4 relative overflow-hidden">
                     <motion.div style={{ width: beat1Line }} className="h-full bg-gradient-to-r from-[#FF3B1F] to-[#FFB020] absolute left-0 top-0" />
                 </div>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-sm sm:text-base md:text-lg">
                   Optimized landing pages to 99% Lighthouse performance and increased AI app premium users by 36%.
                 </p>
             </motion.div>
 
             {/* Beat 2: Bottom Left */}
-            <motion.div style={{ opacity: beat2Opacity }} className="absolute bottom-32 left-8 md:left-24 max-w-xl">
-                <span className="text-[#E8FFE0] text-xs font-mono tracking-[0.2em] uppercase mb-4 block">WEB3TASK — SOFTWARE ENGINEER INTERN</span>
-                <h2 className="text-3xl md:text-5xl font-bold text-white/90 tracking-tight mb-4 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            <motion.div style={{ opacity: beat2Opacity }} className="absolute bottom-20 sm:bottom-32 left-4 sm:left-8 md:left-24 right-4 sm:right-auto max-w-xl">
+                <span className="text-[#E8FFE0] text-[10px] sm:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-2 sm:mb-4 block">WEB3TASK — SOFTWARE ENGINEER INTERN</span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white/90 tracking-tight mb-2 sm:mb-4 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] leading-tight">
                   DeepURLs Infrastructure
                 </h2>
-                <div className="h-[1px] bg-white/20 w-full mb-4 relative overflow-hidden">
+                <div className="h-[1px] bg-white/20 w-full mb-3 sm:mb-4 relative overflow-hidden">
                     <motion.div style={{ width: beat2Line }} className="h-full bg-gradient-to-r from-[#FF3B1F] to-[#FFB020] absolute left-0 top-0" />
                 </div>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-sm sm:text-base md:text-lg">
                   Scaled backend for 29K+ daily users with custom domain routing and precise deep linking SDK.
                 </p>
             </motion.div>
 
             {/* Beat 3: Center Right */}
-            <motion.div style={{ opacity: beat3Opacity }} className="absolute top-1/2 -translate-y-1/2 right-8 md:right-32 max-w-xl text-right">
-                <span className="text-[#E8FFE0] text-xs font-mono tracking-[0.2em] uppercase mb-4 block">ORIGINHASH — FULL STACK DEVELOPER</span>
-                <h2 className="text-3xl md:text-5xl font-bold text-white/90 tracking-tight mb-4 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            <motion.div style={{ opacity: beat3Opacity }} className="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 md:right-32 left-4 sm:left-auto max-w-xl text-left sm:text-right">
+                <span className="text-[#E8FFE0] text-[10px] sm:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-2 sm:mb-4 block">ORIGINHASH — FULL STACK DEVELOPER</span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white/90 tracking-tight mb-2 sm:mb-4 uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] leading-tight">
                   Scalable Backends
                 </h2>
-                <div className="h-[1px] bg-white/20 w-full mb-4 relative overflow-hidden flex justify-end">
-                    <motion.div style={{ width: beat3Line }} className="h-full bg-gradient-to-l from-[#FF3B1F] to-[#FFB020] absolute right-0 top-0" />
+                <div className="h-[1px] bg-white/20 w-full mb-3 sm:mb-4 relative overflow-hidden flex justify-start sm:justify-end">
+                    <motion.div style={{ width: beat3Line }} className="h-full bg-gradient-to-l from-[#FF3B1F] to-[#FFB020] absolute left-0 sm:left-auto sm:right-0 top-0" />
                 </div>
-                <p className="text-white/60 text-lg">
+                <p className="text-white/70 text-sm sm:text-base md:text-lg">
                   Built Node.js APIs and React applications, improving UX by 30% and query performance by 15%.
                 </p>
             </motion.div>
 
             {/* Beat 4: Center Resolve */}
-            <motion.div style={{ opacity: beat4Opacity }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-auto max-w-2xl">
-                <span className="text-[#E8FFE0] text-xs font-mono tracking-[0.2em] uppercase mb-4 block">ORIGINHASH — FULL STACK DEVELOPER</span>
-                <h2 className="text-4xl md:text-6xl font-bold text-white/90 tracking-tight mb-6 uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.5)] whitespace-nowrap">
+            <motion.div style={{ opacity: beat4Opacity }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-auto w-[92%] max-w-2xl px-2">
+                <span className="text-[#E8FFE0] text-[10px] sm:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-2 sm:mb-4 block">ORIGINHASH — FULL STACK DEVELOPER</span>
+                <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white/90 tracking-tight mb-4 sm:mb-6 uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
                   Blockchain Integration
                 </h2>
-                <p className="text-white/60 text-lg mb-8">
+                <p className="text-white/70 text-sm sm:text-base md:text-lg mb-6 sm:mb-8">
                   Enhanced product traceability by 60% through Ethereum smart contracts, IPFS, and MetaMask.
                 </p>
             </motion.div>
