@@ -3,7 +3,6 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { gsap, ScrollTrigger, useIsomorphicLayoutEffect, prefersReducedMotion } from "@/app/lib/gsap";
-import MagneticButton from "./motion/MagneticButton";
 
 interface ProjectItem {
   id: number;
@@ -12,70 +11,110 @@ interface ProjectItem {
   category: string;
   subtitle: string;
   description: string;
-  preview: string;
+  logo: string;
   tech: string[];
   highlights: string[];
-  github: string;
   demo: string;
-  accent: string;
-  gradient: string;
 }
 
 const projects: ProjectItem[] = [
   {
-    id: 1,
-    num: "01",
+    id: 7,
+    num: "07",
+    title: "VoiceToNotes",
+    category: "AI // REAL-TIME TRANSCRIPTION & NOTES",
+    subtitle: "Voice-to-Text, Real-Time Transcripts & AI Summaries",
+    description:
+      "Convert voice into accurate notes, transcripts, AI summaries, meeting notes, study notes, and action items in real time. Skip the keyboard and speak naturally while AI captures every word with accurate punctuation and speaker-aware formatting.",
+    logo: "/projects/vtn.png",
+    tech: ["Next.js", "AI Speech Models", "WebSockets", "Cloud Functions"],
+    highlights: ["Real-Time Transcription", "AI Summaries & Actions", "Speaker-Aware Formatting"],
+    demo: "https://voicetonotes.ai/",
+  },
+  {
+    id: 6,
+    num: "06",
+    title: "MacaoAi",
+    category: "AI // SITUATIONAL LANGUAGE LEARNING",
+    subtitle: "Conversational AI Language Learning with Owl AI",
+    description:
+      "An interactive language learning mobile app built with native Kotlin. Users converse with our AI model Owl across real-life simulated scenarios—like ordering food in a dream destination or navigating travel abroad—building genuine conversational fluency.",
+    logo: "/projects/MacaoAI.png",
+    tech: ["Kotlin", "Android", "Jetpack Compose", "AI Language Models"],
+    highlights: ["Owl AI Conversation", "Situational Simulations", "Native Android App"],
+    demo: "https://drive.google.com/file/d/1QALOw6agjMrFJJdEh5pK8kTKKNCy2GAo/view?usp=sharing",
+  },
+  {
+    id: 5,
+    num: "05",
+    title: "DeepURLs",
+    category: "INFRASTRUCTURE // ATTRIBUTION & DEEP LINKING",
+    subtitle: "Flawless Linking & Full-Funnel Attribution Engine",
+    description:
+      "Reliable deep linking with accurate attribution across the entire user journey. Bridges web-to-app conversions with intelligent Deferred Deep Linking—routing users seamlessly through the App Store and automatically opening the exact destination immediately upon install.",
+    logo: "/projects/deepurls.png",
+    tech: ["Node.js", "Firebase", "Caddy", "React", "Mobile SDKs"],
+    highlights: ["Deferred Deep Linking", "Full-Funnel Attribution", "Cross-Platform SDKs"],
+    demo: "https://deepurls.com/",
+  },
+  {
+    id: 4,
+    num: "04",
+    title: "Web3Task",
+    category: "PRODUCT STUDIO // VENTURE SCALING",
+    subtitle: "High-Performance Studio & Digital Product Platform",
+    description:
+      "We build, ship, and scale software for ambitious startups. Engineering conversion-ready SaaS dashboards, AI automations, and integrated digital tools that solve real problems, scale reliably, and move ideas forward.",
+    logo: "/projects/web3task_logo.png",
+    tech: ["Next.js", "React", "Tina CMS", "Tolgee", "Tailwind CSS"],
+    highlights: ["SaaS & Dashboards", "AI Automations", "Sub-Second LCP"],
+    demo: "https://web3task.com/",
+  },
+  {
+    id: 3,
+    num: "03",
+    title: "TVIC",
+    category: "CREATIVE TECH // ENTERPRISE ARCHITECTURE",
+    subtitle: "High-Performance Branding & Content Platform",
+    description:
+      "Enterprise digital experience and brand architecture featuring responsive micro-interactions, low-latency Cloudinary CDN image pipelines, and custom art direction tailored for high conversion.",
+    logo: "/projects/tvic.png",
+    tech: ["Next.js", "Python", "AWS", "Cloudinary", "Tailwind"],
+    highlights: ["Sub-second LCP", "Dynamic Cloudinary Media", "Custom Art Direction"],
+    demo: "https://tvic.vercel.app/",
+  },
+  {
+    id: 2,
+    num: "02",
     title: "CarbonSetu",
     category: "SUSTAINABILITY // BLOCKCHAIN PLATFORM",
     subtitle: "Carbon Credit Management & Verification Protocol",
     description:
       "A decentralized carbon credit management and tokenization platform engineered for verified industrial emissions tracking, transparent smart contract settlements, and verifiable audit trails.",
-    preview: "/projects/carbonsetu-preview.jpg",
+    logo: "/projects/carbonsetu.png",
     tech: ["MongoDB", "Python", "React", "AWS", "Web3"],
     highlights: ["SIH Finalist", "Smart Contract Ledger", "Real-Time Telemetry"],
-    github: "https://github.com/dev-Lavi/Carbon-setu",
     demo: "https://sih-25-sage.vercel.app/",
-    accent: "#e3ff6b",
-    gradient: "linear-gradient(145deg, #111a0d 0%, #090e07 65%, #050804 100%)",
   },
   {
-    id: 2,
-    num: "02",
-    title: "TVIC",
-    category: "CREATIVE TECH // ENTERPRISE ARCHITECTURE",
-    subtitle: "High-Performance Branding & Content Platform",
+    id: 1,
+    num: "01",
+    title: "Traverse VPN",
+    category: "PRIVACY & SECURITY // WIREGUARD PROTOCOL",
+    subtitle: "Next-Generation High-Speed Encrypted VPN",
     description:
-      "Enterprise digital experience and brand architecture featuring responsive micro-interactions, low-latency CDN image pipelines, and custom art direction tailored for high conversion.",
-    preview: "/projects/tvic-preview.jpg",
-    tech: ["Next.js", "Python", "AWS", "Cloudinary", "Tailwind"],
-    highlights: ["Sub-second LCP", "Dynamic Cloudinary Media", "Custom Art Direction"],
-    github: "https://github.com/dev-Lavi/TVIC",
-    demo: "https://tvic.vercel.app/",
-    accent: "#e3ff6b",
-    gradient: "linear-gradient(145deg, #131b0f 0%, #0a1108 65%, #050804 100%)",
-  },
-  {
-    id: 3,
-    num: "03",
-    title: "Laksh Closet",
-    category: "E-COMMERCE // INSTANT SETTLEMENT",
-    subtitle: "Modern Digital Fashion Storefront & Payment Engine",
-    description:
-      "A high-throughput e-commerce application equipped with seamless payment gateway integration, instant inventory sync, dynamic cart orchestration, and an ultra-minimalist UI.",
-    preview: "/projects/lakshcloset-preview.jpg",
-    tech: ["React", "Node.js", "Cashfree", "REST APIs", "Tailwind"],
-    highlights: ["Payment Gateway API", "Dynamic Checkout", "Instant Inventory Sync"],
-    github: "https://github.com/dev-Lavi/Laksh-closet",
-    demo: "https://laksh-closet-lc.vercel.app/",
-    accent: "#e3ff6b",
-    gradient: "linear-gradient(145deg, #0e160c 0%, #080d06 65%, #040603 100%)",
+      "Wraps your connection in military-grade AES-256 encryption, hides your IP address, and gives you safe, unrestricted internet access from anywhere, on any device, with zero compromises to speed or privacy.",
+    logo: "/projects/vpnlogo.png",
+    tech: ["Next.js", "Tolgee", "Tina CMS", "Localization", "WireGuard"],
+    highlights: ["AES-256 Encryption", "WireGuard Protocol", "Zero-Log Privacy"],
+    demo: "https://traversevpn.com/",
   },
 ];
 
 export default function Projects() {
   const deckRef = useRef<HTMLDivElement | null>(null);
 
-  // GSAP ScrollTrigger Stacked Card Depth Effect (from reference Web3 landing)
+  // GSAP ScrollTrigger Stacked Card Depth Effect (replicates reference Web3 landing)
   useIsomorphicLayoutEffect(() => {
     const el = deckRef.current;
     if (!el || prefersReducedMotion()) return;
@@ -104,7 +143,7 @@ export default function Projects() {
           card,
           { filter: "brightness(1)" },
           {
-            filter: "brightness(0.80)",
+            filter: "brightness(0.82)",
             ease: "none",
             scrollTrigger: {
               trigger: cards[i + 1],
@@ -127,7 +166,7 @@ export default function Projects() {
       id="projects"
       className="relative z-10 w-full min-h-screen bg-[#070b05] py-16 sm:py-24 md:py-32 px-3 sm:px-6 md:px-10 lg:px-16"
     >
-      {/* Background Cybernetic Grid & Glows - Encapsulated to prevent horizontal scroll */}
+      {/* Background Cybernetic Grid & Glows - Encapsulated */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute inset-0 opacity-25"
@@ -179,7 +218,6 @@ export default function Projects() {
                 key={project.id}
                 data-card
                 style={{
-                  background: project.gradient,
                   position: "sticky",
                   top: "76px",
                   marginBottom: isLast ? "0px" : "28px",
@@ -188,151 +226,109 @@ export default function Projects() {
                   transformOrigin: "50% 0%",
                   willChange: "transform, filter",
                 }}
-                className="group relative rounded-2xl sm:rounded-3xl border border-[#27341c] hover:border-[#e3ff6b]/60 transition-colors duration-500 overflow-hidden w-full"
+                className="group relative rounded-[28px] sm:rounded-[32px] border border-[#2b3a23] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-[500px]"
               >
-                {/* Tactical Top Status Bar */}
-                <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 py-2.5 sm:py-3.5 border-b border-[#27341c]/60 bg-black/40 backdrop-blur-md">
-                  <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                    <span className="font-bank text-xs sm:text-sm font-bold text-[#e3ff6b] tracking-[0.12em] sm:tracking-[0.25em] shrink-0 whitespace-nowrap">
-                      [ {project.num} ]
-                    </span>
-                    <span className="h-1 w-2.5 sm:w-4 bg-[#e3ff6b]/40 rounded-full shrink-0" />
-                    <span className="font-mono text-[9px] sm:text-[10px] md:text-xs font-semibold tracking-[0.08em] sm:tracking-[0.2em] text-[#e3ff6b]/80 uppercase truncate">
-                      {project.category}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-2">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#e3ff6b]" />
-                    <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.12em] sm:tracking-[0.2em] text-[#e3ff6b]/70 uppercase whitespace-nowrap">
-                      DEPLOYED
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] p-4 sm:p-6 md:p-8 lg:p-12 gap-5 sm:gap-8 lg:gap-12 items-center">
-                  {/* Left Column: Text & Actions */}
-                  <div className="flex flex-col justify-between h-full space-y-4 sm:space-y-6">
-                    <div>
-                      <h3 className="font-bank text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold uppercase tracking-[0.1em] sm:tracking-[0.18em] lg:tracking-[0.25em] text-white leading-tight break-words">
-                        {project.title}
-                      </h3>
-
-                      <p className="mt-1 sm:mt-2 text-[11px] sm:text-xs md:text-sm font-semibold text-[#e3ff6b] tracking-[0.08em] sm:tracking-[0.2em] uppercase leading-snug">
-                        {project.subtitle}
-                      </p>
-
-                      <p className="mt-2.5 sm:mt-5 text-xs sm:text-sm md:text-base text-gray-300 font-sans leading-relaxed tracking-normal">
-                        {project.description}
-                      </p>
+                {/* Left Column: Light Panel (matching reference SelectedWork light card) */}
+                <div className="relative z-10 flex flex-col justify-between p-6 sm:p-9 lg:p-12 bg-[#ecece7] text-[#111111] border-b lg:border-b-0 lg:border-r border-black/10">
+                  <div>
+                    {/* Status badge */}
+                    <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                      <span className="font-bank text-xs sm:text-sm font-bold text-[#354921] tracking-[0.14em] shrink-0 whitespace-nowrap">
+                        [ {project.num} ]
+                      </span>
+                      <span className="h-1 w-3 bg-[#354921]/30 rounded-full shrink-0" />
+                      <span className="font-mono text-[9px] sm:text-[10px] md:text-xs font-semibold tracking-[0.15em] text-[#556349] uppercase">
+                        {project.category}
+                      </span>
                     </div>
 
-                    {/* Highlights / Specs */}
-                    <div className="space-y-3 sm:space-y-4 pt-1 sm:pt-2">
-                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                        {project.highlights.map((item, idx) => (
-                          <span
-                            key={idx}
-                            className="inline-flex items-center gap-1 px-2 sm:px-3 py-0.5 sm:py-1 rounded-md bg-[#e3ff6b]/10 border border-[#e3ff6b]/30 font-mono text-[9px] sm:text-[10px] md:text-xs tracking-[0.08em] sm:tracking-[0.15em] text-[#e3ff6b] uppercase whitespace-nowrap"
-                          >
-                            <span className="text-[#e3ff6b]/60">✦</span>
-                            {item}
-                          </span>
-                        ))}
-                      </div>
+                    <h3 className="font-bank text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-[0.05em] text-[#111111] leading-tight break-words">
+                      {project.title}
+                    </h3>
 
-                      {/* Tech Stack Pills */}
-                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                        {project.tech.map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2 py-0.5 rounded-full bg-black/60 border border-[#27341c] font-mono text-[9px] sm:text-[10px] md:text-[11px] text-gray-400 tracking-[0.08em] sm:tracking-[0.15em] uppercase whitespace-nowrap"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                    <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm font-bold text-[#3d5228] tracking-[0.12em] uppercase leading-snug">
+                      {project.subtitle}
+                    </p>
 
-                    {/* Action Buttons (Magnetic) */}
-                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 pt-2 sm:pt-4">
-                      <MagneticButton
-                        as="a"
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        strength={0.25}
-                        className="inline-flex items-center justify-center rounded-full bg-[#e3ff6b] px-4 py-2 sm:px-6 sm:py-3 font-bank text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-black shadow-[0_0_20px_rgba(227,255,107,0.5)] hover:bg-[#f3ff9c] hover:shadow-[0_0_35px_rgba(227,255,107,0.85)] transition-all duration-300 cursor-pointer whitespace-nowrap"
-                      >
-                        Launch Demo <span className="ml-1.5 font-sans">↗</span>
-                      </MagneticButton>
+                    <p className="mt-3.5 sm:mt-5 text-xs sm:text-sm md:text-[15px] text-[#485240] font-sans leading-relaxed">
+                      {project.description}
+                    </p>
 
-                      <MagneticButton
-                        as="a"
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        strength={0.25}
-                        className="inline-flex items-center justify-center rounded-full border border-[#e3ff6b]/70 bg-black/40 backdrop-blur-sm px-4 py-2 sm:px-6 sm:py-3 font-bank text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.12em] sm:tracking-[0.25em] text-[#e3ff6b] hover:bg-[#e3ff6b]/15 hover:border-[#e3ff6b] hover:shadow-[0_0_20px_rgba(227,255,107,0.3)] transition-all duration-300 cursor-pointer whitespace-nowrap"
-                      >
-                        Source Code
-                      </MagneticButton>
+                    {/* Tech Pills */}
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-4 sm:mt-6">
+                      {project.highlights.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-black/5 border border-black/10 font-mono text-[9px] sm:text-[10px] tracking-[0.1em] text-[#2d3a20] uppercase whitespace-nowrap"
+                        >
+                          <span className="text-[#354921]">✦</span>
+                          {item}
+                        </span>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Right Column: Visual Showcase Frame */}
-                  <div className="relative w-full mt-2 lg:mt-0">
-                    {/* Ambient Glow Spotlight */}
-                    <div
-                      className="pointer-events-none absolute inset-0 -m-4 sm:-m-6 rounded-3xl opacity-30 blur-2xl transition-opacity duration-700 group-hover:opacity-50"
-                      style={{
-                        background: "radial-gradient(circle, #e3ff6b 0%, transparent 70%)",
-                      }}
-                    />
-
-                    {/* Frame Container */}
+                  {/* Underlined Explore Link matching reference screenshot */}
+                  <div className="pt-6 sm:pt-8">
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative block rounded-xl sm:rounded-2xl overflow-hidden border border-[#27341c] group-hover:border-[#e3ff6b]/80 shadow-[0_15px_40px_rgba(0,0,0,0.8)] transition-all duration-500 aspect-[16/10] w-full"
+                      className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-bank font-bold uppercase tracking-[0.16em] text-[#111111] hover:text-[#354921] transition-colors group/link w-fit"
                     >
-                      {/* Tactical Crosshairs */}
-                      <div className="absolute top-2 left-2 z-20 font-mono text-[9px] sm:text-[10px] text-[#e3ff6b]/50 select-none">
-                        +
-                      </div>
-                      <div className="absolute top-2 right-2 z-20 font-mono text-[9px] sm:text-[10px] text-[#e3ff6b]/50 select-none">
-                        +
-                      </div>
-                      <div className="absolute bottom-2 left-2 z-20 font-mono text-[9px] sm:text-[10px] text-[#e3ff6b]/50 select-none">
-                        +
-                      </div>
-                      <div className="absolute bottom-2 right-2 z-20 font-mono text-[9px] sm:text-[10px] text-[#e3ff6b]/50 select-none">
-                        +
-                      </div>
-
-                      {/* Project Image with Subtle Parallax/Zoom */}
-                      <Image
-                        src={project.preview}
-                        alt={`${project.title} interface preview`}
-                        fill
-                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                        priority={index === 0}
-                      />
-
-                      {/* Scanline Gradient Overlay */}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-
-                      {/* View Indicator Overlay on Hover */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
-                        <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#e3ff6b] font-bank text-[10px] sm:text-xs font-bold text-black uppercase tracking-[0.18em] sm:tracking-[0.25em] shadow-[0_0_25px_rgba(227,255,107,0.8)] whitespace-nowrap">
-                          Explore Architecture <span>↗</span>
-                        </span>
-                      </div>
+                      <span className="border-b-2 border-[#111111] group-hover/link:border-[#354921] pb-1 transition-colors">
+                        Explore {project.title}
+                      </span>
+                      <span className="font-sans text-sm sm:text-base font-bold group-hover/link:translate-x-1 group-hover/link:-translate-y-0.5 transition-transform">
+                        ↗
+                      </span>
                     </a>
                   </div>
+                </div>
+
+                {/* Right Column: Dark Green Canvas with Single Logo Badge (no double box) */}
+                <div className="relative overflow-hidden flex items-center justify-center p-8 sm:p-12 lg:p-16 min-h-[300px] lg:min-h-0 bg-gradient-to-br from-[#121c0e] via-[#0b1208] to-[#050804]">
+                  {/* Subtle Grid Backdrop */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-15"
+                    style={{
+                      backgroundImage: `
+                        linear-gradient(#202d18 1px, transparent 1px),
+                        linear-gradient(90deg, #202d18 1px, transparent 1px)
+                      `,
+                      backgroundSize: "32px 32px",
+                    }}
+                  />
+
+                  {/* Ambient Radial Glowing Aura */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-700"
+                    style={{
+                      background: "radial-gradient(circle at 50% 50%, rgba(227, 255, 107, 0.24) 0%, transparent 65%)",
+                    }}
+                  />
+
+                  {/* Single Floating Glassmorphic Logo Badge (clean reference aesthetic) */}
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative z-10 flex flex-col items-center justify-center gap-4 rounded-[24px] sm:rounded-[28px] p-8 sm:p-10 md:p-12 bg-black/60 backdrop-blur-md border border-white/10 hover:border-[#e3ff6b]/70 hover:bg-black/75 transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.8)] group/logo max-w-[340px] w-full"
+                  >
+                    <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 flex items-center justify-center">
+                      <Image
+                        src={project.logo}
+                        alt={`${project.title} logo`}
+                        fill
+                        className="object-contain p-2 transition-transform duration-500 group-hover/logo:scale-110 drop-shadow-[0_6px_25px_rgba(0,0,0,0.9)]"
+                        sizes="(max-width: 768px) 112px, 140px"
+                        priority={index === 0}
+                      />
+                    </div>
+                    <span className="font-bank text-base sm:text-lg md:text-xl font-bold uppercase tracking-[0.14em] text-white group-hover/logo:text-[#e3ff6b] transition-colors duration-300 flex items-center gap-2 text-center leading-tight">
+                      {project.title} <span className="text-sm font-sans text-[#e3ff6b]">↗</span>
+                    </span>
+                  </a>
                 </div>
               </div>
             );

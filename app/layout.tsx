@@ -4,6 +4,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import LoadingScreen from "./components/LoadingScreen";
 import SmoothScroll from "./components/SmoothScroll";
+import CursorTrail from "./components/ui/CursorTrail";
 
 const bankGothic = localFont({
   src: "../fonts/BankGothic/bank-gothic-medium-bt.ttf",
@@ -38,6 +39,7 @@ export default function RootLayout({
       </head>
       <body className={`${bankGothic.className} antialiased`}>
         <LoadingScreen />
+        <CursorTrail />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
