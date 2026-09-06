@@ -458,7 +458,7 @@ export function CoverflowCarousel({
                 active.colorType === "red" ? "text-[#FF0D4A]" : "text-[#e3ff6b]",
               )}
             >
-              [ {String((active.id ?? selected + 1)).padStart(2, "0")} // {String(count).padStart(2, "0")} ]&nbsp;&nbsp;[ {active.category || active.subtitle || "TECHNOLOGY"} ]
+              [ {active.category || active.subtitle || "TECHNOLOGY"} ]
             </span>
           </div>
 
@@ -473,38 +473,6 @@ export function CoverflowCarousel({
               {active.description || active.subtitle}
             </p>
           )}
-
-          {/* Navigation Controls: < Previous, Counter, Next > */}
-          <div className="mt-5 flex items-center justify-center gap-4">
-            <button
-              type="button"
-              aria-label="Previous skill"
-              onClick={() => nudge(-1)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white/90 backdrop-blur-md transition-all active:scale-95 hover:border-[#e3ff6b] hover:text-[#e3ff6b]"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-
-            <span className="font-mono text-xs font-bold tracking-widest text-[#e3ff6b]">
-              {String(selected + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
-            </span>
-
-            <button
-              type="button"
-              aria-label="Next skill"
-              onClick={() => nudge(1)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white/90 backdrop-blur-md transition-all active:scale-95 hover:border-[#e3ff6b] hover:text-[#e3ff6b]"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
-
-          {/* Interaction hint */}
-          <div className="mt-3 flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-widest text-neutral-500">
-            <span>←</span>
-            <span>Swipe or drag to explore</span>
-            <span>→</span>
-          </div>
         </div>
       )}
 

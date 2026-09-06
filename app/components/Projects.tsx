@@ -135,8 +135,8 @@ export default function Projects() {
 
         // 1. Depth tween: scale down and lift upward as next card slides in
         gsap.to(card, {
-          scale: 0.93,
-          yPercent: -3.5,
+          scale: 0.94,
+          yPercent: -3,
           ease: "none",
           scrollTrigger: {
             trigger: cards[i + 1],
@@ -146,21 +146,24 @@ export default function Projects() {
           },
         });
 
-        // 2. Realistic Dimming tween: smoothly fades brightness once next card approaches
-        gsap.fromTo(
-          card,
-          { filter: "brightness(1)" },
-          {
-            filter: "brightness(0.82)",
-            ease: "none",
-            scrollTrigger: {
-              trigger: cards[i + 1],
-              start: "top 58%",
-              end: "top top+=90",
-              scrub: 0.5,
-            },
-          }
-        );
+        // 2. Realistic Dimming tween: smoothly fades dark overlay once next card approaches (zero GPU filter overhead!)
+        const dimOverlay = card.querySelector<HTMLElement>("[data-card-dim]");
+        if (dimOverlay) {
+          gsap.fromTo(
+            dimOverlay,
+            { opacity: 0 },
+            {
+              opacity: 0.35,
+              ease: "none",
+              scrollTrigger: {
+                trigger: cards[i + 1],
+                start: "top 60%",
+                end: "top top+=90",
+                scrub: 0.5,
+              },
+            }
+          );
+        }
       });
 
       ScrollTrigger.refresh();
@@ -229,12 +232,17 @@ export default function Projects() {
                 style={{
                   position: "sticky",
                   top: "76px",
+                  zIndex: index + 1,
                   marginBottom: isLast ? "0px" : "28px",
                   boxShadow: isRed
                     ? "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,13,74,0.2)"
                     : "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(74,222,128,0.25)",
                   transformOrigin: "50% 0%",
-                  willChange: "transform, filter",
+                  willChange: "transform",
+                  contain: "paint",
+                  isolation: "isolate",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
                 }}
                 className={`group relative rounded-[22px] sm:rounded-[32px] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-0 lg:min-h-[500px] border transition-colors duration-500 ${
                   isRed
@@ -242,8 +250,15 @@ export default function Projects() {
                     : "border-[#2b3a23] hover:border-[#4ade80]/60"
                 }`}
               >
+                {/* Dimming overlay when subsequent cards stack on top (zero CSS filter crash) */}
+                <div
+                  data-card-dim
+                  className="pointer-events-none absolute inset-0 bg-black/45 z-30 opacity-0"
+                  style={{ willChange: "opacity" }}
+                />
+
                 {/* Left Column on Desktop / Bottom on Mobile: Light Panel (alternating green & red accents) */}
-                <div className="relative z-10 flex flex-col justify-between p-6 sm:p-9 lg:p-12 bg-[#ecece7] text-[#111111] order-2 lg:order-1 border-t lg:border-t-0 lg:border-r border-black/10">
+                <div className="relative z-10 flex flex-col justify-between p-6 sm:p-9 lg:p-12 bg-[#ecece7] text-[#111111] order-2 lg:order-1 border-t lg:border-t-0 lg:border-r border-black/10 w-full">
                   <div>
                     {/* Status badge */}
                     <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
@@ -334,13 +349,13 @@ export default function Projects() {
 
                 {/* Right Column on Desktop / Top on Mobile: Dark Canvas with Downlight Effect & Logo */}
                 <div
-                  className={`relative overflow-hidden flex items-center justify-center p-6 sm:p-10 lg:p-16 min-h-[220px] sm:min-h-[280px] lg:min-h-0 order-1 lg:order-2 ${
+                  className={`relative overflow-hidden flex items-center justify-center p-6 sm:p-10 lg:p-16 min-h-[220px] sm:min-h-[280px] lg:min-h-0 order-1 lg:order-2 w-full ${
                     isRed ? "bg-[#0a0406]" : "bg-[#060a05]"
                   }`}
                 >
                   {/* Subtle Grid Backdrop */}
                   <div
-                    className="pointer-events-none absolute inset-0 opacity-12"
+                    className="pointer-events-none absolute inset-0 opacity-15"
                     style={{
                       backgroundImage: isRed
                         ? `
@@ -360,41 +375,28 @@ export default function Projects() {
                     className="pointer-events-none absolute inset-0 transition-opacity duration-700"
                     style={{
                       background: isRed
-                        ? "linear-gradient(to top, rgba(220, 15, 60, 0.42) 0%, rgba(130, 8, 35, 0.18) 32%, transparent 70%)"
-                        : "linear-gradient(to top, rgba(34, 197, 94, 0.42) 0%, rgba(20, 105, 45, 0.18) 32%, transparent 70%)",
+                        ? "linear-gradient(to top, rgba(220, 15, 60, 0.45) 0%, rgba(130, 8, 35, 0.18) 32%, transparent 70%)"
+                        : "linear-gradient(to top, rgba(34, 197, 94, 0.45) 0%, rgba(20, 105, 45, 0.18) 32%, transparent 70%)",
                     }}
                   />
 
-                  {/* 2. Primary Radiant Blooming Downlight (emanating upward from bottom, matching reference image) */}
+                  {/* 2. Primary Radiant Downlight (hardware-accelerated radial bloom) */}
                   <div
-                    className="pointer-events-none absolute -bottom-12 left-[-10%] right-[-10%] h-[85%] animate-downlight-drift"
+                    className="pointer-events-none absolute -bottom-10 left-[-10%] right-[-10%] h-[85%] blur-xl opacity-90"
                     style={{
                       background: isRed
-                        ? "radial-gradient(ellipse 95% 75% at 32% 100%, rgba(255, 25, 75, 0.85) 0%, rgba(220, 15, 60, 0.55) 26%, rgba(120, 10, 35, 0.28) 55%, transparent 78%)"
-                        : "radial-gradient(ellipse 95% 75% at 32% 100%, rgba(74, 222, 128, 0.85) 0%, rgba(34, 197, 94, 0.55) 26%, rgba(20, 83, 45, 0.28) 55%, transparent 78%)",
-                      filter: "blur(26px)",
+                        ? "radial-gradient(ellipse 95% 75% at 50% 100%, rgba(255, 25, 75, 0.85) 0%, rgba(220, 15, 60, 0.5) 28%, rgba(120, 10, 35, 0.2) 58%, transparent 78%)"
+                        : "radial-gradient(ellipse 95% 75% at 50% 100%, rgba(74, 222, 128, 0.85) 0%, rgba(34, 197, 94, 0.5) 28%, rgba(20, 83, 45, 0.2) 58%, transparent 78%)",
                     }}
                   />
 
-                  {/* 3. Secondary broad ambient glow layer */}
+                  {/* 3. Secondary ambient glow layer */}
                   <div
-                    className="pointer-events-none absolute -bottom-24 left-[-20%] right-[-20%] h-[100%] animate-downlight-beam"
+                    className="pointer-events-none absolute bottom-0 left-[10%] w-[80%] h-[75%] blur-2xl opacity-60"
                     style={{
                       background: isRed
-                        ? "radial-gradient(ellipse 110% 85% at 38% 105%, rgba(255, 65, 110, 0.5) 0%, rgba(170, 15, 55, 0.25) 40%, rgba(60, 5, 20, 0.1) 70%, transparent 85%)"
-                        : "radial-gradient(ellipse 110% 85% at 38% 105%, rgba(134, 239, 172, 0.5) 0%, rgba(34, 160, 70, 0.25) 40%, rgba(15, 55, 25, 0.1) 70%, transparent 85%)",
-                      filter: "blur(45px)",
-                    }}
-                  />
-
-                  {/* 4. Moving dynamic light beam / sweep */}
-                  <div
-                    className="pointer-events-none absolute bottom-0 left-[10%] w-[60%] h-[70%] animate-downlight-sweep opacity-75 group-hover:opacity-100 transition-opacity duration-700"
-                    style={{
-                      background: isRed
-                        ? "radial-gradient(circle at 50% 100%, rgba(255, 80, 120, 0.6) 0%, rgba(220, 20, 60, 0.25) 45%, transparent 75%)"
-                        : "radial-gradient(circle at 50% 100%, rgba(163, 230, 53, 0.6) 0%, rgba(34, 197, 94, 0.25) 45%, transparent 75%)",
-                      filter: "blur(18px)",
+                        ? "radial-gradient(circle at 50% 100%, rgba(255, 80, 120, 0.5) 0%, rgba(220, 20, 60, 0.2) 45%, transparent 75%)"
+                        : "radial-gradient(circle at 50% 100%, rgba(163, 230, 53, 0.5) 0%, rgba(34, 197, 94, 0.2) 45%, transparent 75%)",
                     }}
                   />
 

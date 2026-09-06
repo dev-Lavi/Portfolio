@@ -566,7 +566,7 @@ export default function Skills({
               </span>
             </div>
             <h2 className="font-bank text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.1em] text-white">
-              ENGINEERED <span className="text-[#e3ff6b] drop-shadow-[0_0_25px_rgba(227,255,107,0.4)]">STACK.</span>
+              TECHNOLOGIES I <span className="text-[#e3ff6b] drop-shadow-[0_0_25px_rgba(227,255,107,0.4)]">WORK WITH.</span>
             </h2>
           </div>
 
@@ -587,7 +587,7 @@ export default function Skills({
                   className="circular-scroll-showcase__left-item pointer-events-none absolute left-0 top-1/2 w-full origin-left text-left opacity-0 will-change-[transform,opacity] -translate-y-1/2"
                 >
                   <div className="flex flex-col items-start gap-4 max-w-lg">
-                    {/* Category & Index Badge */}
+                    {/* Category Badge */}
                     <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/10 bg-black/60 backdrop-blur-md">
                       <span
                         className={`h-2 w-2 rounded-full ${
@@ -599,7 +599,7 @@ export default function Skills({
                           item.colorType === "red" ? "text-[#FF0D4A]" : "text-[#e3ff6b]"
                         }`}
                       >
-                        [ {String(item.id).padStart(2, "0")}&nbsp;//&nbsp;25 ]&nbsp;&nbsp;[ {item.category} ]
+                        [ {item.category} ]
                       </span>
                     </div>
 
@@ -706,11 +706,8 @@ export default function Skills({
           </div>
 
           <h2 className="font-bank text-2xl sm:text-4xl md:text-5xl font-bold uppercase tracking-[0.08em] text-white leading-tight">
-            ENGINEERED <span className="text-[#e3ff6b]">STACK.</span>
+            TECHNOLOGIES I <span className="text-[#e3ff6b]">WORK WITH.</span>
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-neutral-400 font-mono uppercase tracking-wider max-w-lg leading-relaxed">
-            25 battle-tested technologies spanning mobile engineering, modern web architectures, blockchain smart contracts, and cloud infrastructure.
-          </p>
         </div>
 
         {/* 3D Coverflow Carousel for Small Width Devices */}
