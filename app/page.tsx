@@ -67,7 +67,7 @@ export default function Home() {
         {/* Skills & Tech Stack */}
         <section
           id="skills-wrapper"
-          data-theme-bg="#1f2b17"
+          data-theme-bg="#070b05"
           data-theme-fg="#ffffff"
           className="relative z-20"
         >
