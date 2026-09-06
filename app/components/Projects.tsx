@@ -127,7 +127,10 @@ export default function Projects() {
     const el = deckRef.current;
     if (!el || prefersReducedMotion()) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // DESKTOP (>= 769px): Full 3D scale & lift depth stacking
+    mm.add("(min-width: 769px)", () => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-card]", el);
 
       cards.forEach((card, i) => {
@@ -146,7 +149,7 @@ export default function Projects() {
           },
         });
 
-        // 2. Realistic Dimming tween: smoothly fades dark overlay once next card approaches (zero GPU filter overhead!)
+        // 2. Realistic Dimming overlay
         const dimOverlay = card.querySelector<HTMLElement>("[data-card-dim]");
         if (dimOverlay) {
           gsap.fromTo(
@@ -165,11 +168,9 @@ export default function Projects() {
           );
         }
       });
+    });
 
-      ScrollTrigger.refresh();
-    }, el);
-
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
@@ -220,7 +221,10 @@ export default function Projects() {
         </div>
 
         {/* Stacked Card Deck */}
-        <div ref={deckRef} className="relative flex flex-col space-y-6 sm:space-y-8 md:space-y-12 w-full">
+        <div
+          ref={deckRef}
+          className="relative flex flex-col space-y-6 sm:space-y-8 md:space-y-12 w-full pb-36 sm:pb-44 lg:pb-0"
+        >
           {projects.map((project, index) => {
             const isLast = index === projects.length - 1;
             const isRed = project.colorType === "red";
@@ -238,22 +242,17 @@ export default function Projects() {
                     ? "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,13,74,0.2)"
                     : "0 -10px 35px rgba(0,0,0,0.7), 0 20px 55px rgba(0,0,0,0.9), inset 0 1px 0 rgba(74,222,128,0.25)",
                   transformOrigin: "50% 0%",
-                  willChange: "transform",
-                  contain: "paint",
-                  isolation: "isolate",
-                  backfaceVisibility: "hidden",
-                  WebkitBackfaceVisibility: "hidden",
                 }}
-                className={`group relative rounded-[22px] sm:rounded-[32px] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-0 lg:min-h-[500px] border transition-colors duration-500 ${
+                className={`group relative rounded-[22px] sm:rounded-[32px] overflow-hidden w-full grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] min-h-0 lg:min-h-[500px] border transition-colors duration-500 lg:will-change-transform ${
                   isRed
                     ? "border-[#4a0d1a] hover:border-[#FF0D4A]/60"
                     : "border-[#2b3a23] hover:border-[#4ade80]/60"
                 }`}
               >
-                {/* Dimming overlay when subsequent cards stack on top (zero CSS filter crash) */}
+                {/* Dimming overlay when subsequent cards stack on top (desktop depth cue) */}
                 <div
                   data-card-dim
-                  className="pointer-events-none absolute inset-0 bg-black/45 z-30 opacity-0"
+                  className="pointer-events-none absolute inset-0 bg-black/45 z-30 opacity-0 hidden lg:block"
                   style={{ willChange: "opacity" }}
                 />
 
@@ -382,7 +381,7 @@ export default function Projects() {
 
                   {/* 2. Primary Radiant Downlight (hardware-accelerated radial bloom) */}
                   <div
-                    className="pointer-events-none absolute -bottom-10 left-[-10%] right-[-10%] h-[85%] blur-xl opacity-90"
+                    className="pointer-events-none absolute -bottom-10 inset-x-0 h-[85%] blur-xl opacity-90"
                     style={{
                       background: isRed
                         ? "radial-gradient(ellipse 95% 75% at 50% 100%, rgba(255, 25, 75, 0.85) 0%, rgba(220, 15, 60, 0.5) 28%, rgba(120, 10, 35, 0.2) 58%, transparent 78%)"
@@ -405,11 +404,11 @@ export default function Projects() {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`relative z-10 flex flex-col items-center justify-center gap-3 sm:gap-4 rounded-[20px] sm:rounded-[28px] p-5 sm:p-8 md:p-12 bg-black/65 backdrop-blur-md border border-white/10 hover:bg-black/80 transition-all duration-300 shadow-[0_18px_45px_rgba(0,0,0,0.85)] group/logo max-w-[260px] sm:max-w-[320px] md:max-w-[340px] w-full ${
+                    className={`relative z-10 flex flex-col items-center justify-center gap-3 sm:gap-4 rounded-[20px] sm:rounded-[28px] p-5 sm:p-8 md:p-12 bg-black/85 md:bg-black/65 md:backdrop-blur-md border border-white/10 hover:bg-black/80 transition-all duration-300 shadow-[0_18px_45px_rgba(0,0,0,0.85)] group/logo max-w-[260px] sm:max-w-[320px] md:max-w-[340px] w-full ${
                       isRed ? "hover:border-[#FF0D4A]/70" : "hover:border-[#4ade80]/70"
                     }`}
                   >
-                    <div className="relative w-18 h-18 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center">
+                    <div className="relative w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center">
                       <Image
                         src={project.logo}
                         alt={`${project.title} logo`}
