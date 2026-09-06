@@ -242,11 +242,11 @@ export default function Projects() {
                     : "border-[#2b3a23] hover:border-[#4ade80]/60"
                 }`}
               >
-                {/* Left Column: Light Panel (alternating green & red accents) */}
-                <div className="relative z-10 flex flex-col justify-between p-4 sm:p-7 lg:p-12 bg-[#ecece7] text-[#111111] border-b lg:border-b-0 lg:border-r border-black/10">
+                {/* Left Column on Desktop / Bottom on Mobile: Light Panel (alternating green & red accents) */}
+                <div className="relative z-10 flex flex-col justify-between p-6 sm:p-9 lg:p-12 bg-[#ecece7] text-[#111111] order-2 lg:order-1 border-t lg:border-t-0 lg:border-r border-black/10">
                   <div>
                     {/* Status badge */}
-                    <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-4 lg:mb-6">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                       <span
                         className={`font-bank text-xs sm:text-sm font-bold tracking-[0.14em] shrink-0 whitespace-nowrap ${
                           isRed ? "text-[#D6003C]" : "text-[#354921]"
@@ -255,12 +255,12 @@ export default function Projects() {
                         [ {project.num} ]
                       </span>
                       <span
-                        className={`h-1 w-2.5 sm:w-3 rounded-full shrink-0 ${
+                        className={`h-1 w-3 rounded-full shrink-0 ${
                           isRed ? "bg-[#D6003C]/30" : "bg-[#354921]/30"
                         }`}
                       />
                       <span
-                        className={`font-mono text-[8.5px] sm:text-[10px] md:text-xs font-semibold tracking-[0.12em] sm:tracking-[0.15em] uppercase truncate ${
+                        className={`font-mono text-[9px] sm:text-[10px] md:text-xs font-semibold tracking-[0.14em] sm:tracking-[0.15em] uppercase ${
                           isRed ? "text-[#8a253b]" : "text-[#556349]"
                         }`}
                       >
@@ -268,12 +268,12 @@ export default function Projects() {
                       </span>
                     </div>
 
-                    <h3 className="font-bank text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-[0.04em] sm:tracking-[0.05em] text-[#111111] leading-tight break-words">
+                    <h3 className="font-bank text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-[0.05em] text-[#111111] leading-tight break-words">
                       {project.title}
                     </h3>
 
                     <p
-                      className={`mt-1 sm:mt-2 text-[11px] sm:text-xs md:text-sm font-bold tracking-[0.1em] sm:tracking-[0.12em] uppercase leading-snug line-clamp-1 sm:line-clamp-none ${
+                      className={`mt-1.5 sm:mt-2 text-xs sm:text-sm font-bold tracking-[0.12em] uppercase leading-snug ${
                         isRed ? "text-[#a11335]" : "text-[#3d5228]"
                       }`}
                     >
@@ -281,7 +281,7 @@ export default function Projects() {
                     </p>
 
                     <p
-                      className={`mt-2 sm:mt-3.5 text-[11.5px] sm:text-sm md:text-[15px] font-sans leading-relaxed line-clamp-2 sm:line-clamp-3 lg:line-clamp-none ${
+                      className={`mt-3.5 sm:mt-5 text-xs sm:text-sm md:text-[15px] font-sans leading-relaxed ${
                         isRed ? "text-[#4a383c]" : "text-[#485240]"
                       }`}
                     >
@@ -289,13 +289,13 @@ export default function Projects() {
                     </p>
 
                     {/* Tech Pills */}
-                    <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-2.5 sm:mt-4 lg:mt-6">
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-4 sm:mt-6">
                       {project.highlights.map((item, idx) => (
                         <span
                           key={idx}
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-black/5 border border-black/10 font-mono text-[8px] sm:text-[9.5px] tracking-[0.08em] sm:tracking-[0.1em] uppercase whitespace-nowrap ${
+                          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-black/5 border border-black/10 font-mono text-[9px] sm:text-[10px] tracking-[0.1em] uppercase whitespace-nowrap ${
                             isRed ? "text-[#3a1d23]" : "text-[#2d3a20]"
-                          } ${idx === 2 ? "hidden xs:inline-flex" : ""}`}
+                          }`}
                         >
                           <span className={isRed ? "text-[#D6003C]" : "text-[#354921]"}>✦</span>
                           {item}
@@ -305,24 +305,24 @@ export default function Projects() {
                   </div>
 
                   {/* Underlined Explore Link matching reference screenshot */}
-                  <div className="pt-3 sm:pt-6 lg:pt-8">
+                  <div className="pt-6 sm:pt-8">
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 text-xs sm:text-sm font-bank font-bold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-[#111111] transition-colors group/link w-fit ${
+                      className={`inline-flex items-center gap-2.5 text-xs sm:text-sm font-bank font-bold uppercase tracking-[0.16em] text-[#111111] transition-colors group/link w-fit ${
                         isRed ? "hover:text-[#D6003C]" : "hover:text-[#354921]"
                       }`}
                     >
                       <span
-                        className={`border-b-2 border-[#111111] pb-0.5 sm:pb-1 transition-colors ${
+                        className={`border-b-2 border-[#111111] pb-1 transition-colors ${
                           isRed ? "group-hover/link:border-[#D6003C]" : "group-hover/link:border-[#354921]"
                         }`}
                       >
                         Explore {project.title}
                       </span>
                       <span
-                        className={`font-sans text-xs sm:text-base font-bold group-hover/link:translate-x-1 group-hover/link:-translate-y-0.5 transition-transform ${
+                        className={`font-sans text-sm sm:text-base font-bold group-hover/link:translate-x-1 group-hover/link:-translate-y-0.5 transition-transform ${
                           isRed ? "text-[#D6003C]" : "text-[#354921]"
                         }`}
                       >
@@ -332,9 +332,9 @@ export default function Projects() {
                   </div>
                 </div>
 
-                {/* Right Column: Dark Canvas with Downlight Effect (Green & Red) */}
+                {/* Right Column on Desktop / Top on Mobile: Dark Canvas with Downlight Effect & Logo */}
                 <div
-                  className={`relative overflow-hidden flex items-center justify-center p-4 sm:p-8 lg:p-16 min-h-[140px] sm:min-h-[220px] lg:min-h-0 ${
+                  className={`relative overflow-hidden flex items-center justify-center p-6 sm:p-10 lg:p-16 min-h-[220px] sm:min-h-[280px] lg:min-h-0 order-1 lg:order-2 ${
                     isRed ? "bg-[#0a0406]" : "bg-[#060a05]"
                   }`}
                 >
@@ -398,32 +398,32 @@ export default function Projects() {
                     }}
                   />
 
-                  {/* Single Floating Glassmorphic Logo Badge (compact & fully visible on mobile) */}
+                  {/* Single Floating Glassmorphic Logo Badge */}
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`relative z-10 flex flex-col items-center justify-center gap-1.5 sm:gap-4 rounded-[16px] sm:rounded-[24px] md:rounded-[28px] p-3 sm:p-6 md:p-12 bg-black/65 backdrop-blur-md border border-white/10 hover:bg-black/80 transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.85)] group/logo max-w-[200px] sm:max-w-[280px] md:max-w-[340px] w-full ${
+                    className={`relative z-10 flex flex-col items-center justify-center gap-3 sm:gap-4 rounded-[20px] sm:rounded-[28px] p-5 sm:p-8 md:p-12 bg-black/65 backdrop-blur-md border border-white/10 hover:bg-black/80 transition-all duration-300 shadow-[0_18px_45px_rgba(0,0,0,0.85)] group/logo max-w-[260px] sm:max-w-[320px] md:max-w-[340px] w-full ${
                       isRed ? "hover:border-[#FF0D4A]/70" : "hover:border-[#4ade80]/70"
                     }`}
                   >
-                    <div className="relative w-12 h-12 sm:w-20 sm:h-20 md:w-32 md:h-32 flex items-center justify-center">
+                    <div className="relative w-18 h-18 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center">
                       <Image
                         src={project.logo}
                         alt={`${project.title} logo`}
                         fill
-                        className="object-contain p-1 sm:p-2 transition-transform duration-500 group-hover/logo:scale-110 drop-shadow-[0_6px_25px_rgba(0,0,0,0.9)]"
-                        sizes="(max-width: 640px) 48px, (max-width: 768px) 80px, 140px"
+                        className="object-contain p-1.5 sm:p-2 transition-transform duration-500 group-hover/logo:scale-110 drop-shadow-[0_6px_25px_rgba(0,0,0,0.9)]"
+                        sizes="(max-width: 640px) 72px, (max-width: 768px) 96px, 140px"
                         priority={index === 0}
                       />
                     </div>
                     <span
-                      className={`font-bank text-xs sm:text-base md:text-xl font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-white transition-colors duration-300 flex items-center gap-1.5 sm:gap-2 text-center leading-tight ${
+                      className={`font-bank text-sm sm:text-lg md:text-xl font-bold uppercase tracking-[0.14em] text-white transition-colors duration-300 flex items-center gap-2 text-center leading-tight ${
                         isRed ? "group-hover/logo:text-[#FF0D4A]" : "group-hover/logo:text-[#4ade80]"
                       }`}
                     >
                       {project.title}{" "}
-                      <span className={`text-[10px] sm:text-sm font-sans ${isRed ? "text-[#FF0D4A]" : "text-[#4ade80]"}`}>
+                      <span className={`text-xs sm:text-sm font-sans ${isRed ? "text-[#FF0D4A]" : "text-[#4ade80]"}`}>
                         ↗
                       </span>
                     </span>
