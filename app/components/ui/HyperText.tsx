@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -28,15 +28,25 @@ export function HyperText({
   className,
   animateOnLoad = true,
 }: HyperTextProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
   const [displayText, setDisplayText] = useState(text.split(""));
   const [trigger, setTrigger] = useState(false);
   const interations = useRef(0);
   const isFirstRender = useRef(true);
+  const hasTriggeredRef = useRef(false);
 
   const triggerAnimation = () => {
     interations.current = 0;
     setTrigger(true);
   };
+
+  useEffect(() => {
+    if (isInView && !hasTriggeredRef.current) {
+      hasTriggeredRef.current = true;
+      triggerAnimation();
+    }
+  }, [isInView]);
 
   useEffect(() => {
     const interval = setInterval(
@@ -70,6 +80,7 @@ export function HyperText({
 
   return (
     <div
+      ref={containerRef}
       className="flex scale-100 cursor-default overflow-hidden py-1"
       onMouseEnter={triggerAnimation}
     >
@@ -87,3 +98,89 @@ export function HyperText({
     </div>
   );
 }
+
+interface HyperTextParagraphProps {
+  text: string;
+  className?: string;
+  duration?: number;
+}
+
+export function HyperTextParagraph({
+  text,
+  className,
+  duration = 1400,
+}: HyperTextParagraphProps) {
+  const containerRef = useRef<HTMLParagraphElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
+  const [displayText, setDisplayText] = useState(text);
+  const iterations = useRef(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const hasTriggeredRef = useRef(false);
+
+  const startAnimation = () => {
+    iterations.current = 0;
+    setIsAnimating(true);
+  };
+
+  useEffect(() => {
+    if (isInView && !hasTriggeredRef.current) {
+      hasTriggeredRef.current = true;
+      startAnimation();
+    }
+  }, [isInView]);
+
+  useEffect(() => {
+    if (!isAnimating) return;
+
+    // Advance roughly 8-12 characters per 25ms tick for smooth, cinematic decryption
+    const stepSize = Math.max(2, Math.ceil(text.length / (duration / 25)));
+    const interval = setInterval(() => {
+      if (iterations.current < text.length) {
+        iterations.current += stepSize;
+        const currentIter = iterations.current;
+
+        const chars = text.split("").map((char, i) => {
+          if (char === " " || char === "\n") return char;
+          if (i <= currentIter) return text[i];
+          return alphabets[getRandomInt(26)];
+        });
+        setDisplayText(chars.join(""));
+      } else {
+        setDisplayText(text);
+        setIsAnimating(false);
+        clearInterval(interval);
+      }
+    }, 25);
+
+    return () => clearInterval(interval);
+  }, [isAnimating, text, duration]);
+
+  const words = displayText.split(" ");
+
+  return (
+    <p
+      ref={containerRef}
+      onMouseEnter={() => {
+        if (!isAnimating) startAnimation();
+      }}
+      className={cn("cursor-default select-none", className)}
+    >
+      {words.map((word, wIdx) => {
+        const isPronoun = word.includes("(HE/HIM)");
+        return (
+          <span key={wIdx} className="inline-block whitespace-nowrap">
+            {isPronoun ? (
+              <span className="text-[0.65em] tracking-[0.12em] align-middle text-[#a7b693]">
+                {word}
+              </span>
+            ) : (
+              word
+            )}
+            {wIdx < words.length - 1 ? "\u00A0" : ""}
+          </span>
+        );
+      })}
+    </p>
+  );
+}
+

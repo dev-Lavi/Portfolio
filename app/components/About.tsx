@@ -4,7 +4,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { HyperText } from "./ui/HyperText";
+import { HyperText, HyperTextParagraph } from "./ui/HyperText";
 
 export default function About() {
   const ref = useRef(null);
@@ -49,22 +49,14 @@ export default function About() {
             />
           </motion.div>
 
-          <motion.p
+          <motion.div
             style={{ y: paraY, opacity: paraOpacity }}
-            className="font-bank tracking-[0.05em] text-[#f5f5f0] leading-relaxed text-[14.5px] sm:text-[17px]"
           >
-            LAVI{" "}
-            <span className="text-[0.65em] tracking-[0.12em] align-middle text-[#a7b693]">
-              (HE/HIM)
-            </span>{" "}
-            IS A FULL-STACK DEVELOPER & SOFTWARE ENGINEER SPECIALIZING IN HIGH-PERFORMANCE
-            WEB ARCHITECTURES, NATIVE MOBILE APPS, AND SCALABLE DISTRIBUTED SYSTEMS.
-            CURRENTLY ENGINEERING AT WEB3TASK — SCALING INFRASTRUCTURE FOR 29K+ DAILY USERS
-            ACROSS DEEPURLS, OPTIMIZING TRAVERSE VPN TO 99% LIGHTHOUSE PERFORMANCE, AND
-            ADVANCING AI-POWERED ANDROID PLATFORMS. BACKED BY STRONG FOUNDATIONS IN NODE.JS,
-            NEXT.JS, AND BLOCKCHAIN PROTOCOLS, HE BRIDGES CODE, SYSTEM DESIGN, AND
-            INTELLIGENT WORKFLOWS TO BUILD IMPACTFUL PRODUCTS AT PRODUCTION SCALE.
-          </motion.p>
+            <HyperTextParagraph
+              text="LAVI (HE/HIM) IS A FULL-STACK DEVELOPER & SOFTWARE ENGINEER SPECIALIZING IN HIGH-PERFORMANCE WEB ARCHITECTURES, NATIVE MOBILE APPS, AND SCALABLE DISTRIBUTED SYSTEMS. CURRENTLY ENGINEERING AT WEB3TASK — SCALING INFRASTRUCTURE FOR 29K+ DAILY USERS ACROSS DEEPURLS, OPTIMIZING TRAVERSE VPN TO 99% LIGHTHOUSE PERFORMANCE, AND ADVANCING AI-POWERED ANDROID PLATFORMS. BACKED BY STRONG FOUNDATIONS IN NODE.JS, NEXT.JS, AND BLOCKCHAIN PROTOCOLS, HE BRIDGES CODE, SYSTEM DESIGN, AND INTELLIGENT WORKFLOWS TO BUILD IMPACTFUL PRODUCTS AT PRODUCTION SCALE."
+              className="font-bank tracking-[0.05em] text-[#f5f5f0] leading-relaxed text-[14.5px] sm:text-[17px]"
+            />
+          </motion.div>
 
           <motion.div
             style={{ y: roleY, opacity: roleOpacity }}
@@ -119,22 +111,15 @@ export default function About() {
             </motion.div>
 
             {/* RIGHT — paragraph fills the rest, min-w-0 prevents flex blowout */}
-            <motion.p
+            <motion.div
               style={{ y: paraY, opacity: paraOpacity, fontSize: "clamp(1.05rem, 1.55vw, 1.65rem)" }}
-              className="flex-1 min-w-0 font-bank tracking-[0.05em] text-[#f5f5f0] leading-relaxed"
+              className="flex-1 min-w-0"
             >
-              LAVI{" "}
-              <span className="text-[0.6em] tracking-[0.12em] align-middle text-[#a7b693]">
-                (HE/HIM)
-              </span>{" "}
-              IS A FULL-STACK DEVELOPER & SOFTWARE ENGINEER SPECIALIZING IN HIGH-PERFORMANCE
-              WEB ARCHITECTURES, NATIVE MOBILE APPS, AND SCALABLE DISTRIBUTED SYSTEMS.
-              CURRENTLY ENGINEERING AT WEB3TASK — SCALING INFRASTRUCTURE FOR 29K+ DAILY USERS
-              ACROSS DEEPURLS, OPTIMIZING TRAVERSE VPN TO 99% LIGHTHOUSE PERFORMANCE, AND
-              ADVANCING AI-POWERED ANDROID PLATFORMS. BACKED BY STRONG FOUNDATIONS IN NODE.JS,
-              NEXT.JS, AND BLOCKCHAIN PROTOCOLS, HE BRIDGES CODE, SYSTEM DESIGN, AND
-              INTELLIGENT WORKFLOWS TO BUILD IMPACTFUL PRODUCTS AT PRODUCTION SCALE.
-            </motion.p>
+              <HyperTextParagraph
+                text="LAVI (HE/HIM) IS A FULL-STACK DEVELOPER & SOFTWARE ENGINEER SPECIALIZING IN HIGH-PERFORMANCE WEB ARCHITECTURES, NATIVE MOBILE APPS, AND SCALABLE DISTRIBUTED SYSTEMS. CURRENTLY ENGINEERING AT WEB3TASK — SCALING INFRASTRUCTURE FOR 29K+ DAILY USERS ACROSS DEEPURLS, OPTIMIZING TRAVERSE VPN TO 99% LIGHTHOUSE PERFORMANCE, AND ADVANCING AI-POWERED ANDROID PLATFORMS. BACKED BY STRONG FOUNDATIONS IN NODE.JS, NEXT.JS, AND BLOCKCHAIN PROTOCOLS, HE BRIDGES CODE, SYSTEM DESIGN, AND INTELLIGENT WORKFLOWS TO BUILD IMPACTFUL PRODUCTS AT PRODUCTION SCALE."
+                className="font-bank tracking-[0.05em] text-[#f5f5f0] leading-relaxed"
+              />
+            </motion.div>
           </div>
 
           {/* ── Row 2: Spacer (left) + Role info (right) ── */}

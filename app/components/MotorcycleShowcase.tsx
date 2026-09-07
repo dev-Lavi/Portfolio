@@ -297,7 +297,7 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage1Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-auto bottom-6 xs:bottom-8 sm:bottom-10 md:bottom-auto md:top-1/2 translate-y-0 md:-translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
           <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
             {/* Green Radiant Downlight Effect */}
@@ -399,7 +399,7 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage2Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-auto bottom-6 xs:bottom-8 sm:bottom-10 md:bottom-auto md:top-1/2 translate-y-0 md:-translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
           <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
             {/* Red Radiant Downlight Effect */}
@@ -495,7 +495,7 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage3Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-auto bottom-6 xs:bottom-8 sm:bottom-10 md:bottom-auto md:top-1/2 translate-y-0 md:-translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
           <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
             {/* Green Radiant Downlight Effect */}
@@ -585,7 +585,7 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage4Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-auto bottom-6 xs:bottom-8 sm:bottom-10 md:bottom-auto md:top-1/2 translate-y-0 md:-translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
           <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
             {/* Red & Amber Radiant Downlight Effect */}

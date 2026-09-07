@@ -151,22 +151,11 @@ const PANEL_EASE = "cubic-bezier(.22,.8,.2,1)";
 export default function WhatIDo() {
   const [active, setActive] = useState<number>(0);
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const isHoveredRef = useRef<boolean>(false);
   const bodyRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // Auto-cycle through categories until the user hovers or interacts
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isHoveredRef.current) {
-        setActive((prev) => (prev + 1) % disciplines.length);
-      }
-    }, 4800);
-    return () => clearInterval(interval);
-  }, []);
 
   // Stagger sub-items entrance whenever active index changes
   useIsomorphicLayoutEffect(() => {
-    if (prefersReducedMotion()) return;
+    if (prefersReducedMotion() || active === -1) return;
 
     const bodyEl = bodyRefs.current[active];
     if (bodyEl) {
@@ -213,15 +202,9 @@ export default function WhatIDo() {
           </p>
         </div>
 
-        {/* Kinetic Accordion Board */}
+        {/* Kinetic Accordion Board - Expands on Click across all devices */}
         <div
           ref={rootRef}
-          onMouseEnter={() => {
-            isHoveredRef.current = true;
-          }}
-          onMouseLeave={() => {
-            isHoveredRef.current = false;
-          }}
           className="border-t border-black/15 w-full"
         >
           {disciplines.map((item, i) => {
@@ -231,9 +214,13 @@ export default function WhatIDo() {
               <div
                 key={item.id}
                 data-row
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
-                onClick={() => setActive(i)}
+                onClick={() => setActive((prev) => (prev === i ? -1 : i))}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActive((prev) => (prev === i ? -1 : i));
+                  }
+                }}
                 tabIndex={0}
                 role="button"
                 aria-expanded={on}
