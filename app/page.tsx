@@ -6,6 +6,7 @@ import Projects from "./components/Projects";
 import WhatIDo from "./components/WhatIDo";
 import MotorcycleShowcase from "./components/MotorcycleShowcase";
 import ThemeMorph from "./components/motion/ThemeMorph";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
@@ -14,9 +15,11 @@ export default function Home() {
       initialFg="#ffffff"
       className="relative min-h-screen transition-colors duration-700"
     >
+      <Navbar />
       <main className="min-h-screen">
         {/* Hero stays sticky — About slides up over it */}
         <section
+          id="hero"
           data-theme-bg="#070b05"
           data-theme-fg="#ffffff"
           className="sticky top-0 z-0"
@@ -36,7 +39,7 @@ export default function Home() {
 
         {/* Selected Work & Projects (Stacked Deck Animation) */}
         <section
-          id="projects-wrapper"
+          id="projects"
           data-theme-bg="#070b05"
           data-theme-fg="#ffffff"
           className="relative z-10"
@@ -46,7 +49,7 @@ export default function Home() {
 
         {/* What I Do (Kinetic Services Grid with Light Theme Transition) */}
         <section
-          id="what-i-do-wrapper"
+          id="services"
           data-theme-bg="#F7F7F5"
           data-theme-fg="#111111"
           className="relative z-30 bg-[#F7F7F5]"
@@ -56,7 +59,7 @@ export default function Home() {
 
         {/* Motorcycle Experience (Smooth Canvas Scrubbing with Dark Theme Return) */}
         <section
-          id="showcase-wrapper"
+          id="experience"
           data-theme-bg="#0A0C0A"
           data-theme-fg="#ffffff"
           className="relative z-20"
@@ -66,7 +69,7 @@ export default function Home() {
 
         {/* Skills & Tech Stack */}
         <section
-          id="skills-wrapper"
+          id="skills"
           data-theme-bg="#070b05"
           data-theme-fg="#ffffff"
           className="relative z-20"
@@ -76,6 +79,7 @@ export default function Home() {
 
         {/* Footer */}
         <section
+          id="contact"
           data-theme-bg="#0A0C0A"
           data-theme-fg="#ffffff"
           className="relative z-20"

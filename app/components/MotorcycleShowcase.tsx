@@ -28,6 +28,7 @@ export default function MotorcycleShowcase() {
   );
   const [loaded, setLoaded] = useState(false);
   const [activeStage, setActiveStage] = useState(1);
+  const [isDesktop, setIsDesktop] = useState(false);
   const currentFrameRef = useRef(1);
   const rafIdRef = useRef<number | null>(null);
 
@@ -157,6 +158,7 @@ export default function MotorcycleShowcase() {
     };
 
     const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
       if (canvasRef.current) {
         const dpr = window.devicePixelRatio || 1;
         canvasRef.current.width = window.innerWidth * dpr;
@@ -193,35 +195,75 @@ export default function MotorcycleShowcase() {
   // Frame 174 / 234 = 0.7435
   // Frame 234 / 234 = 1.0000
 
-  // Stage 1 (Team Conatus): Frame 1 to 57 -> RIGHT SIDE (Green Box)
+  // Stage 1 (Team Conatus): Frame 1 to 57 -> RIGHT SIDE (Desktop), BOTTOM CENTER (Mobile)
   const stage1Opacity = useTransform(
     scrollYProgress,
     [0, 0.04, 0.19, 0.2435],
     [0, 1, 1, 0]
   );
+  const stage1X = useTransform(
+    scrollYProgress,
+    [0, 0.04, 0.19, 0.2435],
+    [36, 0, 0, 36]
+  );
+  const stage1Y = useTransform(
+    scrollYProgress,
+    [0, 0.04, 0.19, 0.2435],
+    [16, 0, 0, 16]
+  );
   const stage1Line = useTransform(scrollYProgress, [0.03, 0.14], ["0%", "100%"]);
 
-  // Stage 2 (Sharnex): Frame 58 to 115 -> LEFT SIDE (Red Box)
+  // Stage 2 (Sharnex): Frame 58 to 115 -> LEFT SIDE (Desktop), BOTTOM CENTER (Mobile)
   const stage2Opacity = useTransform(
     scrollYProgress,
     [0.2435, 0.28, 0.44, 0.4915],
     [0, 1, 1, 0]
   );
+  const stage2X = useTransform(
+    scrollYProgress,
+    [0.2435, 0.28, 0.44, 0.4915],
+    [-36, 0, 0, -36]
+  );
+  const stage2Y = useTransform(
+    scrollYProgress,
+    [0.2435, 0.28, 0.44, 0.4915],
+    [16, 0, 0, 16]
+  );
   const stage2Line = useTransform(scrollYProgress, [0.28, 0.38], ["0%", "100%"]);
 
-  // Stage 3 (OriginHash): Frame 116 to 174 -> LEFT SIDE (Green Box)
+  // Stage 3 (OriginHash): Frame 116 to 174 -> LEFT SIDE (Desktop), BOTTOM CENTER (Mobile)
   const stage3Opacity = useTransform(
     scrollYProgress,
     [0.4915, 0.53, 0.69, 0.7435],
     [0, 1, 1, 0]
   );
+  const stage3X = useTransform(
+    scrollYProgress,
+    [0.4915, 0.53, 0.69, 0.7435],
+    [-36, 0, 0, -36]
+  );
+  const stage3Y = useTransform(
+    scrollYProgress,
+    [0.4915, 0.53, 0.69, 0.7435],
+    [16, 0, 0, 16]
+  );
   const stage3Line = useTransform(scrollYProgress, [0.53, 0.63], ["0%", "100%"]);
 
-  // Stage 4 (Web3Task): Frame 175 to 234 -> RIGHT SIDE (Red Box)
+  // Stage 4 (Web3Task): Frame 175 to 234 -> RIGHT SIDE (Desktop), BOTTOM CENTER (Mobile)
   const stage4Opacity = useTransform(
     scrollYProgress,
     [0.7435, 0.78, 0.98, 1],
     [0, 1, 1, 1]
+  );
+  const stage4X = useTransform(
+    scrollYProgress,
+    [0.7435, 0.78, 0.98, 1],
+    [36, 0, 0, 0]
+  );
+  const stage4Y = useTransform(
+    scrollYProgress,
+    [0.7435, 0.78, 0.98, 1],
+    [16, 0, 0, 0]
   );
   const stage4Line = useTransform(scrollYProgress, [0.78, 0.88], ["0%", "100%"]);
 
@@ -276,9 +318,6 @@ export default function MotorcycleShowcase() {
               04 // CAREER TRAJECTORY & EXPERIENCE
             </span>
           </div>
-          <h2 className="font-bank text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-[0.08em] text-white/90 drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)] hidden sm:block">
-            FROM FOUNDATION <span className="text-[#e3ff6b]">TO SCALE.</span>
-          </h2>
         </div>
 
         {/* Scroll Progress Indicator Bar on extreme right */}
@@ -293,400 +332,344 @@ export default function MotorcycleShowcase() {
         </div>
 
         {/* ========================================================================= */}
-        {/* STAGE 1: TEAM CONATUS (Frames 1 - 57) -> RIGHT SIDE (GREEN GRADIENT BOX)  */}
+        {/* STAGE 1: TEAM CONATUS (Frames 1 - 57) -> RIGHT SIDE ON DESKTOP            */}
         {/* ========================================================================= */}
-        <motion.div
-          style={{ opacity: stage1Opacity }}
-          className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] xs:w-[calc(100%-32px)] max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] md:max-w-xl lg:max-w-2xl z-30 pointer-events-none text-left"
-        >
-          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
-            {/* Green Radiant Downlight Effect */}
-            <div
-              className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
-              style={{
-                background:
-                  "radial-gradient(ellipse 95% 75% at 50% 100%, rgba(74, 222, 128, 0.35) 0%, rgba(34, 197, 94, 0.12) 45%, transparent 75%)",
-              }}
-            />
-            <div
-              className="pointer-events-none absolute inset-0 opacity-40"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(74, 222, 128, 0.12) 0%, transparent 65%)",
-              }}
-            />
-
-            <div className="relative z-10">
-              {/* Company Logo, Company Name & Duration */}
-              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#4ade80]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
-                  <Image
-                    src="/projects/Team%20conatus.jpg"
-                    alt="Team Conatus"
-                    fill
-                    className="object-contain p-0.5 rounded-lg"
-                    sizes="44px"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[#e3ff6b] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
-                    TEAM CONATUS
-                  </span>
-                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
-                    SEP 2024 – PRESENT
-                  </span>
-                </div>
-              </div>
-
-              {/* Position / Role with Responsive TextLoop */}
-              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
-                <TextLoop
-                  interval={2.4}
-                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
-                >
-                  <span>BACK END DEVELOPER</span>
-                  <span className="text-[#e3ff6b]">API & SYSTEM ARCHITECTURE</span>
-                  <span>TRAINEE DEVELOPER</span>
-                </TextLoop>
-              </div>
-
-              {/* Glowing Underline Bar (Desktop/Tablet) */}
-              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
-                <motion.div
-                  style={{ width: stage1Line }}
-                  className="h-full bg-gradient-to-r from-[#e3ff6b] to-[#4ade80] absolute left-0 top-0"
+        <div className="absolute bottom-6 xs:bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-auto md:right-8 lg:right-14 xl:right-20 w-[calc(100%-28px)] max-w-[350px] xs:max-w-[390px] sm:max-w-[440px] md:max-w-md lg:max-w-lg xl:max-w-xl z-30 pointer-events-none text-left">
+          <motion.div
+            style={{
+              opacity: stage1Opacity,
+              x: isDesktop ? stage1X : 0,
+              y: !isDesktop ? stage1Y : 0,
+            }}
+            className="relative"
+          >
+            {/* Company Logo, Company Name & Duration */}
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-1.5 sm:mb-2 md:mb-2.5">
+              <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg overflow-hidden bg-black/85 border border-[#e3ff6b]/40 shadow-[0_0_12px_rgba(227,255,107,0.15)] flex items-center justify-center p-1 shrink-0">
+                <Image
+                  src="/projects/Team%20conatus.jpg"
+                  alt="Team Conatus"
+                  fill
+                  className="object-contain p-0.5 rounded-md"
+                  sizes="40px"
                 />
               </div>
-
-              {/* Sub-Roles (Desktop/Tablet) */}
-              <div className="hidden md:flex mb-2.5 sm:mb-3 flex-wrap items-center gap-1.5 sm:gap-2">
-                <span className="text-[10px] sm:text-xs font-mono font-semibold text-[#e3ff6b] uppercase tracking-wider">
-                  BACK END DEVELOPER (DEC 2024 – PRESENT)
+              <div className="min-w-0">
+                <span className="font-bank text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-[#e3ff6b] block truncate drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                  TEAM CONATUS
                 </span>
-                <span className="text-gray-500 text-xs">•</span>
-                <span className="text-[10px] sm:text-xs font-mono text-gray-400 uppercase tracking-wider">
-                  TRAINEE (SEP 2024 – DEC 2024)
+                <span className="text-white/70 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                  SEP 2024 – PRESENT
                 </span>
               </div>
+            </div>
 
-              {/* Detailed Bullet Points (Desktop/Tablet) */}
-              <div className="hidden md:block space-y-1.5 sm:space-y-2">
-                <div className="flex items-start gap-2">
-                  <span className="text-[#e3ff6b] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Engineered resilient server-side architectures, RESTful APIs, and database models powering university-wide technical platforms.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#e3ff6b] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Promoted from Trainee to Back End Developer; led backend API development, authentication pipelines, and query optimizations.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#e3ff6b] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Collaborated across design and mobile teams to build robust microservices with high reliability and low-latency endpoints.
-                  </p>
-                </div>
+            {/* Position / Role with Responsive TextLoop in font-bank White and Yellow */}
+            <div className="w-full overflow-hidden min-h-[28px] sm:min-h-[34px] md:min-h-[44px] flex items-center my-0.5 sm:my-1">
+              <TextLoop
+                interval={2.4}
+                className="font-bank text-base sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] font-bold uppercase tracking-[0.06em] text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)] leading-tight break-words"
+              >
+                <span>BACK END DEVELOPER</span>
+                <span className="text-[#e3ff6b]">API & SYSTEM ARCHITECTURE</span>
+                <span>TRAINEE DEVELOPER</span>
+              </TextLoop>
+            </div>
+
+            {/* Glowing Yellow/White Divider Line (Desktop) */}
+            <div className="hidden md:block h-[1.5px] bg-white/15 w-full my-3 relative overflow-hidden rounded-full">
+              <motion.div
+                style={{ width: stage1Line }}
+                className="h-full bg-gradient-to-r from-[#e3ff6b] via-white to-transparent absolute left-0 top-0"
+              />
+            </div>
+
+            {/* Sub-Roles (Desktop) */}
+            <div className="hidden md:flex mb-2 flex-wrap items-center gap-2">
+              <span className="text-[11px] font-mono font-semibold text-[#e3ff6b] uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                BACK END DEVELOPER (DEC 2024 – PRESENT)
+              </span>
+              <span className="text-white/40 text-xs">•</span>
+              <span className="text-[11px] font-mono text-white/75 uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                TRAINEE (SEP 2024 – DEC 2024)
+              </span>
+            </div>
+
+            {/* Detailed Bullet Points (Desktop) */}
+            <div className="hidden md:block space-y-2">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Engineered resilient server-side architectures, RESTful APIs, and database models powering university-wide technical platforms.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Promoted from Trainee to Back End Developer; led backend API development, authentication pipelines, and query optimizations.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Collaborated across design and mobile teams to build robust microservices with high reliability and low-latency endpoints.
+                </p>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* ========================================================================= */}
-        {/* STAGE 2: SHARNEX (Frames 58 - 115) -> LEFT SIDE (RED GRADIENT BOX)        */}
+        {/* STAGE 2: SHARNEX (Frames 58 - 115) -> LEFT SIDE ON DESKTOP                */}
         {/* ========================================================================= */}
-        <motion.div
-          style={{ opacity: stage2Opacity }}
-          className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] xs:w-[calc(100%-32px)] max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] md:max-w-xl lg:max-w-2xl z-30 pointer-events-none text-left"
-        >
-          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
-            {/* Red Radiant Downlight Effect */}
-            <div
-              className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
-              style={{
-                background:
-                  "radial-gradient(ellipse 95% 75% at 50% 100%, rgba(255, 13, 74, 0.35) 0%, rgba(220, 15, 60, 0.12) 45%, transparent 75%)",
-              }}
-            />
-            <div
-              className="pointer-events-none absolute inset-0 opacity-40"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(255, 13, 74, 0.12) 0%, transparent 65%)",
-              }}
-            />
-
-            <div className="relative z-10">
-              {/* Company Logo, Company Name & Duration */}
-              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#ff0d4a]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
-                  <Image
-                    src="/projects/sharnex.jpg"
-                    alt="Sharnex"
-                    fill
-                    className="object-contain p-0.5 rounded-lg"
-                    sizes="44px"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[#ff4d6d] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
-                    SHARNEX
-                  </span>
-                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
-                    MAR 2026
-                  </span>
-                </div>
-              </div>
-
-              {/* Position / Role with Responsive TextLoop */}
-              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
-                <TextLoop
-                  interval={2.4}
-                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
-                >
-                  <span>FULL STACK ENGINEER</span>
-                  <span className="text-[#ff4d6d]">PRODUCT ENGINEERING</span>
-                  <span>MERN & NEXT.JS</span>
-                </TextLoop>
-              </div>
-
-              {/* Glowing Underline Bar (Desktop/Tablet) */}
-              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
-                <motion.div
-                  style={{ width: stage2Line }}
-                  className="h-full bg-gradient-to-r from-[#ff0d4a] to-[#f87171] absolute left-0 top-0"
+        <div className="absolute bottom-6 xs:bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-auto md:left-8 lg:left-14 xl:left-20 w-[calc(100%-28px)] max-w-[350px] xs:max-w-[390px] sm:max-w-[440px] md:max-w-md lg:max-w-lg xl:max-w-xl z-30 pointer-events-none text-left">
+          <motion.div
+            style={{
+              opacity: stage2Opacity,
+              x: isDesktop ? stage2X : 0,
+              y: !isDesktop ? stage2Y : 0,
+            }}
+            className="relative"
+          >
+            {/* Company Logo, Company Name & Duration */}
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-1.5 sm:mb-2 md:mb-2.5">
+              <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg overflow-hidden bg-black/85 border border-[#e3ff6b]/40 shadow-[0_0_12px_rgba(227,255,107,0.15)] flex items-center justify-center p-1 shrink-0">
+                <Image
+                  src="/projects/sharnex.jpg"
+                  alt="Sharnex"
+                  fill
+                  className="object-contain p-0.5 rounded-md"
+                  sizes="40px"
                 />
               </div>
-
-              {/* Sub-Roles / Domain (Desktop/Tablet) */}
-              <div className="hidden md:block mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono font-semibold text-[#ff4d6d] uppercase tracking-wider">
-                PRODUCT ENGINEERING // NOIDA, UP
-              </div>
-
-              {/* Detailed Bullet Points (Desktop/Tablet) */}
-              <div className="hidden md:block space-y-1.5 sm:space-y-2">
-                <div className="flex items-start gap-2">
-                  <span className="text-[#ff4d6d] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Engineered responsive full-stack features and high-conversion web application interfaces utilizing MERN Stack and Next.js.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#ff4d6d] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Developed modular UI component libraries, optimized client-side state handling, and integrated robust REST APIs.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#ff4d6d] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Collaborated with product teams to ship performant, accessible digital interfaces tailored for rapid business scaling.
-                  </p>
-                </div>
+              <div className="min-w-0">
+                <span className="font-bank text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-[#e3ff6b] block truncate drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                  SHARNEX
+                </span>
+                <span className="text-white/70 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                  MAR 2026
+                </span>
               </div>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Position / Role with Responsive TextLoop in font-bank White and Yellow */}
+            <div className="w-full overflow-hidden min-h-[28px] sm:min-h-[34px] md:min-h-[44px] flex items-center my-0.5 sm:my-1">
+              <TextLoop
+                interval={2.4}
+                className="font-bank text-base sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] font-bold uppercase tracking-[0.06em] text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)] leading-tight break-words"
+              >
+                <span>FULL STACK ENGINEER</span>
+                <span className="text-[#e3ff6b]">PRODUCT ENGINEERING</span>
+                <span>MERN & NEXT.JS</span>
+              </TextLoop>
+            </div>
+
+            {/* Glowing Yellow/White Divider Line (Desktop) */}
+            <div className="hidden md:block h-[1.5px] bg-white/15 w-full my-3 relative overflow-hidden rounded-full">
+              <motion.div
+                style={{ width: stage2Line }}
+                className="h-full bg-gradient-to-r from-[#e3ff6b] via-white to-transparent absolute left-0 top-0"
+              />
+            </div>
+
+            {/* Sub-Roles / Domain (Desktop) */}
+            <div className="hidden md:block mb-2 text-[11px] font-mono font-semibold text-[#e3ff6b] uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+              PRODUCT ENGINEERING // NOIDA, UP
+            </div>
+
+            {/* Detailed Bullet Points (Desktop) */}
+            <div className="hidden md:block space-y-2">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Engineered responsive full-stack features and high-conversion web application interfaces utilizing MERN Stack and Next.js.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Developed modular UI component libraries, optimized client-side state handling, and integrated robust REST APIs.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Collaborated with product teams to ship performant, accessible digital interfaces tailored for rapid business scaling.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
 
         {/* ========================================================================= */}
-        {/* STAGE 3: ORIGINHASH (Frames 116 - 174) -> LEFT SIDE (GREEN GRADIENT BOX)  */}
+        {/* STAGE 3: ORIGINHASH (Frames 116 - 174) -> LEFT SIDE ON DESKTOP            */}
         {/* ========================================================================= */}
-        <motion.div
-          style={{ opacity: stage3Opacity }}
-          className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] xs:w-[calc(100%-32px)] max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] md:max-w-xl lg:max-w-2xl z-30 pointer-events-none text-left"
-        >
-          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
-            {/* Green Radiant Downlight Effect */}
-            <div
-              className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
-              style={{
-                background:
-                  "radial-gradient(ellipse 95% 75% at 50% 100%, rgba(74, 222, 128, 0.35) 0%, rgba(34, 197, 94, 0.12) 45%, transparent 75%)",
-              }}
-            />
-            <div
-              className="pointer-events-none absolute inset-0 opacity-40"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(74, 222, 128, 0.12) 0%, transparent 65%)",
-              }}
-            />
-
-            <div className="relative z-10">
-              {/* Company Logo, Company Name & Duration */}
-              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#4ade80]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
-                  <Image
-                    src="/projects/originhash.png"
-                    alt="OriginHash"
-                    fill
-                    className="object-contain p-0.5 rounded-lg"
-                    sizes="44px"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[#4ade80] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
-                    ORIGINHASH
-                  </span>
-                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
-                    AUG 2025 – NOV 2025
-                  </span>
-                </div>
-              </div>
-
-              {/* Position / Role with Responsive TextLoop */}
-              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
-                <TextLoop
-                  interval={2.4}
-                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
-                >
-                  <span>FULL STACK DEVELOPER</span>
-                  <span className="text-[#4ade80]">BLOCKCHAIN PLATFORM</span>
-                  <span>WEB3 & SMART CONTRACTS</span>
-                </TextLoop>
-              </div>
-
-              {/* Glowing Underline Bar (Desktop/Tablet) */}
-              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
-                <motion.div
-                  style={{ width: stage3Line }}
-                  className="h-full bg-gradient-to-r from-[#4ade80] to-[#e3ff6b] absolute left-0 top-0"
+        <div className="absolute bottom-6 xs:bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:right-auto md:left-8 lg:left-14 xl:left-20 w-[calc(100%-28px)] max-w-[350px] xs:max-w-[390px] sm:max-w-[440px] md:max-w-md lg:max-w-lg xl:max-w-xl z-30 pointer-events-none text-left">
+          <motion.div
+            style={{
+              opacity: stage3Opacity,
+              x: isDesktop ? stage3X : 0,
+              y: !isDesktop ? stage3Y : 0,
+            }}
+            className="relative"
+          >
+            {/* Company Logo, Company Name & Duration */}
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-1.5 sm:mb-2 md:mb-2.5">
+              <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg overflow-hidden bg-black/85 border border-[#e3ff6b]/40 shadow-[0_0_12px_rgba(227,255,107,0.15)] flex items-center justify-center p-1 shrink-0">
+                <Image
+                  src="/projects/originhash.png"
+                  alt="OriginHash"
+                  fill
+                  className="object-contain p-0.5 rounded-md"
+                  sizes="40px"
                 />
               </div>
-
-              {/* Subtitle (Desktop/Tablet) */}
-              <div className="hidden md:block mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono text-[#4ade80] font-semibold uppercase tracking-wider">
-                HYDERABAD // FULL STACK & BLOCKCHAIN PLATFORM
-              </div>
-
-              {/* Detailed Bullet Points (Desktop/Tablet) */}
-              <div className="hidden md:block space-y-1.5 sm:space-y-2">
-                <div className="flex items-start gap-2">
-                  <span className="text-[#4ade80] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Built Node.js backends with scalable, secure APIs and React applications improving UX by 30% and query performance by 15%, while designing UI/branding using Figma and Adobe Illustrator.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#4ade80] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
-                    Enhanced product traceability by 60% through blockchain-based smart contracts, MetaMask wallet integration, IPFS, and Ethers.js.
-                  </p>
-                </div>
+              <div className="min-w-0">
+                <span className="font-bank text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-[#e3ff6b] block truncate drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                  ORIGINHASH
+                </span>
+                <span className="text-white/70 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                  AUG 2025 – NOV 2025
+                </span>
               </div>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Position / Role with Responsive TextLoop in font-bank White and Yellow */}
+            <div className="w-full overflow-hidden min-h-[28px] sm:min-h-[34px] md:min-h-[44px] flex items-center my-0.5 sm:my-1">
+              <TextLoop
+                interval={2.4}
+                className="font-bank text-base sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] font-bold uppercase tracking-[0.06em] text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)] leading-tight break-words"
+              >
+                <span>FULL STACK DEVELOPER</span>
+                <span className="text-[#e3ff6b]">BLOCKCHAIN PLATFORM</span>
+                <span>WEB3 & SMART CONTRACTS</span>
+              </TextLoop>
+            </div>
+
+            {/* Glowing Yellow/White Divider Line (Desktop) */}
+            <div className="hidden md:block h-[1.5px] bg-white/15 w-full my-3 relative overflow-hidden rounded-full">
+              <motion.div
+                style={{ width: stage3Line }}
+                className="h-full bg-gradient-to-r from-[#e3ff6b] via-white to-transparent absolute left-0 top-0"
+              />
+            </div>
+
+            {/* Subtitle (Desktop) */}
+            <div className="hidden md:block mb-2 text-[11px] font-mono text-[#e3ff6b] font-semibold uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+              HYDERABAD // FULL STACK & BLOCKCHAIN PLATFORM
+            </div>
+
+            {/* Detailed Bullet Points (Desktop) */}
+            <div className="hidden md:block space-y-2">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Built Node.js backends with scalable, secure APIs and React applications improving UX by 30% and query performance by 15%, while designing UI/branding using Figma and Adobe Illustrator.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Enhanced product traceability by 60% through blockchain-based smart contracts, MetaMask wallet integration, IPFS, and Ethers.js.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
 
         {/* ========================================================================= */}
-        {/* STAGE 4: WEB3TASK (Frames 175 - 234) -> RIGHT SIDE (RED/AMBER BOX)        */}
+        {/* STAGE 4: WEB3TASK (Frames 175 - 234) -> RIGHT SIDE ON DESKTOP             */}
         {/* ========================================================================= */}
-        <motion.div
-          style={{ opacity: stage4Opacity }}
-          className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] xs:w-[calc(100%-32px)] max-w-[340px] xs:max-w-[380px] sm:max-w-[440px] md:max-w-xl lg:max-w-2xl z-30 pointer-events-none text-left"
-        >
-          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
-            {/* Red & Amber Radiant Downlight Effect */}
-            <div
-              className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
-              style={{
-                background:
-                  "radial-gradient(ellipse 95% 75% at 50% 100%, rgba(255, 13, 74, 0.35) 0%, rgba(255, 176, 32, 0.15) 45%, transparent 75%)",
-              }}
-            />
-            <div
-              className="pointer-events-none absolute inset-0 opacity-40"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(255, 13, 74, 0.12) 0%, transparent 65%)",
-              }}
-            />
-
-            <div className="relative z-10">
-              {/* Company Logo, Company Name & Duration */}
-              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#ff0d4a]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
-                  <Image
-                    src="/projects/web3task_logo.png"
-                    alt="Web3Task"
-                    fill
-                    className="object-contain p-0.5 rounded-lg"
-                    sizes="44px"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-[#FFB020] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
-                    WEB3TASK
-                  </span>
-                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
-                    MAR 2026 – PRESENT
-                  </span>
-                </div>
-              </div>
-
-              {/* Position / Role with Responsive TextLoop */}
-              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
-                <TextLoop
-                  interval={2.4}
-                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
-                >
-                  <span>SOFTWARE ENGINEER</span>
-                  <span className="text-[#FFB020]">VOICETONOTES</span>
-                  <span>TRAVERSE VPN</span>
-                </TextLoop>
-              </div>
-
-              {/* Glowing Underline Bar (Desktop/Tablet) */}
-              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
-                <motion.div
-                  style={{ width: stage4Line }}
-                  className="h-full bg-gradient-to-r from-[#ff0d4a] to-[#FFB020] absolute left-0 top-0"
+        <div className="absolute bottom-6 xs:bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:left-auto md:right-8 lg:right-14 xl:right-20 w-[calc(100%-28px)] max-w-[350px] xs:max-w-[390px] sm:max-w-[440px] md:max-w-md lg:max-w-lg xl:max-w-xl z-30 pointer-events-none text-left">
+          <motion.div
+            style={{
+              opacity: stage4Opacity,
+              x: isDesktop ? stage4X : 0,
+              y: !isDesktop ? stage4Y : 0,
+            }}
+            className="relative"
+          >
+            {/* Company Logo, Company Name & Duration */}
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-1.5 sm:mb-2 md:mb-2.5">
+              <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg overflow-hidden bg-black/85 border border-[#e3ff6b]/40 shadow-[0_0_12px_rgba(227,255,107,0.15)] flex items-center justify-center p-1 shrink-0">
+                <Image
+                  src="/projects/web3task_logo.png"
+                  alt="Web3Task"
+                  fill
+                  className="object-contain p-0.5 rounded-md"
+                  sizes="40px"
                 />
               </div>
-
-              {/* Subtitle / Projects (Desktop/Tablet) */}
-              <div className="hidden md:block mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono text-[#FFB020] font-semibold uppercase tracking-wider">
-                TRAVERSE VPN · VOICETONOTES · DEEPURLS
-              </div>
-
-              {/* Detailed Bullet Points (Desktop/Tablet) */}
-              <div className="hidden md:block space-y-1.5 sm:space-y-2">
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFB020] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans">
-                    Optimized Traverse VPN landing pages to achieve 99% Lighthouse performance and improved load speed.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFB020] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans">
-                    Implemented i18n localization using Tolgee, enabling multi-language support and improving user reach.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFB020] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans">
-                    Developed and scaled DeepURLs using dashboard & Firebase Functions supporting 29K+ daily users with Caddy-based custom domain routing.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFB020] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans">
-                    Enhanced Voice to Notes AI Android app using Kotlin, optimizing voice-to-text workflows and increasing premium users by 36%.
-                  </p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFB020] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
-                  <p className="text-gray-200 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans">
-                    Integrated DeepURLs SDK to enable precise deep linking for in-app navigation and notification-based redirection.
-                  </p>
-                </div>
+              <div className="min-w-0">
+                <span className="font-bank text-xs sm:text-sm font-bold tracking-[0.14em] uppercase text-[#e3ff6b] block truncate drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                  WEB3TASK
+                </span>
+                <span className="text-white/70 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                  MAR 2026 – PRESENT
+                </span>
               </div>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Position / Role with Responsive TextLoop in font-bank White and Yellow */}
+            <div className="w-full overflow-hidden min-h-[28px] sm:min-h-[34px] md:min-h-[44px] flex items-center my-0.5 sm:my-1">
+              <TextLoop
+                interval={2.4}
+                className="font-bank text-base sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] font-bold uppercase tracking-[0.06em] text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)] leading-tight break-words"
+              >
+                <span>SOFTWARE ENGINEER</span>
+                <span className="text-[#e3ff6b]">VOICETONOTES</span>
+                <span>TRAVERSE VPN</span>
+              </TextLoop>
+            </div>
+
+            {/* Glowing Yellow/White Divider Line (Desktop) */}
+            <div className="hidden md:block h-[1.5px] bg-white/15 w-full my-3 relative overflow-hidden rounded-full">
+              <motion.div
+                style={{ width: stage4Line }}
+                className="h-full bg-gradient-to-r from-[#e3ff6b] via-white to-transparent absolute left-0 top-0"
+              />
+            </div>
+
+            {/* Subtitle / Projects (Desktop) */}
+            <div className="hidden md:block mb-2 text-[11px] font-mono text-[#e3ff6b] font-semibold uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+              TRAVERSE VPN · VOICETONOTES · DEEPURLS
+            </div>
+
+            {/* Detailed Bullet Points (Desktop) */}
+            <div className="hidden md:block space-y-2">
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Optimized Traverse VPN landing pages to achieve 99% Lighthouse performance and improved load speed.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Implemented i18n localization using Tolgee, enabling multi-language support and improving user reach.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Developed and scaled DeepURLs using dashboard & Firebase Functions supporting 29K+ daily users with Caddy-based custom domain routing.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Enhanced Voice to Notes AI Android app using Kotlin, optimizing voice-to-text workflows and increasing premium users by 36%.
+                </p>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <span className="text-[#e3ff6b] text-sm shrink-0 mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">✦</span>
+                <p className="text-white/90 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  Integrated DeepURLs SDK to enable precise deep linking for in-app navigation and notification-based redirection.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

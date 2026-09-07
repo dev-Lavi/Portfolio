@@ -173,4 +173,40 @@ body {
 
 .animate-downlight-sweep {
   animation: downlight-sweep 6.5s ease-in-out infinite alternate;
-}
+}
+
+/* Fallen Angels Neon Red Glow Typography (Motorcycle Showcase Experiences) */
+.text-glow-red {
+  color: #ff1a40;
+  text-shadow:
+    0 0 10px rgba(255, 26, 64, 0.9),
+    0 0 24px rgba(255, 26, 64, 0.75),
+    0 0 45px rgba(255, 0, 50, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.95);
+}
+
+.text-glow-red-lg {
+  color: #ff1744;
+  text-shadow:
+    0 0 12px rgba(255, 23, 68, 1),
+    0 0 28px rgba(255, 23, 68, 0.85),
+    0 0 55px rgba(255, 0, 50, 0.6),
+    0 0 90px rgba(255, 0, 50, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.text-glow-red-subtle {
+  color: #ff4d6d;
+  text-shadow:
+    0 0 8px rgba(255, 77, 109, 0.8),
+    0 0 18px rgba(255, 26, 64, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.border-glow-red {
+  border-color: rgba(255, 26, 64, 0.45);
+  box-shadow:
+    0 0 15px rgba(255, 26, 64, 0.3),
+    inset 0 0 15px rgba(255, 26, 64, 0.15);
+}
+

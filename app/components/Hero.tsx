@@ -1,28 +1,15 @@
 "use client";
 import Image from "next/image";
+import HeroRevealBackground from "./HeroRevealBackground";
 
 export default function Hero() {
   return (
-    <section className="relative flex w-full overflow-hidden bg-[#6c8250] h-[90vh] md:h-screen sticky top-0">
-      {/* Grid background - matches section height */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundColor: "#6c8250",
-          backgroundImage: `
-            linear-gradient(#1f2b17 2px, transparent 1px),
-            linear-gradient(90deg, #1f2b17 2px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
-        }}
-      />
+    <section className="relative flex w-full overflow-hidden bg-[#060906] h-[90vh] md:h-screen sticky top-0">
+      {/* Background: ASCII Art Glitch Video with Liquid Cursor Reveal for mountain photo */}
+      <HeroRevealBackground qualityMode="lo-fi" />
 
       {/* Content wrapper - flex column for perfect bottom alignment */}
       <div className="z-22 relative flex w-full h-full flex-col">
-        {/* Top tagline */}
-        <div className="absolute left-1/2 top-6 -translate-x-1/2 w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[95%] rounded-xl bg-[#e3ff6b] px-4 py-3 sm:px-6 sm:py-5 text-[10px] sm:text-xs md:text-sm font-bank uppercase tracking-[0.25em] sm:tracking-[0.32em] lg:tracking-[0.39em] text-black z-20">
-          Designer, Full stack developer and blockchain developer
-        </div>
 
 {/* Main content spacer */}
 <div className="flex-1 flex items-center justify-end relative z-5 pb-32 lg:pb-48 xl:pb-64">
