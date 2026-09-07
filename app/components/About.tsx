@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { HyperText } from "./ui/HyperText";
 
 export default function About() {
   const ref = useRef(null);
@@ -39,41 +40,55 @@ export default function About() {
         ════════════════════════════════════════════ */}
         <div className="flex flex-col gap-6 lg:hidden">
 
-          <motion.h2
+          <motion.div
             style={{ y: headingY, opacity: headingOpacity }}
-            className="font-bank uppercase tracking-[0.06em] text-[#f5f5f0] leading-none text-[56px] sm:text-[72px]"
           >
-            About
-          </motion.h2>
+            <HyperText
+              text="About"
+              className="font-bank uppercase tracking-[0.06em] text-[#f5f5f0] leading-none text-[48px] sm:text-[64px]"
+            />
+          </motion.div>
 
           <motion.p
             style={{ y: paraY, opacity: paraOpacity }}
-            className="font-bank tracking-[0.06em] text-[#f5f5f0] leading-snug text-[15px] sm:text-[18px]"
+            className="font-bank tracking-[0.05em] text-[#f5f5f0] leading-relaxed text-[14.5px] sm:text-[17px]"
           >
             LAVI{" "}
             <span className="text-[0.65em] tracking-[0.12em] align-middle text-[#a7b693]">
               (HE/HIM)
             </span>{" "}
-            IS A FULL-STACK DEVELOPER AND CREATIVE TECHNOLOGIST WITH EXPERTISE IN
-            FRONTEND, BACKEND, AI, AND BLOCKCHAIN. HE ORCHESTRATES DESIGN, CODE,
-            AND AI TO ENGINEER SCALABLE, INTELLIGENT DIGITAL PRODUCTS THAT ELEVATE
-            USER EXPERIENCE AND DRIVE REAL-WORLD IMPACT.
+            IS A FULL-STACK DEVELOPER & SOFTWARE ENGINEER SPECIALIZING IN HIGH-PERFORMANCE
+            WEB ARCHITECTURES, NATIVE MOBILE APPS, AND SCALABLE DISTRIBUTED SYSTEMS.
+            CURRENTLY ENGINEERING AT WEB3TASK — SCALING INFRASTRUCTURE FOR 29K+ DAILY USERS
+            ACROSS DEEPURLS, OPTIMIZING TRAVERSE VPN TO 99% LIGHTHOUSE PERFORMANCE, AND
+            ADVANCING AI-POWERED ANDROID PLATFORMS. BACKED BY STRONG FOUNDATIONS IN NODE.JS,
+            NEXT.JS, AND BLOCKCHAIN PROTOCOLS, HE BRIDGES CODE, SYSTEM DESIGN, AND
+            INTELLIGENT WORKFLOWS TO BUILD IMPACTFUL PRODUCTS AT PRODUCTION SCALE.
           </motion.p>
 
           <motion.div
             style={{ y: roleY, opacity: roleOpacity }}
             className="flex flex-col gap-3 mt-2"
           >
-            <p className="font-bank tracking-[0.26em] uppercase text-[#a7b693] text-[11px] sm:text-[12px]">
+            <p className="font-bank tracking-[0.24em] uppercase text-[#a7b693] text-[10.5px] sm:text-[12px]">
               BUILDING PRODUCTS AT THE CROSSPATHS OF AI — SAAS — WEB3.
             </p>
             <div className="flex items-center gap-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[#e3ff6b]">
-                <Image src="/images/globe.svg" alt="OriginHash" width={24} height={24} className="object-contain" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-black/80 border border-[#27341c] p-2 shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
+                <Image
+                  src="/projects/web3task_logo.png"
+                  alt="Web3Task Logo"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
               </div>
-              <div className="flex flex-col font-bank tracking-[0.18em] text-[#f5f5f0] text-[11px] sm:text-[12px]">
-                <span className="uppercase">Senior Product Designer</span>
-                <span className="uppercase text-[#a7b693]">OriginHash</span>
+              <div className="flex flex-col font-bank tracking-[0.16em] text-[#f5f5f0] text-[11.5px] sm:text-[12.5px]">
+                <span className="uppercase font-bold text-white">Software Engineer</span>
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#e3ff6b] animate-pulse" />
+                  <span className="uppercase text-[#e3ff6b] font-semibold">Web3Task</span>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -97,32 +112,28 @@ export default function About() {
               style={{ y: headingY, opacity: headingOpacity }}
               className="w-[26%] shrink-0"
             >
-              <h2
-                className="font-bank uppercase text-[#f5f5f0] leading-[0.9] tracking-[0.03em]"
-                /*
-                  5.5vw at 1024px ≈ 56px  (lg breakpoint, "About" ≈ 220px wide → fits in 26% of 1024 = 266px ✓)
-                  5.5vw at 1440px ≈ 79px  (fits in 26% of 1440 = 374px ✓)
-                  5.5vw at 1920px ≈ 105px (fits in 26% of 1920 = 499px ✓)
-                */
-                style={{ fontSize: "clamp(2.8rem, 5.5vw, 6.5rem)" }}
-              >
-                About
-              </h2>
+              <HyperText
+                text="About"
+                className="font-bank uppercase text-[#f5f5f0] leading-[0.9] tracking-[0.03em] text-[54px] xl:text-[76px] 2xl:text-[88px]"
+              />
             </motion.div>
 
             {/* RIGHT — paragraph fills the rest, min-w-0 prevents flex blowout */}
             <motion.p
-              style={{ y: paraY, opacity: paraOpacity, fontSize: "clamp(1.1rem, 1.65vw, 1.75rem)" }}
-              className="flex-1 min-w-0 font-bank tracking-[0.05em] text-[#f5f5f0] leading-snug"
+              style={{ y: paraY, opacity: paraOpacity, fontSize: "clamp(1.05rem, 1.55vw, 1.65rem)" }}
+              className="flex-1 min-w-0 font-bank tracking-[0.05em] text-[#f5f5f0] leading-relaxed"
             >
               LAVI{" "}
               <span className="text-[0.6em] tracking-[0.12em] align-middle text-[#a7b693]">
                 (HE/HIM)
               </span>{" "}
-              IS A FULL-STACK DEVELOPER AND CREATIVE TECHNOLOGIST WITH EXPERTISE IN
-              FRONTEND, BACKEND, AI, AND BLOCKCHAIN. HE ORCHESTRATES DESIGN, CODE,
-              AND AI TO ENGINEER SCALABLE, INTELLIGENT DIGITAL PRODUCTS THAT ELEVATE
-              USER EXPERIENCE AND DRIVE REAL-WORLD IMPACT.
+              IS A FULL-STACK DEVELOPER & SOFTWARE ENGINEER SPECIALIZING IN HIGH-PERFORMANCE
+              WEB ARCHITECTURES, NATIVE MOBILE APPS, AND SCALABLE DISTRIBUTED SYSTEMS.
+              CURRENTLY ENGINEERING AT WEB3TASK — SCALING INFRASTRUCTURE FOR 29K+ DAILY USERS
+              ACROSS DEEPURLS, OPTIMIZING TRAVERSE VPN TO 99% LIGHTHOUSE PERFORMANCE, AND
+              ADVANCING AI-POWERED ANDROID PLATFORMS. BACKED BY STRONG FOUNDATIONS IN NODE.JS,
+              NEXT.JS, AND BLOCKCHAIN PROTOCOLS, HE BRIDGES CODE, SYSTEM DESIGN, AND
+              INTELLIGENT WORKFLOWS TO BUILD IMPACTFUL PRODUCTS AT PRODUCTION SCALE.
             </motion.p>
           </div>
 
@@ -141,12 +152,21 @@ export default function About() {
                 BUILDING PRODUCTS AT THE CROSSPATHS OF AI — SAAS — WEB3.
               </p>
               <div className="flex items-center gap-5">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-[#e3ff6b]">
-                  <Image src="/images/globe.svg" alt="OriginHash" width={28} height={28} className="object-contain" />
+                <div className="flex h-12 w-12 lg:h-14 lg:w-14 shrink-0 items-center justify-center rounded-xl bg-black/80 border border-[#27341c] p-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+                  <Image
+                    src="/projects/web3task_logo.png"
+                    alt="Web3Task Logo"
+                    width={36}
+                    height={36}
+                    className="object-contain"
+                  />
                 </div>
                 <div className="flex flex-col font-bank tracking-[0.18em] text-[#f5f5f0] text-[12px] lg:text-[13px] xl:text-[14px]">
-                  <span className="uppercase">Full Stack Developer</span>
-                  <span className="uppercase text-[#a7b693]">Sharnex</span>
+                  <span className="uppercase font-bold text-white">Software Engineer</span>
+                  <div className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#e3ff6b] animate-pulse" />
+                    <span className="uppercase text-[#e3ff6b] font-semibold">Web3Task</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -156,4 +176,4 @@ export default function About() {
       </div>
     </motion.section>
   );
-}
+}
