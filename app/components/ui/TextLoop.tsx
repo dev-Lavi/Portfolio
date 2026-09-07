@@ -38,13 +38,13 @@ export function TextLoop({
   }, [items.length, interval, onIndexChange]);
 
   const motionVariants: Variants = {
-    initial: { y: 20, opacity: 0 },
+    initial: { y: 8, opacity: 0 },
     animate: { y: 0, opacity: 1 },
-    exit: { y: -20, opacity: 0 },
+    exit: { y: -8, opacity: 0 },
   };
 
   return (
-    <div className={cn('relative block w-full min-w-0 overflow-hidden', className)}>
+    <div className={cn('relative block w-full min-w-0 overflow-hidden py-0.5', className)}>
       <AnimatePresence mode='popLayout' initial={false}>
         <motion.div
           key={currentIndex}
@@ -53,7 +53,7 @@ export function TextLoop({
           exit='exit'
           transition={transition}
           variants={variants || motionVariants}
-          className="w-full min-w-0 break-words"
+          className="w-full min-w-0 break-words flex items-center"
         >
           {items[currentIndex]}
         </motion.div>

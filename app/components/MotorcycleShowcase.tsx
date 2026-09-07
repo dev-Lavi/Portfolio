@@ -297,9 +297,9 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage1Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-3 sm:left-auto w-[94vw] sm:w-auto sm:max-w-lg md:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
-          <div className="relative rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
+          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
             {/* Green Radiant Downlight Effect */}
             <div
               className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
@@ -317,9 +317,9 @@ export default function MotorcycleShowcase() {
             />
 
             <div className="relative z-10">
-              {/* Logo & Category */}
-              <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-3">
-                <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#4ade80]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
+              {/* Company Logo, Company Name & Duration */}
+              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#4ade80]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
                   <Image
                     src="/projects/Team%20conatus.jpg"
                     alt="Team Conatus"
@@ -329,37 +329,37 @@ export default function MotorcycleShowcase() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[#e3ff6b] text-[9.5px] sm:text-xs font-mono tracking-wider sm:tracking-[0.2em] uppercase block truncate">
-                    TEAM CONATUS — TECHNICAL SOCIETY
+                  <span className="text-[#e3ff6b] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
+                    TEAM CONATUS
                   </span>
-                  <span className="text-gray-400 text-[9px] sm:text-xs font-mono tracking-widest uppercase block truncate">
-                    SEP 2024 – PRESENT · 2 YRS 1 MO · AKGEC
+                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
+                    SEP 2024 – PRESENT
                   </span>
                 </div>
               </div>
 
-              {/* Main Title / Role with Responsive TextLoop */}
-              <div className="mb-2 sm:mb-3 w-full overflow-hidden">
+              {/* Position / Role with Responsive TextLoop */}
+              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
                 <TextLoop
                   interval={2.4}
-                  className="font-bank text-lg sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-[1.15] break-words"
+                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
                 >
-                  <span>TEAM CONATUS</span>
-                  <span className="text-[#e3ff6b]">BACK END DEVELOPER</span>
-                  <span>TECHNICAL SOCIETY</span>
+                  <span>BACK END DEVELOPER</span>
+                  <span className="text-[#e3ff6b]">API & SYSTEM ARCHITECTURE</span>
+                  <span>TRAINEE DEVELOPER</span>
                 </TextLoop>
               </div>
 
-              {/* Glowing Underline Bar */}
-              <div className="h-[1px] bg-white/15 w-full mb-2.5 sm:mb-3.5 relative overflow-hidden">
+              {/* Glowing Underline Bar (Desktop/Tablet) */}
+              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
                 <motion.div
                   style={{ width: stage1Line }}
                   className="h-full bg-gradient-to-r from-[#e3ff6b] to-[#4ade80] absolute left-0 top-0"
                 />
               </div>
 
-              {/* Sub-Roles */}
-              <div className="mb-2.5 sm:mb-3 flex flex-wrap items-center gap-1.5 sm:gap-2">
+              {/* Sub-Roles (Desktop/Tablet) */}
+              <div className="hidden md:flex mb-2.5 sm:mb-3 flex-wrap items-center gap-1.5 sm:gap-2">
                 <span className="text-[10px] sm:text-xs font-mono font-semibold text-[#e3ff6b] uppercase tracking-wider">
                   BACK END DEVELOPER (DEC 2024 – PRESENT)
                 </span>
@@ -369,8 +369,8 @@ export default function MotorcycleShowcase() {
                 </span>
               </div>
 
-              {/* Bullet Points */}
-              <div className="space-y-1.5 sm:space-y-2">
+              {/* Detailed Bullet Points (Desktop/Tablet) */}
+              <div className="hidden md:block space-y-1.5 sm:space-y-2">
                 <div className="flex items-start gap-2">
                   <span className="text-[#e3ff6b] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
                   <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
@@ -399,9 +399,9 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage2Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-3 sm:right-auto w-[94vw] sm:w-auto sm:max-w-lg md:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
-          <div className="relative rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
+          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
             {/* Red Radiant Downlight Effect */}
             <div
               className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
@@ -419,9 +419,9 @@ export default function MotorcycleShowcase() {
             />
 
             <div className="relative z-10">
-              {/* Logo & Category */}
-              <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-3">
-                <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#ff0d4a]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
+              {/* Company Logo, Company Name & Duration */}
+              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#ff0d4a]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
                   <Image
                     src="/projects/sharnex.jpg"
                     alt="Sharnex"
@@ -431,42 +431,42 @@ export default function MotorcycleShowcase() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[#ff4d6d] text-[9.5px] sm:text-xs font-mono tracking-wider sm:tracking-[0.2em] uppercase block truncate">
-                    SHARNEX — INTERNSHIP
+                  <span className="text-[#ff4d6d] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
+                    SHARNEX
                   </span>
-                  <span className="text-gray-400 text-[9px] sm:text-xs font-mono tracking-widest uppercase block truncate">
-                    MAR 2026 · NOIDA, UP (REMOTE)
+                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
+                    MAR 2026
                   </span>
                 </div>
               </div>
 
-              {/* Main Title / Role with Responsive TextLoop */}
-              <div className="mb-2 sm:mb-3 w-full overflow-hidden">
+              {/* Position / Role with Responsive TextLoop */}
+              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
                 <TextLoop
                   interval={2.4}
-                  className="font-bank text-lg sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-[1.15] break-words"
+                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
                 >
-                  <span>SHARNEX</span>
-                  <span className="text-[#ff4d6d]">FULL STACK ENGINEER</span>
-                  <span>PRODUCT ENGINEERING</span>
+                  <span>FULL STACK ENGINEER</span>
+                  <span className="text-[#ff4d6d]">PRODUCT ENGINEERING</span>
+                  <span>MERN & NEXT.JS</span>
                 </TextLoop>
               </div>
 
-              {/* Glowing Underline Bar */}
-              <div className="h-[1px] bg-white/15 w-full mb-2.5 sm:mb-3.5 relative overflow-hidden">
+              {/* Glowing Underline Bar (Desktop/Tablet) */}
+              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
                 <motion.div
                   style={{ width: stage2Line }}
                   className="h-full bg-gradient-to-r from-[#ff0d4a] to-[#f87171] absolute left-0 top-0"
                 />
               </div>
 
-              {/* Sub-Roles / Domain */}
-              <div className="mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono font-semibold text-[#ff4d6d] uppercase tracking-wider">
+              {/* Sub-Roles / Domain (Desktop/Tablet) */}
+              <div className="hidden md:block mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono font-semibold text-[#ff4d6d] uppercase tracking-wider">
                 PRODUCT ENGINEERING // NOIDA, UP
               </div>
 
-              {/* Bullet Points */}
-              <div className="space-y-1.5 sm:space-y-2">
+              {/* Detailed Bullet Points (Desktop/Tablet) */}
+              <div className="hidden md:block space-y-1.5 sm:space-y-2">
                 <div className="flex items-start gap-2">
                   <span className="text-[#ff4d6d] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
                   <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
@@ -495,9 +495,9 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage3Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-3 sm:right-auto w-[94vw] sm:w-auto sm:max-w-lg md:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-1/2 -translate-y-1/2 left-3 sm:left-6 md:left-12 lg:left-20 right-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
-          <div className="relative rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
+          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#060c06]/85 backdrop-blur-xl border border-[#4ade80]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(74,222,128,0.12)] overflow-hidden">
             {/* Green Radiant Downlight Effect */}
             <div
               className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
@@ -515,9 +515,9 @@ export default function MotorcycleShowcase() {
             />
 
             <div className="relative z-10">
-              {/* Logo & Category */}
-              <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-3">
-                <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#4ade80]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
+              {/* Company Logo, Company Name & Duration */}
+              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#4ade80]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
                   <Image
                     src="/projects/originhash.png"
                     alt="OriginHash"
@@ -527,42 +527,42 @@ export default function MotorcycleShowcase() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[#4ade80] text-[9.5px] sm:text-xs font-mono tracking-wider sm:tracking-[0.2em] uppercase block truncate">
-                    ORIGINHASH — FULL STACK DEVELOPER
+                  <span className="text-[#4ade80] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
+                    ORIGINHASH
                   </span>
-                  <span className="text-gray-400 text-[9px] sm:text-xs font-mono tracking-widest uppercase block truncate">
-                    AUG 2025 – NOV 2025 · HYDERABAD (REMOTE)
+                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
+                    AUG 2025 – NOV 2025
                   </span>
                 </div>
               </div>
 
-              {/* Main Title / Role with Responsive TextLoop */}
-              <div className="mb-2 sm:mb-3 w-full overflow-hidden">
+              {/* Position / Role with Responsive TextLoop */}
+              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
                 <TextLoop
                   interval={2.4}
-                  className="font-bank text-lg sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-[1.15] break-words"
+                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
                 >
-                  <span>ORIGINHASH</span>
-                  <span className="text-[#4ade80]">FULL STACK DEVELOPER</span>
-                  <span>BLOCKCHAIN PLATFORM</span>
+                  <span>FULL STACK DEVELOPER</span>
+                  <span className="text-[#4ade80]">BLOCKCHAIN PLATFORM</span>
+                  <span>WEB3 & SMART CONTRACTS</span>
                 </TextLoop>
               </div>
 
-              {/* Glowing Underline Bar */}
-              <div className="h-[1px] bg-white/15 w-full mb-2.5 sm:mb-3.5 relative overflow-hidden">
+              {/* Glowing Underline Bar (Desktop/Tablet) */}
+              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
                 <motion.div
                   style={{ width: stage3Line }}
                   className="h-full bg-gradient-to-r from-[#4ade80] to-[#e3ff6b] absolute left-0 top-0"
                 />
               </div>
 
-              {/* Subtitle */}
-              <div className="mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono text-[#4ade80] font-semibold uppercase tracking-wider">
-                FULL STACK & BLOCKCHAIN PLATFORM
+              {/* Subtitle (Desktop/Tablet) */}
+              <div className="hidden md:block mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono text-[#4ade80] font-semibold uppercase tracking-wider">
+                HYDERABAD // FULL STACK & BLOCKCHAIN PLATFORM
               </div>
 
-              {/* Bullet Points */}
-              <div className="space-y-1.5 sm:space-y-2">
+              {/* Detailed Bullet Points (Desktop/Tablet) */}
+              <div className="hidden md:block space-y-1.5 sm:space-y-2">
                 <div className="flex items-start gap-2">
                   <span className="text-[#4ade80] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
                   <p className="text-gray-200 text-xs sm:text-[13px] md:text-[14px] leading-relaxed font-sans">
@@ -585,9 +585,9 @@ export default function MotorcycleShowcase() {
         {/* ========================================================================= */}
         <motion.div
           style={{ opacity: stage4Opacity }}
-          className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-3 sm:left-auto w-[94vw] sm:w-auto sm:max-w-lg md:max-w-xl z-30 pointer-events-none text-left"
+          className="absolute top-1/2 -translate-y-1/2 right-3 sm:right-6 md:right-12 lg:right-20 left-auto max-w-[260px] xs:max-w-[280px] sm:max-w-[340px] md:max-w-lg lg:max-w-xl z-30 pointer-events-none text-left"
         >
-          <div className="relative rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
+          <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl p-3.5 sm:p-4 md:p-7 lg:p-8 bg-[#0d0406]/85 backdrop-blur-xl border border-[#ff0d4a]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7),0_0_25px_rgba(255,13,74,0.12)] overflow-hidden">
             {/* Red & Amber Radiant Downlight Effect */}
             <div
               className="pointer-events-none absolute -bottom-10 inset-x-0 h-3/4 blur-xl opacity-60"
@@ -605,9 +605,9 @@ export default function MotorcycleShowcase() {
             />
 
             <div className="relative z-10">
-              {/* Logo & Category */}
-              <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-3">
-                <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#ff0d4a]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
+              {/* Company Logo, Company Name & Duration */}
+              <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2 md:mb-3">
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl overflow-hidden bg-black/70 border border-[#ff0d4a]/30 flex items-center justify-center p-1 shadow-[0_4px_20px_rgba(0,0,0,0.8)] shrink-0">
                   <Image
                     src="/projects/web3task_logo.png"
                     alt="Web3Task"
@@ -617,42 +617,42 @@ export default function MotorcycleShowcase() {
                   />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[#FFB020] text-[9.5px] sm:text-xs font-mono tracking-wider sm:tracking-[0.2em] uppercase block truncate">
-                    WEB3TASK — SOFTWARE ENGINEER
+                  <span className="text-[#FFB020] text-[11px] sm:text-xs font-mono font-bold tracking-wider sm:tracking-[0.18em] uppercase block truncate">
+                    WEB3TASK
                   </span>
-                  <span className="text-gray-400 text-[9px] sm:text-xs font-mono tracking-widest uppercase block truncate">
-                    MAR 2026 – PRESENT · GLOBAL REMOTE
+                  <span className="text-gray-400 text-[9.5px] sm:text-[11px] font-mono tracking-wider uppercase block truncate">
+                    MAR 2026 – PRESENT
                   </span>
                 </div>
               </div>
 
-              {/* Main Title / Role with Responsive TextLoop */}
-              <div className="mb-2 sm:mb-3 w-full overflow-hidden">
+              {/* Position / Role with Responsive TextLoop */}
+              <div className="w-full overflow-hidden min-h-[26px] sm:min-h-[32px] md:min-h-[40px] flex items-center">
                 <TextLoop
                   interval={2.4}
-                  className="font-bank text-lg sm:text-2xl md:text-3xl lg:text-[32px] xl:text-[36px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-[1.15] break-words"
+                  className="font-bank text-sm sm:text-lg md:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-white uppercase tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] leading-tight break-words"
                 >
-                  <span>WEB3TASK</span>
-                  <span className="text-[#FFB020]">SOFTWARE ENGINEER</span>
-                  <span>DEEPURLS & MOBILE</span>
+                  <span>SOFTWARE ENGINEER</span>
+                  <span className="text-[#FFB020]">DEEPURLS & MOBILE</span>
+                  <span>TRAVERSE VPN & APPS</span>
                 </TextLoop>
               </div>
 
-              {/* Glowing Underline Bar */}
-              <div className="h-[1px] bg-white/15 w-full mb-2.5 sm:mb-3.5 relative overflow-hidden">
+              {/* Glowing Underline Bar (Desktop/Tablet) */}
+              <div className="hidden md:block h-[1px] bg-white/15 w-full my-3.5 relative overflow-hidden">
                 <motion.div
                   style={{ width: stage4Line }}
                   className="h-full bg-gradient-to-r from-[#ff0d4a] to-[#FFB020] absolute left-0 top-0"
                 />
               </div>
 
-              {/* Subtitle / Projects */}
-              <div className="mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono text-[#FFB020] font-semibold uppercase tracking-wider">
+              {/* Subtitle / Projects (Desktop/Tablet) */}
+              <div className="hidden md:block mb-2.5 sm:mb-3 text-[10px] sm:text-xs font-mono text-[#FFB020] font-semibold uppercase tracking-wider">
                 TRAVERSE VPN · DEEPURLS · VOICE TO NOTES
               </div>
 
-              {/* Bullet Points */}
-              <div className="space-y-1.5 sm:space-y-2">
+              {/* Detailed Bullet Points (Desktop/Tablet) */}
+              <div className="hidden md:block space-y-1.5 sm:space-y-2">
                 <div className="flex items-start gap-2">
                   <span className="text-[#FFB020] text-xs sm:text-sm shrink-0 mt-0.5">✦</span>
                   <p className="text-gray-200 text-xs sm:text-[13px] md:text-[13.5px] leading-relaxed font-sans">
