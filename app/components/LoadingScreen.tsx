@@ -8,7 +8,7 @@ export default function LoadingScreen() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(false), 2800);
+    const timer = setTimeout(() => setVisible(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -37,7 +37,7 @@ export default function LoadingScreen() {
               relative overflow-hidden
               flex flex-col justify-between
               /* ── small: card ── */
-              w-[min(720px,92vw)] rounded-2xl
+              w-[min(680px,94vw)] rounded-2xl
               /* ── large: full bleed ── */
               lg:w-screen lg:h-screen lg:rounded-none lg:max-w-none
             "
@@ -57,21 +57,20 @@ export default function LoadingScreen() {
 
             {/*
               Content wrapper:
-              - small: normal padding
+              - small: compact padding that prevents text clipping
               - large: full height, flex-col, centered vertically with generous padding
             */}
             <div className="
               relative
-              px-8 py-8
-              sm:px-12 sm:py-10
+              px-4 py-6
+              xs:px-6 xs:py-7
+              sm:px-10 sm:py-9
               lg:flex lg:flex-col lg:justify-center lg:h-full
               lg:px-[8vw] lg:py-[6vh]
             ">
 
               {/* ── Welcome words ── */}
-              <div className="relative flex flex-col overflow-hidden
-                gap-2 lg:gap-[1.5vh]
-              ">
+              <div className="relative flex flex-col overflow-hidden gap-1.5 sm:gap-2.5 lg:gap-[1.5vh]">
 
                 {/* Row 1 — Hindi — slides from LEFT */}
                 <div className="overflow-hidden">
@@ -79,15 +78,15 @@ export default function LoadingScreen() {
                     initial={{ x: "-110%", opacity: 0 }}
                     animate={{ x: "0%", opacity: 1 }}
                     transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex items-baseline gap-3 lg:gap-5"
+                    className="flex items-baseline gap-2 sm:gap-3.5 lg:gap-5"
                   >
                     <span
                       className="select-none leading-none text-[#8b1a1a]"
                       style={{
                         fontFamily: "'Noto Sans Devanagari', 'Mangal', serif",
                         fontWeight: 800,
-                        /* small → large: scales from ~24px on mobile up to ~11rem on desktop */
-                        fontSize: "clamp(1.8rem, 16vh, 15rem)",
+                        /* Scaled properly using vw and vh min-clamp so it never exceeds screen width */
+                        fontSize: "clamp(1.75rem, min(10vw, 12vh), 10.5rem)",
                         fontStyle: "italic",
                         textShadow:
                           "2px 3px 0px rgba(139,26,26,0.15), -1px -1px 0px rgba(232,229,200,0.5)",
@@ -105,23 +104,23 @@ export default function LoadingScreen() {
                       style={{
                         background: "rgba(139,26,26,0.4)",
                         marginBottom: "0.35em",
-                        width: "clamp(24px, 4vw, 64px)",
+                        width: "clamp(20px, 4vw, 56px)",
                       }}
                     />
                   </motion.div>
                 </div>
 
                 {/* Row 2 — English — letter-spacing stamp effect */}
-                <div className="overflow-hidden flex justify-center">
+                <div className="overflow-hidden flex justify-center py-0.5">
                   <motion.span
-                    initial={{ opacity: 0, letterSpacing: "0.65em", scale: 0.86 }}
-                    animate={{ opacity: 1, letterSpacing: "0.2em", scale: 1 }}
+                    initial={{ opacity: 0, letterSpacing: "0.5em", scale: 0.86 }}
+                    animate={{ opacity: 1, letterSpacing: "clamp(0.08em, 1.2vw, 0.22em)", scale: 1 }}
                     transition={{ duration: 1.1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     className="select-none uppercase text-[#1a1208] block text-center"
                     style={{
                       fontFamily: "'BankGothic Md BT', sans-serif",
                       fontWeight: 900,
-                      fontSize: "clamp(1.4rem, 7vh, 10rem)",
+                      fontSize: "clamp(1.2rem, min(7.2vw, 6vh), 6.5rem)",
                       textShadow:
                         "1px 1px 0 rgba(255,255,255,0.5), -1px -1px 0 rgba(0,0,0,0.1)",
                     }}
@@ -136,7 +135,7 @@ export default function LoadingScreen() {
                     initial={{ x: "110%", opacity: 0 }}
                     animate={{ x: "0%", opacity: 1 }}
                     transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex items-baseline gap-3 lg:gap-5"
+                    className="flex items-baseline gap-2 sm:gap-3.5 lg:gap-5"
                   >
                     {/* Rule before Japanese */}
                     <motion.span
@@ -147,7 +146,7 @@ export default function LoadingScreen() {
                       style={{
                         background: "rgba(139,26,26,0.4)",
                         marginBottom: "0.3em",
-                        width: "clamp(24px, 4vw, 64px)",
+                        width: "clamp(20px, 4vw, 56px)",
                       }}
                     />
                     <span
@@ -155,7 +154,7 @@ export default function LoadingScreen() {
                       style={{
                         fontFamily: "'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif",
                         fontWeight: 900,
-                        fontSize: "clamp(1.8rem, 16vh, 11rem)",
+                        fontSize: "clamp(1.75rem, min(10vw, 12vh), 10.5rem)",
                         fontStyle: "italic",
                         textShadow:
                           "2px 3px 0px rgba(139,26,26,0.15), -1px -1px 0px rgba(232,229,200,0.5)",
@@ -173,7 +172,7 @@ export default function LoadingScreen() {
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="origin-left h-px mt-8 mb-8 lg:mt-[6vh] lg:mb-[5vh]"
+                className="origin-left h-px mt-5 mb-4 sm:mt-7 sm:mb-6 lg:mt-[5vh] lg:mb-[4vh]"
                 style={{ background: "rgba(139, 26, 26, 0.28)" }}
               />
 
@@ -182,12 +181,12 @@ export default function LoadingScreen() {
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="text-center tracking-[0.3em] uppercase select-none mb-12"
+                className="text-center uppercase select-none leading-relaxed break-words max-w-full mb-4 sm:mb-8"
                 style={{
                   fontFamily: "'Courier New', monospace",
-                  fontSize: "clamp(0.65rem, 1.8vh, 1rem)",
-                  color: "rgba(100, 70, 40, 0.7)",
-                  letterSpacing: "0.3em",
+                  fontSize: "clamp(0.52rem, min(2.4vw, 1.5vh), 0.9rem)",
+                  color: "rgba(100, 70, 40, 0.75)",
+                  letterSpacing: "clamp(0.1em, 0.5vw, 0.25em)",
                 }}
               >
                 A Wong Kar Wai Moment — For Every Visitor
