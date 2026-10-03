@@ -16,6 +16,11 @@ interface FormErrors {
   message?: string;
 }
 
+// Ensure inputs use standard sans font so lowercase letters display naturally
+const inputFontStyle: React.CSSProperties = {
+  fontFamily: "var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+};
+
 export default function ContactForm() {
   const [values, setValues] = useState<FormValues>({
     name: "",
@@ -203,7 +208,7 @@ export default function ContactForm() {
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
       {/* Responsive Layout: Side-by-side on desktop (lg+), stacked on mobile */}
       <div className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center">
-        {/* Left Column: Heading, Context & Channel Metadata (Expands horizontally on lg) */}
+        {/* Left Column: Heading, Context & Channel Metadata */}
         <div className="lg:col-span-5 text-left mb-8 lg:mb-0">
           <div className="inline-flex items-center gap-3 mb-4 sm:mb-6">
             <span className="font-bank text-sm sm:text-base md:text-[17px] font-bold text-[#354921]">
@@ -224,7 +229,7 @@ export default function ContactForm() {
           </p>
 
           {/* Quick Contact Info Chips (Desktop Context) */}
-          <div className="mt-6 sm:mt-8 space-y-3 pt-6 border-t-2 border-[#D6003C]/15">
+          <div className="mt-6 sm:mt-8 space-y-3 pt-6 border-t border-black/10">
             <div className="flex items-center gap-3">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#354921] opacity-75" />
@@ -241,19 +246,19 @@ export default function ContactForm() {
           </div>
         </div>
 
-        {/* Right Column: Form Container Card with Highlighted Crimson Red Border */}
+        {/* Right Column: Form Container Card with Clean, Non-Highlighted Border */}
         <div className="lg:col-span-7">
-          <div className="relative rounded-3xl border-2 border-[#D6003C] bg-white p-6 sm:p-8 md:p-10 shadow-[0_24px_60px_rgba(214,0,60,0.06)] overflow-hidden">
+          <div className="relative rounded-3xl border border-black/15 bg-white p-6 sm:p-8 md:p-10 shadow-[0_16px_45px_rgba(0,0,0,0.04)] overflow-hidden">
             {/* Top decorative accent row */}
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#D6003C]/15">
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-black/10">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#354921]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#D6003C]" />
-                <span className="font-bank text-xs font-bold uppercase tracking-[0.2em] text-[#111111]/60 ml-1">
+                <span className="font-bank text-xs font-bold uppercase tracking-[0.2em] text-[#111111]/70 ml-1">
                   Secure Dispatch
                 </span>
               </div>
-              <span className="font-mono text-[11px] text-[#D6003C] font-semibold tracking-wider uppercase">
+              <span className="font-mono text-[11px] text-[#354921] font-semibold tracking-wider uppercase">
                 ENCRYPTED TRANSIT
               </span>
             </div>
@@ -291,14 +296,15 @@ export default function ContactForm() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     placeholder="Lavi Sharma"
+                    style={inputFontStyle}
                     aria-required="true"
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? "name-error" : undefined}
                     disabled={status === "sending"}
-                    className={`w-full rounded-xl border-2 bg-[#fafaf8] px-4 py-3.5 text-base font-sans font-medium text-[#111111] placeholder:text-neutral-400 transition-all duration-200 outline-none hover:border-[#D6003C]/75 focus:bg-white ${
+                    className={`w-full rounded-xl border bg-white px-4 py-3.5 text-base sm:text-lg font-sans font-normal normal-case text-[#111111] placeholder:text-neutral-400 placeholder:normal-case transition-all duration-200 outline-none hover:border-neutral-400 ${
                       errors.name
-                        ? "border-rose-600 focus:border-rose-600 focus:ring-4 focus:ring-rose-500/15"
-                        : "border-[#D6003C]/35 focus:border-[#D6003C] focus:ring-4 focus:ring-[#D6003C]/15"
+                        ? "border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/15"
+                        : "border-neutral-300 focus:border-[#354921] focus:ring-2 focus:ring-[#354921]/15"
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                   />
                   {errors.name && (
@@ -324,14 +330,15 @@ export default function ContactForm() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     placeholder="name@company.com"
+                    style={inputFontStyle}
                     aria-required="true"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? "email-error" : undefined}
                     disabled={status === "sending"}
-                    className={`w-full rounded-xl border-2 bg-[#fafaf8] px-4 py-3.5 text-base font-sans font-medium text-[#111111] placeholder:text-neutral-400 transition-all duration-200 outline-none hover:border-[#D6003C]/75 focus:bg-white ${
+                    className={`w-full rounded-xl border bg-white px-4 py-3.5 text-base sm:text-lg font-sans font-normal normal-case text-[#111111] placeholder:text-neutral-400 placeholder:normal-case transition-all duration-200 outline-none hover:border-neutral-400 ${
                       errors.email
-                        ? "border-rose-600 focus:border-rose-600 focus:ring-4 focus:ring-rose-500/15"
-                        : "border-[#D6003C]/35 focus:border-[#D6003C] focus:ring-4 focus:ring-[#D6003C]/15"
+                        ? "border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/15"
+                        : "border-neutral-300 focus:border-[#354921] focus:ring-2 focus:ring-[#354921]/15"
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                   />
                   {errors.email && (
@@ -358,14 +365,15 @@ export default function ContactForm() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Describe your project, timeline, or architecture inquiry (minimum 10 characters)..."
+                  style={inputFontStyle}
                   aria-required="true"
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? "message-error" : undefined}
                   disabled={status === "sending"}
-                  className={`w-full rounded-xl border-2 bg-[#fafaf8] px-4 py-3.5 text-base font-sans font-medium text-[#111111] placeholder:text-neutral-400 transition-all duration-200 outline-none hover:border-[#D6003C]/75 focus:bg-white resize-y min-h-[110px] ${
+                  className={`w-full rounded-xl border bg-white px-4 py-3.5 text-base sm:text-lg font-sans font-normal normal-case text-[#111111] placeholder:text-neutral-400 placeholder:normal-case transition-all duration-200 outline-none hover:border-neutral-400 resize-y min-h-[110px] ${
                     errors.message
-                      ? "border-rose-600 focus:border-rose-600 focus:ring-4 focus:ring-rose-500/15"
-                      : "border-[#D6003C]/35 focus:border-[#D6003C] focus:ring-4 focus:ring-[#D6003C]/10"
+                      ? "border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/15"
+                      : "border-neutral-300 focus:border-[#354921] focus:ring-2 focus:ring-[#354921]/15"
                   } disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
                 <div className="flex items-center justify-between mt-1.5">
@@ -385,9 +393,9 @@ export default function ContactForm() {
               {/* Status Alert Banner with aria-live="polite" */}
               <div aria-live="polite" className="min-h-[20px]">
                 {status === "success" && (
-                  <div className="rounded-xl border-2 border-emerald-600 bg-emerald-50 px-4 py-3 text-emerald-900 text-sm font-mono flex items-start gap-2.5 shadow-sm">
+                  <div className="rounded-xl border border-emerald-600/30 bg-emerald-50 px-4 py-3 text-emerald-900 text-sm font-mono flex items-start gap-2.5 shadow-sm">
                     <svg className="w-5 h-5 flex-shrink-0 mt-0.5 text-emerald-700" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     <div className="flex-1">
                       <p className="font-bold text-emerald-950 font-bank tracking-wider uppercase text-xs sm:text-sm">Message Delivered</p>
@@ -402,8 +410,8 @@ export default function ContactForm() {
                 )}
 
                 {status === "error" && (
-                  <div className="rounded-xl border-2 border-[#D6003C] bg-rose-50 px-4 py-3 text-rose-950 text-sm font-mono flex items-start gap-2.5 shadow-sm">
-                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#D6003C]" viewBox="0 0 20 20" fill="currentColor">
+                  <div className="rounded-xl border border-rose-500/30 bg-rose-50 px-4 py-3 text-rose-950 text-sm font-mono flex items-start gap-2.5 shadow-sm">
+                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5 text-rose-600" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                     </svg>
                     <div className="flex-1">

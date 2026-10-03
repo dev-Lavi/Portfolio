@@ -18,13 +18,13 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     const isTouchDamped = isAndroid || isSmallDevice;
 
     const lenis = new Lenis({
-      lerp: isTouchDamped ? 0.08 : 0.1,
+      lerp: isTouchDamped ? 0.095 : 0.1,
       wheelMultiplier: 1,
       smoothWheel: true,
       syncTouch: isTouchDamped, // Synchronize touch for Android and small-width screens
-      touchMultiplier: isTouchDamped ? 0.72 : 1, // Decreases scroll speed/sensitivity on Android & small devices
+      touchMultiplier: isTouchDamped ? 0.88 : 1, // Responsive touch scroll speed on Android & small devices
       touchInertiaExponent: isTouchDamped ? 1.3 : 1.7, // Tames aggressive fling momentum
-      syncTouchLerp: isTouchDamped ? 0.07 : 0.075,
+      syncTouchLerp: isTouchDamped ? 0.075 : 0.075,
       autoRaf: false,   // Driven directly by GSAP ticker for synchronized 60/120fps frames
     });
 

@@ -37,7 +37,7 @@ export function FlowButton({
     <button
       type={type}
       disabled={disabled}
-      className={`group relative flex items-center justify-center gap-1 overflow-hidden rounded-[100px] border-2 border-[#D6003C]/70 bg-transparent px-8 py-3.5 text-sm font-bank font-bold uppercase tracking-[0.16em] text-[#111111] cursor-pointer transition-all duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-[#D6003C] hover:text-white hover:rounded-[14px] active:scale-[0.95] disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none ${className}`}
+      className={`group relative flex items-center justify-center gap-1 overflow-hidden rounded-[100px] border-[1.5px] border-[#111111] bg-transparent px-8 py-3.5 text-sm font-bank font-bold uppercase tracking-[0.16em] text-[#111111] cursor-pointer transition-all duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-[#111111] hover:text-white hover:rounded-[14px] active:scale-[0.95] disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none ${className}`}
     >
       {/* Left arrow (arr-2) */}
       <ArrowRightIcon
@@ -52,7 +52,7 @@ export function FlowButton({
       {/* Circle expanding wave */}
       <span
         aria-hidden="true"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[#D6003C] rounded-[50%] opacity-0 group-hover:w-[320px] group-hover:h-[320px] group-hover:opacity-100 transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-[#111111] rounded-[50%] opacity-0 group-hover:w-[320px] group-hover:h-[320px] group-hover:opacity-100 transition-all duration-[800ms] ease-[cubic-bezier(0.19,1,0.22,1)]"
       />
 
       {/* Right arrow (arr-1) */}
