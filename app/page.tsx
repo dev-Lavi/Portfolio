@@ -7,6 +7,7 @@ import WhatIDo from "./components/WhatIDo";
 import MotorcycleShowcase from "./components/MotorcycleShowcase";
 import DeploymentExperience from "./components/DeploymentExperience";
 import ContributionsSection from "./components/ContributionsSection";
+import ContactForm from "@/components/ContactForm";
 import ThemeMorph from "./components/motion/ThemeMorph";
 import Navbar from "./components/Navbar";
 
@@ -92,10 +93,20 @@ export default function Home() {
         {/* Skills & Tech Stack */}
         <Skills />
 
-        {/* Footer */}
+        {/* Contact */}
         <section
           id="contact"
-          data-theme-bg="#0A0C0A"
+          data-theme-bg="#F7F7F5"
+          data-theme-fg="#111111"
+          className="relative z-30 bg-[#F7F7F5] py-12 sm:py-16 lg:py-20 min-h-[85vh] flex items-center"
+        >
+          <ContactForm />
+        </section>
+
+        {/* Footer */}
+        <section
+          id="footer"
+          data-theme-bg="#10140d"
           data-theme-fg="#ffffff"
           className="relative z-20"
         >

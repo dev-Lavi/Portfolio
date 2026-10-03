@@ -25,18 +25,6 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#10140d] px-0 py-12 sm:py-16 md:py-20">
       <div className="mx-auto w-full max-w-none px-4 sm:px-6 md:px-8">
-        {/* Heading */}
-        <h2
-          className="
-            mb-8 text-left
-            text-[32px] sm:text-[40px] md:text-[48px]
-            font-bank uppercase tracking-[0.28em]
-            text-[#e3ff6b]
-          "
-        >
-          CONTACT ME
-        </h2>
-
         {/* Name box */}
         <div
           className="
