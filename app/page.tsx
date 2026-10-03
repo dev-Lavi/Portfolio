@@ -5,6 +5,7 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import WhatIDo from "./components/WhatIDo";
 import MotorcycleShowcase from "./components/MotorcycleShowcase";
+import DeploymentExperience from "./components/DeploymentExperience";
 import ThemeMorph from "./components/motion/ThemeMorph";
 import Navbar from "./components/Navbar";
 
@@ -65,6 +66,16 @@ export default function Home() {
           className="relative z-20"
         >
           <MotorcycleShowcase />
+        </section>
+
+        {/* AWS, Hosting, Deployment & Google Play Console Experience */}
+        <section
+          id="deployment"
+          data-theme-bg="#070b05"
+          data-theme-fg="#ffffff"
+          className="relative z-20"
+        >
+          <DeploymentExperience />
         </section>
 
         {/* Skills & Tech Stack */}
