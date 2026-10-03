@@ -12,6 +12,7 @@ const NAV_LINKS: NavItem[] = [
   { id: "#about", label: "ABOUT" },
   { id: "#projects", label: "PROJECTS" },
   { id: "#services", label: "SERVICES" },
+  { id: "#contributions", label: "ACTIVITY" },
   { id: "#experience", label: "EXPERIENCE" },
   { id: "#deployment", label: "DEPLOYMENT" },
   { id: "#skills", label: "SKILLS" },

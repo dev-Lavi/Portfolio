@@ -6,6 +6,7 @@ import Projects from "./components/Projects";
 import WhatIDo from "./components/WhatIDo";
 import MotorcycleShowcase from "./components/MotorcycleShowcase";
 import DeploymentExperience from "./components/DeploymentExperience";
+import ContributionsSection from "./components/ContributionsSection";
 import ThemeMorph from "./components/motion/ThemeMorph";
 import Navbar from "./components/Navbar";
 
@@ -56,6 +57,16 @@ export default function Home() {
           className="relative z-30 bg-[#F7F7F5]"
         >
           <WhatIDo />
+        </section>
+
+        {/* Contributions & Activity */}
+        <section
+          id="contributions"
+          data-theme-bg="#070b05"
+          data-theme-fg="#ffffff"
+          className="relative z-20"
+        >
+          <ContributionsSection />
         </section>
 
         {/* Motorcycle Experience (Smooth Canvas Scrubbing with Dark Theme Return) */}
