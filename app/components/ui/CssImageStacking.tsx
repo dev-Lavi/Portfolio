@@ -28,13 +28,13 @@ export default function CssImageStacking({
     "w-full sm:w-[88%] md:w-[84%] lg:w-[76%]",
   ];
 
-  // Progressive sticky top offsets considering the fixed navbar
+  // Progressive sticky top offsets considering the fixed navbar across all screen sizes
   const stickyTopClasses = [
-    "sm:sticky sm:top-20",
-    "sm:sticky sm:top-24",
-    "sm:sticky sm:top-28",
-    "sm:sticky sm:top-32",
-    "sm:sticky sm:top-36",
+    "sticky top-16 sm:top-20",
+    "sticky top-20 sm:top-24",
+    "sticky top-24 sm:top-28",
+    "sticky top-28 sm:top-32",
+    "sticky top-32 sm:top-36",
   ];
 
   return (
@@ -44,8 +44,8 @@ export default function CssImageStacking({
         const stickyClass = stickyTopClasses[index % stickyTopClasses.length];
 
         return (
-          <div key={item.id} className={`${stickyClass} w-full py-4`}>
-            <figure className="w-full min-h-[82vh] sm:min-h-[88vh] flex items-center justify-center px-4">
+          <div key={item.id} className={`${stickyClass} w-full py-2 sm:py-4`}>
+            <figure className="w-full min-h-[75vh] sm:min-h-[88vh] flex items-center justify-center px-2 sm:px-4">
               <div
                 className={`group relative transition-all duration-300 ${widthClass} overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0c110d] [box-shadow:0_-14px_36px_rgba(0,0,0,0.92),0_10px_25px_rgba(0,0,0,0.8)] hover:border-[#e3ff6b]/40`}
               >

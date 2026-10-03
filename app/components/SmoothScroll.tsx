@@ -12,11 +12,19 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
+    // Detect Android or small width devices to decrease scroll speed
+    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+    const isSmallDevice = typeof window !== "undefined" && (window.innerWidth < 768 || window.matchMedia("(max-width: 768px)").matches);
+    const isTouchDamped = isAndroid || isSmallDevice;
+
     const lenis = new Lenis({
-      lerp: 0.1,
+      lerp: isTouchDamped ? 0.08 : 0.1,
       wheelMultiplier: 1,
       smoothWheel: true,
-      syncTouch: false, // Keep standard native touch behavior on mobile
+      syncTouch: isTouchDamped, // Synchronize touch for Android and small-width screens
+      touchMultiplier: isTouchDamped ? 0.72 : 1, // Decreases scroll speed/sensitivity on Android & small devices
+      touchInertiaExponent: isTouchDamped ? 1.3 : 1.7, // Tames aggressive fling momentum
+      syncTouchLerp: isTouchDamped ? 0.07 : 0.075,
       autoRaf: false,   // Driven directly by GSAP ticker for synchronized 60/120fps frames
     });
 

@@ -7,32 +7,32 @@ const DEPLOYMENT_IMAGES: readonly StackingImageItem[] = [
   {
     id: "aws-architecture",
     src: "/deployment/aws-architecture.webp",
-    alt: "AWS Cost Explorer & Multi-Service Architecture",
+    alt: "AWS Cost Explorer & Multi-Service Architecture Management",
     tag: "AWS Cloud Infrastructure & Cost Governance",
   },
   {
-    id: "google-play-console",
-    src: "/deployment/google-play-console.webp",
-    alt: "Google Play Console Android Vitals & Ratings",
-    tag: "Google Play Console Production Vitals",
+    id: "render-services",
+    src: "/deployment/render-services.webp",
+    alt: "Render Cloud Platform 25 Microservices Management",
+    tag: "Render Cloud Microservices & Zero-Downtime CI/CD",
   },
   {
     id: "vercel-edge-network",
     src: "/deployment/vercel-edge-network.webp",
     alt: "Vercel Global Edge Network Fast Data Transfer",
-    tag: "Vercel Multi-Region Edge CDN",
+    tag: "Vercel Multi-Region Edge CDN & Routing",
   },
   {
     id: "vercel-cdn-requests",
     src: "/deployment/vercel-cdn-requests.webp",
-    alt: "Vercel CDN Observability & Request Analytics",
-    tag: "Vercel CDN Telemetry & Observability",
+    alt: "Vercel CDN Observability & Traffic Telemetry",
+    tag: "Vercel CDN Telemetry & Traffic Management",
   },
   {
-    id: "render-services",
-    src: "/deployment/render-services.webp",
-    alt: "Render Cloud Platform 25 Microservices",
-    tag: "Render Cloud Microservices & CI/CD",
+    id: "google-play-console",
+    src: "/deployment/google-play-console.webp",
+    alt: "Google Play Console Android Vitals & Production Release Experience",
+    tag: "Google Play Console Production Vitals & Release Management",
   },
 ];
 
@@ -62,16 +62,16 @@ export default function DeploymentExperience() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e3ff6b]" />
           </span>
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#e3ff6b] font-semibold">
-            PRODUCTION CLOUD & DEPLOYMENT OPERATIONS
+            PRODUCTION OPERATIONS & PLATFORM MANAGEMENT
           </span>
         </div>
 
         <h2 className="font-bank text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-white leading-tight max-w-4xl">
-          AWS, HOSTING & RUNTIME ECOSYSTEM
+          AWS, HOSTING & APPLICATION DEPLOYMENTS
         </h2>
 
         <p className="mt-4 font-mono text-xs sm:text-sm text-white/50 tracking-wider uppercase flex items-center gap-2">
-          <span>Scroll down to inspect architectures</span>
+          <span>Scroll to explore hands-on experience managing and scaling these live applications</span>
           <span className="text-[#e3ff6b] animate-bounce">↓</span>
         </p>
       </div>
