@@ -386,8 +386,11 @@ export default function Skills({
         const imageCenterOpacity = 1;
         const imageSideOpacity = 0; // Completely invisible outside active carousel arc!
 
+        const maxOrbitProgress = total > 1 ? (total - 1) / total : 1;
+
         const render = (scrollProgress: number) => {
           progressRef.current = scrollProgress;
+          const effectiveProgress = scrollProgress * maxOrbitProgress;
 
           const width = typeof window !== "undefined" ? window.innerWidth : DESKTOP_WIDTH;
           let factor = 1;
@@ -408,7 +411,7 @@ export default function Skills({
 
           leftNodes.forEach((node, index) => {
             // Distance in fraction of total items, wrapped in [-0.5, 0.5]
-            let diff = (index / total - scrollProgress) % 1;
+            let diff = (index / total - effectiveProgress) % 1;
             if (diff > 0.5) diff -= 1;
             if (diff < -0.5) diff += 1;
 
@@ -456,7 +459,7 @@ export default function Skills({
           });
 
           rightNodes.forEach((node, index) => {
-            const localProgress = wrapProgress(index / total - scrollProgress + focusPhase / total);
+            const localProgress = wrapProgress(index / total - effectiveProgress + focusPhase / total);
 
             const position = getCircularPosition(
               localProgress,
@@ -488,8 +491,8 @@ export default function Skills({
         const scrollTrigger = ScrollTrigger.create({
           trigger: rootRef.current,
           start: "top top",
-          end: `+=${sectionHeight * safeItems.length}%`,
-          pin: stickyRef.current,
+          end: () => `+=${Math.round(window.innerHeight * Math.min(4.8, Math.max(3.2, total * 0.16)))}`,
+          pin: true,
           scrub,
           pinSpacing: true,
           invalidateOnRefresh: true,
@@ -498,14 +501,18 @@ export default function Skills({
           },
         });
 
+        let resizeTimer: ReturnType<typeof setTimeout>;
         const onResize = () => {
-          render(progressRef.current);
-          scrollTrigger.refresh();
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            render(progressRef.current);
+          }, 100);
         };
 
         window.addEventListener("resize", onResize);
 
         return () => {
+          clearTimeout(resizeTimer);
           window.removeEventListener("resize", onResize);
           scrollTrigger.kill();
         };
@@ -521,7 +528,9 @@ export default function Skills({
     <section
       ref={rootRef}
       id="skills"
-      className={`relative w-full min-h-screen bg-[#070b05] text-white overflow-clip ${className}`}
+      data-theme-bg="#070b05"
+      data-theme-fg="#ffffff"
+      className={`relative z-20 w-full min-h-screen bg-[#070b05] text-white overflow-hidden ${className}`}
       style={{
         "--css-card-width": `${cardSize}px`,
         "--css-card-height": `${cardSize}px`,

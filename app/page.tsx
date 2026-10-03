@@ -79,14 +79,7 @@ export default function Home() {
         </section>
 
         {/* Skills & Tech Stack */}
-        <section
-          id="skills"
-          data-theme-bg="#070b05"
-          data-theme-fg="#ffffff"
-          className="relative z-20"
-        >
-          <Skills />
-        </section>
+        <Skills />
 
         {/* Footer */}
         <section
