@@ -4,7 +4,7 @@ import HeroRevealBackground from "./HeroRevealBackground";
 
 export default function Hero() {
   return (
-    <section className="relative flex w-full overflow-hidden bg-[#060906] h-[90vh] md:h-screen sticky top-0">
+    <section className="relative flex w-full overflow-hidden bg-[#060906] h-[90vh] md:h-screen">
       {/* Background: ASCII Art Glitch Video with Liquid Cursor Reveal for mountain photo */}
       <HeroRevealBackground qualityMode="lo-fi" />
 

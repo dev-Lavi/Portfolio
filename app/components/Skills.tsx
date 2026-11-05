@@ -389,8 +389,9 @@ export default function Skills({
         const maxOrbitProgress = total > 1 ? (total - 1) / total : 1;
 
         const render = (scrollProgress: number) => {
-          progressRef.current = scrollProgress;
-          const effectiveProgress = scrollProgress * maxOrbitProgress;
+          const clamped = gsap.utils.clamp(0, 1, scrollProgress);
+          progressRef.current = clamped;
+          const effectiveProgress = clamped * maxOrbitProgress;
 
           const width = typeof window !== "undefined" ? window.innerWidth : DESKTOP_WIDTH;
           let factor = 1;
@@ -491,10 +492,8 @@ export default function Skills({
         const scrollTrigger = ScrollTrigger.create({
           trigger: rootRef.current,
           start: "top top",
-          end: () => `+=${Math.round(window.innerHeight * Math.min(4.8, Math.max(3.2, total * 0.16)))}`,
-          pin: true,
+          end: "bottom bottom",
           scrub,
-          pinSpacing: true,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             render(self.progress);
@@ -530,41 +529,45 @@ export default function Skills({
       id="skills"
       data-theme-bg="#070b05"
       data-theme-fg="#ffffff"
-      className={`relative z-20 w-full min-h-screen bg-[#070b05] text-white overflow-hidden ${className}`}
+      className={`relative z-20 w-full bg-[#070b05] text-white overflow-hidden min-[1025px]:overflow-visible ${
+        reducedMotion ? "h-auto" : "h-auto min-[1025px]:h-[500vh]"
+      } min-h-screen ${className}`}
       style={{
         "--css-card-width": `${cardSize}px`,
         "--css-card-height": `${cardSize}px`,
       } as React.CSSProperties}
     >
-      {/* Background Cybernetic Grid Overlay */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `
-              linear-gradient(#202d18 1px, transparent 1px),
-              linear-gradient(90deg, #202d18 1px, transparent 1px)
-            `,
-            backgroundSize: "75px 75px",
-          }}
-        />
-        {/* Ambient Radial Glow Blobs */}
-        <div
-          className="absolute top-1/4 left-1/5 w-[550px] h-[550px] max-w-[90vw] rounded-full opacity-15 blur-[140px]"
-          style={{ background: "radial-gradient(circle, #e3ff6b 0%, transparent 70%)" }}
-        />
-        <div
-          className="absolute bottom-1/4 right-1/5 w-[500px] h-[500px] max-w-[90vw] rounded-full opacity-10 blur-[130px]"
-          style={{ background: "radial-gradient(circle, #FF0D4A 0%, transparent 70%)" }}
-        />
-      </div>
-
       {/* Pinned Desktop Circular Split Roll Carousel (>= 1025px) */}
       <div
         ref={stickyRef}
         aria-hidden="true"
-        className={`relative h-screen w-full overflow-hidden ${reducedMotion ? "hidden" : "max-[1025px]:hidden"}`}
+        className={`sticky top-0 h-screen w-full overflow-hidden ${
+          reducedMotion ? "hidden" : "max-[1025px]:hidden"
+        }`}
       >
+        {/* Background Cybernetic Grid Overlay */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `
+                linear-gradient(#202d18 1px, transparent 1px),
+                linear-gradient(90deg, #202d18 1px, transparent 1px)
+              `,
+              backgroundSize: "75px 75px",
+            }}
+          />
+          {/* Ambient Radial Glow Blobs */}
+          <div
+            className="absolute top-1/4 left-1/5 w-[550px] h-[550px] max-w-[90vw] rounded-full opacity-15 blur-[140px]"
+            style={{ background: "radial-gradient(circle, #e3ff6b 0%, transparent 70%)" }}
+          />
+          <div
+            className="absolute bottom-1/4 right-1/5 w-[500px] h-[500px] max-w-[90vw] rounded-full opacity-10 blur-[130px]"
+            style={{ background: "radial-gradient(circle, #FF0D4A 0%, transparent 70%)" }}
+          />
+        </div>
+
         {/* Pinned HUD Header (clean top-left placement) */}
         <div className="absolute top-8 left-8 md:left-14 right-8 md:right-14 z-30 pointer-events-none flex items-start justify-between">
           <div>
@@ -701,12 +704,30 @@ export default function Skills({
 
       {/* Mobile & Tablet Accessible Grid Fallback (<= 1024px or Reduced Motion) */}
       <div
-        className={`w-full px-4 sm:px-6 md:px-10 py-16 ${
+        className={`relative w-full px-4 sm:px-6 md:px-10 py-16 overflow-hidden ${
           reducedMotion ? "block" : "sr-only max-[1025px]:not-sr-only max-[1025px]:block"
         }`}
       >
+        {/* Background Cybernetic Grid Overlay for Mobile */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `
+                linear-gradient(#202d18 1px, transparent 1px),
+                linear-gradient(90deg, #202d18 1px, transparent 1px)
+              `,
+              backgroundSize: "75px 75px",
+            }}
+          />
+          <div
+            className="absolute top-1/4 left-1/5 w-[350px] h-[350px] rounded-full opacity-15 blur-[120px]"
+            style={{ background: "radial-gradient(circle, #e3ff6b 0%, transparent 70%)" }}
+          />
+        </div>
+
         {/* Section Header for Mobile */}
-        <div className="mb-10 sm:mb-14">
+        <div className="relative z-10 mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#27341c] bg-[#0c1209]/90 backdrop-blur-md mb-3">
             <span className="h-2 w-2 rounded-full bg-[#e3ff6b] animate-pulse" />
             <span className="font-mono text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-[#e3ff6b]">
@@ -720,7 +741,7 @@ export default function Skills({
         </div>
 
         {/* 3D Coverflow Carousel for Small Width Devices */}
-        <div className="w-full max-w-xl mx-auto">
+        <div className="relative z-10 w-full max-w-xl mx-auto">
           <CoverflowCarousel
             slides={coverflowSlides}
             rotate={42}

@@ -21,24 +21,26 @@ export default function Home() {
       <Navbar />
       <main className="min-h-screen">
         {/* Hero stays sticky — About slides up over it */}
-        <section
-          id="hero"
-          data-theme-bg="#070b05"
-          data-theme-fg="#ffffff"
-          className="sticky top-0 z-0"
-        >
-          <Hero />
-        </section>
+        <div className="relative">
+          <section
+            id="hero"
+            data-theme-bg="#070b05"
+            data-theme-fg="#ffffff"
+            className="sticky top-0 z-0"
+          >
+            <Hero />
+          </section>
 
-        {/* About slides up over the sticky Hero */}
-        <section
-          id="about"
-          data-theme-bg="#050806"
-          data-theme-fg="#ffffff"
-          className="relative z-20"
-        >
-          <About />
-        </section>
+          {/* About slides up over the sticky Hero */}
+          <section
+            id="about"
+            data-theme-bg="#050806"
+            data-theme-fg="#ffffff"
+            className="relative z-20"
+          >
+            <About />
+          </section>
+        </div>
 
         {/* Selected Work & Projects (Stacked Deck Animation) */}
         <section
