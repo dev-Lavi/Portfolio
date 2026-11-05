@@ -8,42 +8,40 @@ export default function Hero() {
       {/* Background: ASCII Art Glitch Video with Liquid Cursor Reveal for mountain photo */}
       <HeroRevealBackground qualityMode="lo-fi" />
 
-      {/* Content wrapper - flex column for perfect bottom alignment */}
-      <div className="relative z-20 flex w-full h-full flex-col">
-
-        {/* Main content spacer */}
-        <div className="flex-1 flex items-center justify-end relative z-10 pb-32 lg:pb-48 xl:pb-64">
-          {/* Scrolling name - moved down, behind avatar */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto max-w-[100%]">
-            <div className="flex whitespace-nowrap animate-[scroll_20s_linear_infinite] -mb-20 lg:-mb-28 xl:-mb-36">
-              <span className="text-[60px] sm:text-[72px] md:text-[72px] lg:text-[104px] xl:text-[128px] font-semibold tracking-[0.15em] sm:tracking-[0.25em] md:tracking-[0.3em] text-red-600 opacity-90">
-                LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp;
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom area - Hero Avatar */}
-        <div className="flex flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 relative z-10">
-          <div className="
-            relative mx-auto mb-1 sm:mb-2
-            w-[70vw] h-[70vw] sm:w-[55vw] sm:h-[55vw] md:w-[45vw] md:h-[45vw] max-w-[600px] max-h-[600px]
-            lg:w-[65vw] lg:h-[90vw] xl:w-[55vw] xl:h-[51vw] 2xl:w-[54vw] 2xl:h-[48vw]
-            lg:max-w-[750px] lg:max-h-[650px] xl:max-w-[850px] xl:max-h-[650px] 2xl:max-w-[1200px] 2xl:max-h-[1200px]
-            lg:-top-0 xl:-top-20 2xl:-top-45 [@media(min-width:1900px)]:-top-[270px]
-          ">
-            <Image
-              src="/images/avatar.webp"
-              alt="Portrait of Lavi with katana - desktop"
-              fill
-              priority
-              unoptimized
-              fetchPriority="high"
-              className="w-full h-full object-contain"
-            />
-          </div>
+      {/* Scrolling name - positioned vertically in the middle of hero, hidden on small devices (< md) */}
+      <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 z-10 max-w-[100%] overflow-hidden hidden md:block">
+        <div className="flex whitespace-nowrap animate-[scroll_20s_linear_infinite]">
+          <span className="text-[60px] sm:text-[72px] md:text-[72px] lg:text-[104px] xl:text-[128px] font-semibold tracking-[0.15em] sm:tracking-[0.25em] md:tracking-[0.3em] text-red-600 opacity-90">
+            LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp;
+          </span>
         </div>
       </div>
+
+      {/* Hero Avatar - pinned directly to center-bottom with 0 gap */}
+      <div className="pointer-events-none absolute bottom-0 inset-x-0 z-20 flex justify-center items-end">
+        <div className="
+          relative
+          aspect-[1424/1286]
+          w-[76vw] max-w-[360px] max-h-[62vh]
+          sm:w-[58vw] sm:max-w-[440px] sm:max-h-[66vh]
+          md:w-[48vw] md:max-w-[500px] md:max-h-[70vh]
+          lg:w-[780px] lg:max-w-[820px] lg:max-h-[82vh]
+          xl:w-[920px] xl:max-w-[960px] xl:max-h-[85vh]
+          2xl:w-[1100px] 2xl:max-w-[1150px] 2xl:max-h-[88vh]
+          [@media(min-width:1900px)]:w-[1250px] [@media(min-width:1900px)]:max-w-[1300px] [@media(min-width:1900px)]:max-h-[90vh]
+        ">
+          <Image
+            src="/images/avatar.webp"
+            alt="Portrait of Lavi with katana - desktop"
+            fill
+            priority
+            unoptimized
+            fetchPriority="high"
+            className="w-full h-full object-contain object-bottom"
+          />
+        </div>
+      </div>
+
       {/* Bottom labels — direct child of section so absolute works correctly */}
       <div className="absolute bottom-4 left-4 right-4 z-30 flex items-center justify-between sm:bottom-6 sm:left-6 sm:right-6">
         {/* On desktop (md+): Scroll down is on the left */}
