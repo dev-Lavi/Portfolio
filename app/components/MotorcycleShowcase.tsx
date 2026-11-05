@@ -169,19 +169,54 @@ export default function MotorcycleShowcase() {
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    // Load remaining frames in background
-    for (let i = 2; i <= TOTAL_FRAMES; i++) {
-      const img = new window.Image();
-      img.src = getFramePath(i);
-      img.onload = () => {
-        if (isMounted) {
-          imagesRef.current[i] = img;
+    // Defer loading remaining frames until the user scrolls towards the motorcycle section
+    let observer: IntersectionObserver | null = null;
+    const startPreloadingRemaining = () => {
+      let idx = 2;
+      const loadNextBatch = () => {
+        if (!isMounted || idx > TOTAL_FRAMES) return;
+        const end = Math.min(idx + 10, TOTAL_FRAMES);
+        for (; idx <= end; idx++) {
+          const currentIdx = idx;
+          const img = new window.Image();
+          img.src = getFramePath(currentIdx);
+          img.onload = () => {
+            if (isMounted) imagesRef.current[currentIdx] = img;
+          };
+        }
+        if (idx <= TOTAL_FRAMES) {
+          if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(loadNextBatch, { timeout: 1000 });
+          } else {
+            setTimeout(loadNextBatch, 80);
+          }
         }
       };
+      loadNextBatch();
+    };
+
+    if ("IntersectionObserver" in window && containerRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            startPreloadingRemaining();
+            observer?.disconnect();
+          }
+        },
+        { rootMargin: "600px 0px" }
+      );
+      observer.observe(containerRef.current);
+    } else {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(startPreloadingRemaining, { timeout: 3000 });
+      } else {
+        setTimeout(startPreloadingRemaining, 2000);
+      }
     }
 
     return () => {
       isMounted = false;
+      if (observer) observer.disconnect();
       window.removeEventListener("resize", handleResize);
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current);

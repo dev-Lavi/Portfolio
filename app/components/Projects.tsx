@@ -415,7 +415,6 @@ export default function Projects() {
                         fill
                         className="object-contain p-1.5 sm:p-2 transition-transform duration-500 group-hover/logo:scale-110 drop-shadow-[0_6px_25px_rgba(0,0,0,0.9)]"
                         sizes="(max-width: 640px) 72px, (max-width: 768px) 96px, 140px"
-                        priority={index === 0}
                       />
                     </div>
                     <span

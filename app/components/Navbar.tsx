@@ -64,11 +64,11 @@ export default function Navbar() {
         }`}
         aria-label="Main Navigation"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex items-center justify-between relative">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex items-center justify-between relative">
           {/* Logo / Brand - scrolls to top */}
           <button
             onClick={(e) => handleScrollTo(e, "#hero")}
-            className="flex items-center gap-2.5 group cursor-pointer text-left focus:outline-none"
+            className="flex items-center gap-2.5 group cursor-pointer text-left focus:outline-none shrink-0"
             aria-label="Scroll to top"
           >
             <span className="relative flex h-2.5 w-2.5 items-center justify-center">
@@ -80,8 +80,8 @@ export default function Navbar() {
             </span>
           </button>
 
-          {/* Desktop/Tablet Navigation Links */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-10">
+          {/* Desktop Navigation Links (Shown at screen width >= 1330px) */}
+          <div className="hidden min-[1330px]:flex items-center gap-6 xl:gap-8 2xl:gap-10">
             {NAV_LINKS.map((link) => (
               <DesktopNavLink
                 key={link.id}
@@ -92,11 +92,11 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right Action Button (Desktop/Tablet) */}
-          <div className="hidden md:block">
+          {/* Right Action Button with generous separation from Skills button (width >= 1330px) */}
+          <div className="hidden min-[1330px]:block ml-6 xl:ml-10 2xl:ml-14 shrink-0">
             <button
               onClick={(e) => handleScrollTo(e, "#contact")}
-              className="group relative overflow-hidden rounded-full border border-[#e3ff6b]/60 bg-black/60 px-4 py-1.5 lg:px-5 lg:py-2 text-[11px] lg:text-xs font-bank font-bold uppercase tracking-[0.2em] text-[#e3ff6b] transition-all duration-300 hover:bg-[#e3ff6b] hover:text-black hover:shadow-[0_0_20px_rgba(227,255,107,0.5)] active:scale-95 flex items-center gap-1.5 cursor-pointer"
+              className="group relative overflow-hidden rounded-full border border-[#e3ff6b]/60 bg-black/60 px-4 py-1.5 lg:px-5 lg:py-2 text-[11px] lg:text-xs font-bank font-bold uppercase tracking-[0.2em] text-[#e3ff6b] transition-all duration-300 hover:bg-[#e3ff6b] hover:text-black hover:shadow-[0_0_20px_rgba(227,255,107,0.5)] active:scale-95 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               <span>CONTACT</span>
               <span className="text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -105,9 +105,9 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Hamburger Toggle Button */}
+          {/* Hamburger Toggle Button (Shown at screen width < 1330px) */}
           <button
-            className="md:hidden text-white p-2 -mr-2 focus:outline-none cursor-pointer"
+            className="min-[1330px]:hidden text-white p-2 -mr-2 focus:outline-none cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
@@ -132,7 +132,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile / Tablet Drawer Navigation (< 1330px) */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -143,7 +143,7 @@ export default function Navbar() {
               animate={{ opacity: 0.65 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[55] md:hidden"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[55] min-[1330px]:hidden"
               onClick={() => setMenuOpen(false)}
             />
 
@@ -154,7 +154,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-              className="fixed top-0 right-0 w-[85%] max-w-[340px] h-screen z-[60] bg-[#070b05]/95 backdrop-blur-2xl border-l border-white/10 px-6 py-8 flex flex-col justify-between md:hidden shadow-[-10px_0_40px_rgba(0,0,0,0.8)]"
+              className="fixed top-0 right-0 w-[85%] max-w-[340px] h-screen z-[60] bg-[#070b05]/95 backdrop-blur-2xl border-l border-white/10 px-6 py-8 flex flex-col justify-between min-[1330px]:hidden shadow-[-10px_0_40px_rgba(0,0,0,0.8)]"
             >
               <div>
                 {/* Header inside drawer */}
@@ -245,7 +245,7 @@ function DesktopNavLink({
       onClick={(e) => onClick(e, href)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative py-1 font-bank text-xs lg:text-[13px] tracking-[0.2em] uppercase font-bold text-white/75 transition-colors duration-200 hover:text-white cursor-pointer"
+      className="relative py-1 font-bank text-xs lg:text-[13px] tracking-[0.2em] uppercase font-bold text-white/75 transition-colors duration-200 hover:text-white cursor-pointer whitespace-nowrap"
     >
       <span className="relative z-10">{label}</span>
       {/* Animated underline from web3landing */}

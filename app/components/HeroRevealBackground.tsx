@@ -297,7 +297,7 @@ export default function HeroRevealBackground({
         loop
         muted
         playsInline
-        preload="auto"
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
       >
         <source src={videoSrc} type="video/mp4" />
