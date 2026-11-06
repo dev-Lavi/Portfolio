@@ -110,10 +110,10 @@ body {
 /* new calude */
 @keyframes scroll {
   0% {
-    transform: translateX(0);
+    transform: translateX(50vw);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(calc(50vw - 50%));
   }
 }
 
@@ -209,4 +209,3 @@ body {
     0 0 15px rgba(255, 26, 64, 0.3),
     inset 0 0 15px rgba(255, 26, 64, 0.15);
 }
-

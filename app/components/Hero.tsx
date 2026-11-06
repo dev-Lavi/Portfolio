@@ -10,9 +10,12 @@ export default function Hero() {
 
       {/* Scrolling name - positioned vertically in the middle of hero, hidden on small devices (< md) */}
       <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 z-10 max-w-[100%] overflow-hidden hidden md:block">
-        <div className="flex whitespace-nowrap animate-[scroll_20s_linear_infinite]">
+        <div className="flex whitespace-nowrap animate-[scroll_35s_linear_infinite]">
           <span className="text-[60px] sm:text-[72px] md:text-[72px] lg:text-[104px] xl:text-[128px] font-semibold tracking-[0.15em] sm:tracking-[0.25em] md:tracking-[0.3em] text-red-600 opacity-90">
-            LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp;
+            LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp;
+          </span>
+          <span className="text-[60px] sm:text-[72px] md:text-[72px] lg:text-[104px] xl:text-[128px] font-semibold tracking-[0.15em] sm:tracking-[0.25em] md:tracking-[0.3em] text-red-600 opacity-90">
+            LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp; LAVI &nbsp; SHARMA &nbsp;
           </span>
         </div>
       </div>
