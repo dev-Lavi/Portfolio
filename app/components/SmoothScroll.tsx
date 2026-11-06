@@ -12,28 +12,38 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    // Slowed-down scroll physics specifically for Projects and Experience sections
+    // Detect Android or small devices (< 768px)
+    const checkIsAndroidOrSmallDevice = (): boolean => {
+      if (typeof window === "undefined") return false;
+      const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+      const isSmall = window.innerWidth < 768 || window.matchMedia("(max-width: 768px)").matches;
+      return isAndroid || isSmall;
+    };
+
+    let isSmallOrAndroid = checkIsAndroidOrSmallDevice();
+
+    // 1. Slowed-down custom physics specifically when Projects or Experience is in the viewport
     const SLOW_PHYSICS = {
-      lerp: 0.065,              // Higher fluid damping for a heavy, deliberate, smooth feel
-      syncTouch: true,
-      touchMultiplier: 0.72,    // Slows down touch swipe distance by ~28%
-      wheelMultiplier: 0.60,    // Slows down mouse wheel / trackpad scroll by 40%
-      touchInertiaExponent: 1.2,// Softens fling momentum so sections don't whip past
+      lerp: 0.065,
+      syncTouch: isSmallOrAndroid,
+      touchMultiplier: 0.72,
+      wheelMultiplier: 0.60,
+      touchInertiaExponent: 1.2,
       syncTouchLerp: 0.065,
     };
 
-    // Smooth physics for About section
-    const ABOUT_PHYSICS = {
+    // 2. Custom touch physics for all other sections on Android or small devices
+    const GENERAL_CUSTOM_PHYSICS = {
       lerp: 0.095,
-      syncTouch: true,
-      touchMultiplier: 1.0,
+      syncTouch: isSmallOrAndroid,
+      touchMultiplier: 1.05,
       wheelMultiplier: 1.0,
       touchInertiaExponent: 1.5,
       syncTouchLerp: 0.075,
     };
 
-    // Default native phone touch physics for all other sections
-    const NATIVE_TOUCH_PHYSICS = {
+    // 3. Desktop / large device default settings (native touch if touch-enabled)
+    const DESKTOP_DEFAULT_PHYSICS = {
       lerp: 0.1,
       syncTouch: false,
       touchMultiplier: 1.0,
@@ -42,22 +52,23 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       syncTouchLerp: 0.075,
     };
 
-    // Initial state: default native touch physics for general sections
+    // Initial state
+    const initialConfig = isSmallOrAndroid ? GENERAL_CUSTOM_PHYSICS : DESKTOP_DEFAULT_PHYSICS;
+
     const lenis = new Lenis({
-      lerp: NATIVE_TOUCH_PHYSICS.lerp,
-      wheelMultiplier: NATIVE_TOUCH_PHYSICS.wheelMultiplier,
+      lerp: initialConfig.lerp,
+      wheelMultiplier: initialConfig.wheelMultiplier,
       smoothWheel: true,
-      syncTouch: NATIVE_TOUCH_PHYSICS.syncTouch,
-      touchMultiplier: NATIVE_TOUCH_PHYSICS.touchMultiplier,
-      touchInertiaExponent: NATIVE_TOUCH_PHYSICS.touchInertiaExponent,
-      syncTouchLerp: NATIVE_TOUCH_PHYSICS.syncTouchLerp,
+      syncTouch: initialConfig.syncTouch,
+      touchMultiplier: initialConfig.touchMultiplier,
+      touchInertiaExponent: initialConfig.touchInertiaExponent,
+      syncTouchLerp: initialConfig.syncTouchLerp,
       autoRaf: false, // Driven directly by GSAP ticker for synchronized 60/120fps frames
     });
 
     (window as unknown as { lenis: Lenis }).lenis = lenis;
 
     // Helper: Detect if Projects or Experience section has entered the viewport
-    // Triggers "as soon as projects section or experience section comes in the viewport"
     const isSlowSectionInViewport = (): boolean => {
       if (typeof window === "undefined" || typeof document === "undefined") return false;
       const vh = window.innerHeight;
@@ -66,23 +77,11 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         const el = document.querySelector(sel);
         if (!el) continue;
         const rect = el.getBoundingClientRect();
-        // As soon as the top edge of the section enters the bottom of the viewport (top <= vh * 0.98)
-        // and stays active until the bottom edge leaves the top (bottom >= vh * 0.05)
         if (rect.top <= vh * 0.98 && rect.bottom >= vh * 0.05) {
           return true;
         }
       }
       return false;
-    };
-
-    // Helper: Detect if About section is in viewport
-    const isAboutSectionInViewport = (): boolean => {
-      if (typeof window === "undefined" || typeof document === "undefined") return false;
-      const el = document.querySelector("#about");
-      if (!el) return false;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      return rect.top <= vh * 0.85 && rect.bottom >= vh * 0.15;
     };
 
     // Direct touch target checks
@@ -93,22 +92,13 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       return false;
     };
 
-    const isAboutTarget = (target?: EventTarget | null): boolean => {
-      if (target && target instanceof Element) {
-        return Boolean(target.closest("#about, [data-section='about']"));
-      }
-      return false;
-    };
-
-    let activeMode: "slow" | "about" | "native" = "native";
+    let activeMode: "slow" | "custom" | "desktop" = isSmallOrAndroid ? "custom" : "desktop";
     let wasSlowActive = false;
 
     const applyPhysics = (target?: EventTarget | null) => {
       const isSlow = isSlowTarget(target) || isSlowSectionInViewport();
-      const isAbout = !isSlow && (isAboutTarget(target) || isAboutSectionInViewport());
 
-      // Active velocity brake: as soon as entering the slow section with momentum,
-      // gently clamp the remaining scroll momentum so the user doesn't fly through the cards/canvas
+      // Active velocity brake: gently clamp incoming momentum when entering slow sections
       if (isSlow && !wasSlowActive) {
         if (lenis.isScrolling) {
           const delta = lenis.targetScroll - lenis.animatedScroll;
@@ -117,11 +107,20 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       }
       wasSlowActive = isSlow;
 
-      const targetMode: "slow" | "about" | "native" = isSlow ? "slow" : isAbout ? "about" : "native";
+      const targetMode: "slow" | "custom" | "desktop" = isSlow
+        ? "slow"
+        : isSmallOrAndroid
+        ? "custom"
+        : "desktop";
+
       if (targetMode === activeMode) return;
       activeMode = targetMode;
 
-      const config = targetMode === "slow" ? SLOW_PHYSICS : targetMode === "about" ? ABOUT_PHYSICS : NATIVE_TOUCH_PHYSICS;
+      const config = targetMode === "slow"
+        ? SLOW_PHYSICS
+        : targetMode === "custom"
+        ? GENERAL_CUSTOM_PHYSICS
+        : DESKTOP_DEFAULT_PHYSICS;
 
       lenis.options.syncTouch = config.syncTouch;
       lenis.options.touchMultiplier = config.touchMultiplier;
@@ -170,11 +169,15 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     gsap.ticker.lagSmoothing(0);
 
     const handleRefresh = () => {
+      isSmallOrAndroid = checkIsAndroidOrSmallDevice();
+      SLOW_PHYSICS.syncTouch = isSmallOrAndroid;
+      GENERAL_CUSTOM_PHYSICS.syncTouch = isSmallOrAndroid;
       ScrollTrigger.refresh();
       applyPhysics(null);
     };
 
     window.addEventListener("load", handleRefresh);
+    window.addEventListener("resize", handleRefresh);
     if (document.fonts) {
       document.fonts.ready.then(handleRefresh);
     }
@@ -184,6 +187,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     return () => {
       window.removeEventListener("touchstart", onTouchStartCapture, { capture: true });
+      window.removeEventListener("resize", handleRefresh);
       lenis.off("scroll", onScroll);
       window.removeEventListener("load", handleRefresh);
       ScrollTrigger.removeEventListener("refresh", syncLenis);
