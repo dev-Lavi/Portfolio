@@ -12,12 +12,12 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    // Custom physics specification for Projects and Experience sections
+    // Custom physics specification for About, Projects and Experience sections
     const CUSTOM_PHYSICS = {
       lerp: 0.095,
       syncTouch: true,
-      touchMultiplier: 0.88,
-      touchInertiaExponent: 1.3,
+      touchMultiplier: 1.15,
+      touchInertiaExponent: 1.45,
       syncTouchLerp: 0.075,
     };
 
@@ -44,20 +44,20 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     (window as unknown as { lenis: Lenis }).lenis = lenis;
 
-    // Helper: Determine if a touch target or current viewport is within Projects or Experience
+    // Helper: Determine if a touch target or current viewport is within About, Projects or Experience
     const checkIsCustomSection = (target?: EventTarget | null): boolean => {
       if (typeof window === "undefined" || typeof document === "undefined") return false;
 
       // 1. Direct Touch Target Check:
-      // If the touch event occurred directly on or inside #projects or #experience
+      // If the touch event occurred directly on or inside #about, #projects or #experience
       if (target && target instanceof Element) {
-        if (target.closest("#projects, #experience, [data-section='projects'], [data-section='experience']")) {
+        if (target.closest("#about, #projects, #experience, [data-section='about'], [data-section='projects'], [data-section='experience']")) {
           return true;
         }
       }
 
       // 2. Viewport Scroll Position Check:
-      // Determine if either section currently occupies the active interactive viewport region
+      // Determine if any of these sections currently occupies the active interactive viewport region
       const vh = window.innerHeight;
       const isTargetInViewport = (selector: string): boolean => {
         const elements = document.querySelectorAll(selector);
@@ -70,7 +70,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         return false;
       };
 
-      return isTargetInViewport("#projects") || isTargetInViewport("#experience");
+      return isTargetInViewport("#about") || isTargetInViewport("#projects") || isTargetInViewport("#experience");
     };
 
     let isCustomActive = false;
