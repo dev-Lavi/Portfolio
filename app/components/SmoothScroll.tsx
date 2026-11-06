@@ -12,12 +12,23 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    // Custom physics specification for About, Projects and Experience sections
-    const CUSTOM_PHYSICS = {
+    // Slowed-down scroll physics specifically for Projects and Experience sections
+    const SLOW_PHYSICS = {
+      lerp: 0.065,              // Higher fluid damping for a heavy, deliberate, smooth feel
+      syncTouch: true,
+      touchMultiplier: 0.72,    // Slows down touch swipe distance by ~28%
+      wheelMultiplier: 0.60,    // Slows down mouse wheel / trackpad scroll by 40%
+      touchInertiaExponent: 1.2,// Softens fling momentum so sections don't whip past
+      syncTouchLerp: 0.065,
+    };
+
+    // Smooth physics for About section
+    const ABOUT_PHYSICS = {
       lerp: 0.095,
       syncTouch: true,
-      touchMultiplier: 1.15,
-      touchInertiaExponent: 1.45,
+      touchMultiplier: 1.0,
+      wheelMultiplier: 1.0,
+      touchInertiaExponent: 1.5,
       syncTouchLerp: 0.075,
     };
 
@@ -25,7 +36,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     const NATIVE_TOUCH_PHYSICS = {
       lerp: 0.1,
       syncTouch: false,
-      touchMultiplier: 1,
+      touchMultiplier: 1.0,
+      wheelMultiplier: 1.0,
       touchInertiaExponent: 1.7,
       syncTouchLerp: 0.075,
     };
@@ -33,7 +45,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     // Initial state: default native touch physics for general sections
     const lenis = new Lenis({
       lerp: NATIVE_TOUCH_PHYSICS.lerp,
-      wheelMultiplier: 1,
+      wheelMultiplier: NATIVE_TOUCH_PHYSICS.wheelMultiplier,
       smoothWheel: true,
       syncTouch: NATIVE_TOUCH_PHYSICS.syncTouch,
       touchMultiplier: NATIVE_TOUCH_PHYSICS.touchMultiplier,
@@ -44,59 +56,91 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     (window as unknown as { lenis: Lenis }).lenis = lenis;
 
-    // Helper: Determine if a touch target or current viewport is within About, Projects or Experience
-    const checkIsCustomSection = (target?: EventTarget | null): boolean => {
+    // Helper: Detect if Projects or Experience section has entered the viewport
+    // Triggers "as soon as projects section or experience section comes in the viewport"
+    const isSlowSectionInViewport = (): boolean => {
       if (typeof window === "undefined" || typeof document === "undefined") return false;
-
-      // 1. Direct Touch Target Check:
-      // If the touch event occurred directly on or inside #about, #projects or #experience
-      if (target && target instanceof Element) {
-        if (target.closest("#about, #projects, #experience, [data-section='about'], [data-section='projects'], [data-section='experience']")) {
+      const vh = window.innerHeight;
+      const selectors = ["#projects", "#experience"];
+      for (const sel of selectors) {
+        const el = document.querySelector(sel);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        // As soon as the top edge of the section enters the bottom of the viewport (top <= vh * 0.98)
+        // and stays active until the bottom edge leaves the top (bottom >= vh * 0.05)
+        if (rect.top <= vh * 0.98 && rect.bottom >= vh * 0.05) {
           return true;
         }
       }
-
-      // 2. Viewport Scroll Position Check:
-      // Determine if any of these sections currently occupies the active interactive viewport region
-      const vh = window.innerHeight;
-      const isTargetInViewport = (selector: string): boolean => {
-        const elements = document.querySelectorAll(selector);
-        for (let i = 0; i < elements.length; i++) {
-          const rect = elements[i].getBoundingClientRect();
-          if (rect.top <= vh * 0.7 && rect.bottom >= vh * 0.25) {
-            return true;
-          }
-        }
-        return false;
-      };
-
-      return isTargetInViewport("#about") || isTargetInViewport("#projects") || isTargetInViewport("#experience");
+      return false;
     };
 
-    let isCustomActive = false;
-    const applyPhysics = (isCustom: boolean) => {
-      if (isCustom === isCustomActive) return;
-      isCustomActive = isCustom;
+    // Helper: Detect if About section is in viewport
+    const isAboutSectionInViewport = (): boolean => {
+      if (typeof window === "undefined" || typeof document === "undefined") return false;
+      const el = document.querySelector("#about");
+      if (!el) return false;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      return rect.top <= vh * 0.85 && rect.bottom >= vh * 0.15;
+    };
 
-      const config = isCustom ? CUSTOM_PHYSICS : NATIVE_TOUCH_PHYSICS;
+    // Direct touch target checks
+    const isSlowTarget = (target?: EventTarget | null): boolean => {
+      if (target && target instanceof Element) {
+        return Boolean(target.closest("#projects, #experience, [data-section='projects'], [data-section='experience']"));
+      }
+      return false;
+    };
+
+    const isAboutTarget = (target?: EventTarget | null): boolean => {
+      if (target && target instanceof Element) {
+        return Boolean(target.closest("#about, [data-section='about']"));
+      }
+      return false;
+    };
+
+    let activeMode: "slow" | "about" | "native" = "native";
+    let wasSlowActive = false;
+
+    const applyPhysics = (target?: EventTarget | null) => {
+      const isSlow = isSlowTarget(target) || isSlowSectionInViewport();
+      const isAbout = !isSlow && (isAboutTarget(target) || isAboutSectionInViewport());
+
+      // Active velocity brake: as soon as entering the slow section with momentum,
+      // gently clamp the remaining scroll momentum so the user doesn't fly through the cards/canvas
+      if (isSlow && !wasSlowActive) {
+        if (lenis.isScrolling) {
+          const delta = lenis.targetScroll - lenis.animatedScroll;
+          lenis.targetScroll = lenis.animatedScroll + delta * 0.3;
+        }
+      }
+      wasSlowActive = isSlow;
+
+      const targetMode: "slow" | "about" | "native" = isSlow ? "slow" : isAbout ? "about" : "native";
+      if (targetMode === activeMode) return;
+      activeMode = targetMode;
+
+      const config = targetMode === "slow" ? SLOW_PHYSICS : targetMode === "about" ? ABOUT_PHYSICS : NATIVE_TOUCH_PHYSICS;
 
       lenis.options.syncTouch = config.syncTouch;
       lenis.options.touchMultiplier = config.touchMultiplier;
+      lenis.options.wheelMultiplier = config.wheelMultiplier;
       lenis.options.touchInertiaExponent = config.touchInertiaExponent;
       lenis.options.syncTouchLerp = config.syncTouchLerp;
       lenis.options.lerp = config.lerp;
 
       // Synchronize Lenis's internal VirtualScroll instance options
-      const virtualScroll = (lenis as unknown as { virtualScroll?: { options?: { touchMultiplier?: number } } }).virtualScroll;
+      const virtualScroll = (lenis as unknown as { virtualScroll?: { options?: { touchMultiplier?: number; wheelMultiplier?: number } } }).virtualScroll;
       if (virtualScroll?.options) {
         virtualScroll.options.touchMultiplier = config.touchMultiplier;
+        virtualScroll.options.wheelMultiplier = config.wheelMultiplier;
       }
     };
 
     // Capture phase touchstart listener guarantees physics is configured BEFORE Lenis or browser handles touch
     const onTouchStartCapture = (e: TouchEvent) => {
-      const isCustom = checkIsCustomSection(e.target);
-      applyPhysics(isCustom);
+      applyPhysics(e.target);
     };
 
     window.addEventListener("touchstart", onTouchStartCapture, { capture: true, passive: true });
@@ -112,8 +156,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         String(e.direction)
       );
 
-      // Pre-arm the physics based on viewport position during scroll
-      applyPhysics(checkIsCustomSection(null));
+      // Dynamically detect boundary and slow down as soon as projects or experience enters
+      applyPhysics(null);
     };
 
     lenis.on("scroll", onScroll);
@@ -127,7 +171,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     const handleRefresh = () => {
       ScrollTrigger.refresh();
-      applyPhysics(checkIsCustomSection(null));
+      applyPhysics(null);
     };
 
     window.addEventListener("load", handleRefresh);
