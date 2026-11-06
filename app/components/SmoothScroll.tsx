@@ -22,8 +22,20 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     let isSmallOrAndroid = checkIsAndroidOrSmallDevice();
 
-    // 1. Slowed-down custom physics specifically when Projects or Experience is in the viewport
-    const SLOW_PHYSICS = {
+    // 1. Projects physics for small devices:
+    // Calibrated so that on mobile phones, each card is stacked in EXACTLY 2 swipes/scrolls
+    const PROJECTS_PHYSICS = {
+      lerp: 0.085,
+      syncTouch: isSmallOrAndroid,
+      touchMultiplier: 1.48,
+      wheelMultiplier: 0.85,
+      touchInertiaExponent: 1.55,
+      syncTouchLerp: 0.085,
+    };
+
+    // 2. Experience physics for small devices:
+    // Cinematic motorcycle sequence scrubbing across 234 frames
+    const EXPERIENCE_PHYSICS = {
       lerp: 0.065,
       syncTouch: isSmallOrAndroid,
       touchMultiplier: 0.72,
@@ -32,17 +44,28 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       syncTouchLerp: 0.065,
     };
 
-    // 2. Custom touch physics for all other sections on Android or small devices
+    // 3. Last sections physics for small devices (Deployment, Skills, Contact, Footer):
+    // Fluid, highly responsive 60/120fps with zero lag
+    const LAST_SECTIONS_PHYSICS = {
+      lerp: 0.12,
+      syncTouch: isSmallOrAndroid,
+      touchMultiplier: 1.15,
+      wheelMultiplier: 1.0,
+      touchInertiaExponent: 1.7,
+      syncTouchLerp: 0.11,
+    };
+
+    // 4. General custom touch physics for earlier sections on Android or small devices
     const GENERAL_CUSTOM_PHYSICS = {
       lerp: 0.095,
       syncTouch: isSmallOrAndroid,
       touchMultiplier: 1.05,
       wheelMultiplier: 1.0,
       touchInertiaExponent: 1.5,
-      syncTouchLerp: 0.075,
+      syncTouchLerp: 0.085,
     };
 
-    // 3. Desktop / large device default settings (native touch if touch-enabled)
+    // 5. Desktop / large device default settings (native touch if touch-enabled)
     const DESKTOP_DEFAULT_PHYSICS = {
       lerp: 0.1,
       syncTouch: false,
@@ -68,37 +91,89 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     (window as unknown as { lenis: Lenis }).lenis = lenis;
 
-    // Helper: Detect if Projects or Experience section has entered the viewport
-    const isSlowSectionInViewport = (): boolean => {
-      if (typeof window === "undefined" || typeof document === "undefined") return false;
-      const vh = window.innerHeight;
-      const selectors = ["#projects", "#experience"];
-      for (const sel of selectors) {
-        const el = document.querySelector(sel);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= vh * 0.98 && rect.bottom >= vh * 0.05) {
-          return true;
-        }
-      }
-      return false;
+    // Cached document-relative boundaries — measured on load/resize, NEVER on every scroll event
+    const bounds = {
+      projectsTop: 0,
+      projectsBottom: 0,
+      experienceTop: 0,
+      experienceBottom: 0,
+      lastSectionsTop: 0,
     };
 
-    // Direct touch target checks
-    const isSlowTarget = (target?: EventTarget | null): boolean => {
+    const updateBounds = () => {
+      if (typeof window === "undefined" || typeof document === "undefined") return;
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+
+      const projEl = document.querySelector("#projects");
+      if (projEl) {
+        const rect = projEl.getBoundingClientRect();
+        bounds.projectsTop = rect.top + scrollY;
+        bounds.projectsBottom = rect.bottom + scrollY;
+      }
+
+      const expEl = document.querySelector("#experience");
+      if (expEl) {
+        const rect = expEl.getBoundingClientRect();
+        bounds.experienceTop = rect.top + scrollY;
+        bounds.experienceBottom = rect.bottom + scrollY;
+      }
+
+      const depEl = document.querySelector("#deployment");
+      if (depEl) {
+        const rect = depEl.getBoundingClientRect();
+        bounds.lastSectionsTop = rect.top + scrollY;
+      }
+    };
+
+    // Determine target physics mode based on touch target or viewport position
+    const getTargetMode = (target?: EventTarget | null): "projects" | "experience" | "last" | "general" | "desktop" => {
+      if (!isSmallOrAndroid) return "desktop";
+
+      // 1. Direct touch target check (instantaneous, 0ms latency)
       if (target && target instanceof Element) {
-        return Boolean(target.closest("#projects, #experience, [data-section='projects'], [data-section='experience']"));
+        if (target.closest("#projects, [data-section='projects']")) return "projects";
+        if (target.closest("#experience, [data-section='experience']")) return "experience";
+        if (target.closest("#deployment, #skills, #contact, #footer")) return "last";
       }
-      return false;
+
+      const scrollY = lenis.scroll;
+      const vh = window.innerHeight;
+
+      // 2. Viewport range checks against cached boundaries (O(1) numerical comparison)
+      if (
+        bounds.projectsBottom > 0 &&
+        scrollY + vh * 0.95 >= bounds.projectsTop &&
+        scrollY + vh * 0.05 <= bounds.projectsBottom
+      ) {
+        return "projects";
+      }
+
+      if (
+        bounds.experienceBottom > 0 &&
+        scrollY + vh * 0.95 >= bounds.experienceTop &&
+        scrollY + vh * 0.05 <= bounds.experienceBottom
+      ) {
+        return "experience";
+      }
+
+      if (
+        bounds.lastSectionsTop > 0 &&
+        scrollY + vh * 0.85 >= bounds.lastSectionsTop
+      ) {
+        return "last";
+      }
+
+      return "general";
     };
 
-    let activeMode: "slow" | "custom" | "desktop" = isSmallOrAndroid ? "custom" : "desktop";
+    type PhysicsMode = "projects" | "experience" | "last" | "general" | "desktop";
+    let activeMode: PhysicsMode = isSmallOrAndroid ? "general" : "desktop";
     let wasSlowActive = false;
 
     const applyPhysics = (target?: EventTarget | null) => {
-      const isSlow = isSlowTarget(target) || isSlowSectionInViewport();
+      const targetMode = getTargetMode(target);
 
-      // Active velocity brake: gently clamp incoming momentum when entering slow sections
+      const isSlow = targetMode === "projects" || targetMode === "experience";
       if (isSlow && !wasSlowActive) {
         if (lenis.isScrolling) {
           const delta = lenis.targetScroll - lenis.animatedScroll;
@@ -107,20 +182,19 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       }
       wasSlowActive = isSlow;
 
-      const targetMode: "slow" | "custom" | "desktop" = isSlow
-        ? "slow"
-        : isSmallOrAndroid
-        ? "custom"
-        : "desktop";
-
       if (targetMode === activeMode) return;
       activeMode = targetMode;
 
-      const config = targetMode === "slow"
-        ? SLOW_PHYSICS
-        : targetMode === "custom"
-        ? GENERAL_CUSTOM_PHYSICS
-        : DESKTOP_DEFAULT_PHYSICS;
+      const config =
+        targetMode === "projects"
+          ? PROJECTS_PHYSICS
+          : targetMode === "experience"
+          ? EXPERIENCE_PHYSICS
+          : targetMode === "last"
+          ? LAST_SECTIONS_PHYSICS
+          : targetMode === "general"
+          ? GENERAL_CUSTOM_PHYSICS
+          : DESKTOP_DEFAULT_PHYSICS;
 
       lenis.options.syncTouch = config.syncTouch;
       lenis.options.touchMultiplier = config.touchMultiplier;
@@ -144,18 +218,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     window.addEventListener("touchstart", onTouchStartCapture, { capture: true, passive: true });
 
-    const onScroll = (e: { velocity: number; direction: number }) => {
+    const onScroll = () => {
       ScrollTrigger.update();
-      document.documentElement.style.setProperty(
-        "--scroll-velocity",
-        String(e.velocity.toFixed(3))
-      );
-      document.documentElement.style.setProperty(
-        "--scroll-direction",
-        String(e.direction)
-      );
-
-      // Dynamically detect boundary and slow down as soon as projects or experience enters
+      // O(1) comparison against cached bounds — zero getBoundingClientRect / zero forced reflow
       applyPhysics(null);
     };
 
@@ -170,19 +235,26 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     const handleRefresh = () => {
       isSmallOrAndroid = checkIsAndroidOrSmallDevice();
-      SLOW_PHYSICS.syncTouch = isSmallOrAndroid;
+      PROJECTS_PHYSICS.syncTouch = isSmallOrAndroid;
+      EXPERIENCE_PHYSICS.syncTouch = isSmallOrAndroid;
+      LAST_SECTIONS_PHYSICS.syncTouch = isSmallOrAndroid;
       GENERAL_CUSTOM_PHYSICS.syncTouch = isSmallOrAndroid;
+      updateBounds();
       ScrollTrigger.refresh();
       applyPhysics(null);
     };
 
+    updateBounds();
     window.addEventListener("load", handleRefresh);
     window.addEventListener("resize", handleRefresh);
     if (document.fonts) {
       document.fonts.ready.then(handleRefresh);
     }
 
-    const syncLenis = () => lenis.resize();
+    const syncLenis = () => {
+      updateBounds();
+      lenis.resize();
+    };
     ScrollTrigger.addEventListener("refresh", syncLenis);
 
     return () => {
